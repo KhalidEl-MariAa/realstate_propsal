@@ -22,6 +22,7 @@ import {
   Database,
   Zap
 } from 'lucide-react';
+import React, { useState } from 'react';
 
 export default function App() {
   return (
@@ -136,7 +137,7 @@ export default function App() {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-slate-900">لوحة التحكم المركزية</h3>
-                <p className="text-sm text-slate-600">Web + Windows App</p>
+                <p className="text-sm text-slate-600">Web App + Android App + Windows App</p>
               </div>
             </div>
             <p className="text-slate-600 mb-3">
@@ -156,7 +157,7 @@ export default function App() {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-slate-900">لوحة المغاسل الشريكة</h3>
-                <p className="text-sm text-slate-600">Web Dashboard</p>
+                <p className="text-sm text-slate-600">Web App & Windows App & Android App</p>
               </div>
             </div>
             <p className="text-slate-600 mb-3">
@@ -226,7 +227,7 @@ export default function App() {
             </div>
             <div>
               <h2 className="text-2xl font-bold text-slate-900">لوحة التحكم المركزية - Central Admin Dashboard</h2>
-              <p className="text-sm text-slate-600">Web + Windows App</p>
+              <p className="text-sm text-slate-600">Web App + Android App + Windows App</p>
             </div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -250,7 +251,7 @@ export default function App() {
             </div>
             <div>
               <h2 className="text-2xl font-bold text-slate-900">لوحة المغاسل الشريكة - Partner Laundry Dashboard</h2>
-              <p className="text-sm text-slate-600">Web Dashboard</p>
+              <p className="text-sm text-slate-600">Web App + Android App + Windows App</p>
             </div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -326,7 +327,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* Pricing Section */}
+        {/* Pricing Section - interactive */}
         <div className="bg-gradient-to-l from-emerald-600 to-emerald-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-emerald-500">
             <div className="p-3 bg-emerald-500 rounded-lg">
@@ -335,32 +336,9 @@ export default function App() {
             <h2 className="text-2xl font-bold">Pricing - التكلفة الإجمالية</h2>
           </div>
 
-          <div className="text-center mb-8">
-            <div className="text-6xl font-bold mb-2">80,000 جنيه</div>
-            <div className="text-emerald-100 text-lg">التكلفة الإجمالية للمشروع</div>
-          </div>
-
-          <div className="bg-emerald-500/30 rounded-xl p-6 border border-emerald-400">
-            <h3 className="text-xl font-bold mb-4">Payment Terms - سياسة الدفع</h3>
-            <div className="grid md:grid-cols-4 gap-4">
-              <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-                <div className="text-2xl font-bold mb-1">20,000 جنيه</div>
-                <div className="text-sm text-emerald-100">دفعة أولى مقدم</div>
-              </div>
-              <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-                <div className="text-2xl font-bold mb-1">20,000 جنيه</div>
-                <div className="text-sm text-emerald-100">بعد أول شهر</div>
-              </div>
-              <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-                <div className="text-2xl font-bold mb-1">20,000 جنيه</div>
-                <div className="text-sm text-emerald-100">بعد الشهر الثاني</div>
-              </div>
-              <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-                <div className="text-2xl font-bold mb-1">20,000 جنيه</div>
-                <div className="text-sm text-emerald-100">عند التسليم النهائي</div>
-              </div>
-            </div>
-          </div>
+          {/* Pricing logic */}
+          {/** Using small local state to toggle chat inclusion. UI design cost is shown separately and not included in main total. */}
+          <PricingControl />
         </div>
 
         {/* Free Services Section */}
@@ -629,6 +607,86 @@ export default function App() {
 }
 
 // Helper Component for Feature Items
+function PricingControl() {
+  const BASE_COST = 70000;
+  const CHAT_COST = 10000;
+  const UI_COST = 18000;
+  const [chatIncluded, setChatIncluded] = useState(true);
+  const [uiIncluded, setUiIncluded] = useState(false);
+
+  const mainTotal = BASE_COST + (chatIncluded ? CHAT_COST : 0) + (uiIncluded ? UI_COST : 0);
+  const installment = Math.ceil(mainTotal / 4);
+
+  const fmt = (n: number) => n.toLocaleString();
+
+  return (
+    <div>
+      <div className="text-center mb-6">
+        <div className="text-6xl font-bold mb-2">{fmt(mainTotal)} جنيه</div>
+        <div className="text-emerald-100 text-lg">التكلفة الإجمالية للمشروع {uiIncluded ? '(شاملة تكلفة التصميم UI)' : '(بدون تكلفة التصميم UI)'} </div>
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <div className="flex-1 bg-emerald-500/30 rounded-xl p-6 border border-emerald-400">
+          <h3 className="text-xl font-bold mb-4">خيار الدردشة - Chat Feature</h3>
+          <label className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              checked={chatIncluded}
+              onChange={(e) => setChatIncluded(e.target.checked)}
+              className="w-4 h-4"
+            />
+            <span className="text-emerald-100">تمكين الدردشة بين المندوب والعميل وبين العميل والمغسلة</span>
+          </label>
+          <div className="mt-4 text-2xl font-bold">تكلفة الدردشة: {fmt(CHAT_COST)} جنيه</div>
+          <p className="text-sm text-emerald-100 mt-2">إلغاء هذه الخاصية يجعل التكلفة الكلية {fmt(BASE_COST)} جنيه</p>
+        </div>
+
+        <div className="w-full md:w-72 bg-white/10 rounded-xl p-6 border border-white/20">
+          <h4 className="font-bold text-lg mb-2">تكلفة واجهة المستخدم - UI Cost</h4>
+          <label className="flex items-center gap-3 mb-3">
+            <input
+              type="checkbox"
+              checked={uiIncluded}
+              onChange={(e) => setUiIncluded(e.target.checked)}
+              className="w-4 h-4"
+            />
+            <span className="text-emerald-100">إضافة تكلفة الواجهة (UI) إلى التكلفة الكلية</span>
+          </label>
+          <div className="text-3xl font-bold">{fmt(UI_COST)} جنيه</div>
+          <div className="text-sm text-emerald-100 mt-2">شاملة تسليم تصميم فيجما كامل لتطبيق المستخدم والمندوب</div>
+          <div className="text-sm text-emerald-100 mt-3">مدة التسليم: <span className="font-semibold">15 يوم</span></div>
+        </div>
+      </div>
+
+      <div className="bg-emerald-500/30 rounded-xl p-6 border border-emerald-400">
+        <h3 className="text-xl font-bold mb-4">شروط الدفع - Payment Terms</h3>
+        <div className="grid md:grid-cols-4 gap-4">
+          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
+            <div className="text-2xl font-bold mb-1">{fmt(installment)} جنيه</div>
+            <div className="text-sm text-emerald-100">دفعة أولى مقدم</div>
+          </div>
+          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
+            <div className="text-2xl font-bold mb-1">{fmt(installment)} جنيه</div>
+            <div className="text-sm text-emerald-100">بعد أول شهر</div>
+          </div>
+          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
+            <div className="text-2xl font-bold mb-1">{fmt(installment)} جنيه</div>
+            <div className="text-sm text-emerald-100">بعد الشهر الثاني</div>
+          </div>
+          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
+            <div className="text-2xl font-bold mb-1">{fmt(installment)} جنيه</div>
+            <div className="text-sm text-emerald-100">عند التسليم النهائي</div>
+          </div>
+        </div>
+
+        <p className="text-sm text-emerald-100 mt-4">ملاحظة: تكلفة التصميم UI ({fmt(UI_COST)} جنيه) معروضة ويمكن إضافتها إلى التكلفة أعلاه عبر التفعيل.</p>
+
+      
+      </div>
+    </div>
+  );
+}
 function FeatureItem({ icon, title, color = 'blue' }: { icon: React.ReactNode; title: string; color?: string }) {
   const colorClasses = {
     blue: 'bg-blue-50 text-blue-600 border-blue-100',
