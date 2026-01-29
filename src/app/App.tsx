@@ -436,12 +436,16 @@ export default function App() {
             <div className="p-6 bg-emerald-50 rounded-xl border border-emerald-200">
               <div className="flex items-center gap-3 mb-4">
                 <Server className="w-6 h-6 text-emerald-600" />
-                <h3 className="text-lg font-bold text-slate-900">Node.js Backend</h3>
+                <h3 className="text-lg font-bold text-slate-900">Nest.JS Backend</h3>
               </div>
               <ul className="space-y-2 text-sm text-slate-700">
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-emerald-600 mt-0.5" />
                   <span>RESTful APIs</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-emerald-600 mt-0.5" />
+                  <span>PostgreSQL DB</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-emerald-600 mt-0.5" />
