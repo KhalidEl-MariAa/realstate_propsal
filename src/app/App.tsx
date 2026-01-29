@@ -1,13 +1,13 @@
-import { 
-  FileText, 
-  Smartphone, 
-  Monitor, 
-  Package, 
-  DollarSign, 
-  Calendar, 
-  CheckCircle, 
-  Globe, 
-  Code, 
+import {
+  FileText,
+  Smartphone,
+  Monitor,
+  Package,
+  DollarSign,
+  Calendar,
+  CheckCircle,
+  Globe,
+  Code,
   Shield,
   PhoneCall,
   Mail,
@@ -34,12 +34,13 @@ export default function App() {
               <h1 className="text-2xl font-bold text-slate-900">Bubbles Laundry</h1>
               <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
             </div>
-            <div className="text-left">
-              <div className="text-lg font-semibold text-blue-600">Penta</div>
-              <a href="https://penta-k.com" className="text-sm text-slate-600 hover:text-blue-600">
-                penta-k.com
-              </a>
-            </div>
+            <a
+              href="https://penta-k.com"
+              className="text-left inline-flex items-center"
+              aria-label="Penta-k website"
+            >
+              <img src="/logo.png" alt="Penta-k Logo" className="h-15 inline-block" />
+            </a>
           </div>
         </div>
       </header>
@@ -50,9 +51,9 @@ export default function App() {
         <div className="bg-gradient-to-l from-blue-600 to-blue-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
           <div className="flex items-start justify-between flex-wrap gap-6">
             <div className="flex-1">
-              <h2 className="text-3xl font-bold mb-2">شركة Penta</h2>
+              <h2 className="text-3xl font-bold mb-2">شركة Penta-k</h2>
               <p className="text-blue-100 text-lg mb-4 leading-relaxed max-w-3xl">
-                شركة متخصصة في تصميم وتطوير حلول البرمجيات والتطبيقات الذكية، 
+                شركة متخصصة في تصميم وتطوير حلول البرمجيات والتطبيقات الذكية،
                 وتقديم أنظمة متكاملة بجودة عالية وتجربة استخدام احترافية
               </p>
               <div className="flex flex-wrap gap-6">
@@ -185,7 +186,7 @@ export default function App() {
             <FeatureItem icon={<Calendar className="w-5 h-5" />} title="طلب استلام وتسليم مع جدولة المواعيد" />
             <FeatureItem icon={<Package className="w-5 h-5" />} title="اختيار نوع الخدمة" />
             <FeatureItem icon={<TrendingUp className="w-5 h-5" />} title="تتبع حالة الطلب والمندوب" />
-            <FeatureItem icon={<CreditCard className="w-5 h-5" />} title="الدفع الإلكتروني (Apple Pay)" />
+            <FeatureItem icon={<CreditCard className="w-5 h-5" />} title="الدفع الإلكتروني" />
             <FeatureItem icon={<DollarSign className="w-5 h-5" />} title="محفظة إلكترونية" />
             <FeatureItem icon={<Award className="w-5 h-5" />} title="الاشتراكات ومتابعة الرصيد" />
             <FeatureItem icon={<CheckCircle className="w-5 h-5" />} title="كوبونات خصم وعروض" />
@@ -283,10 +284,6 @@ export default function App() {
               <CheckCircle className="w-5 h-5 text-indigo-600 mt-0.5" />
               <span className="text-slate-700">دعم Arabic / English</span>
             </div>
-            <div className="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
-              <CheckCircle className="w-5 h-5 text-indigo-600 mt-0.5" />
-              <span className="text-slate-700">مراعاة ظهور شعار Penta و Bubbles Laundry</span>
-            </div>
           </div>
         </div>
 
@@ -301,14 +298,14 @@ export default function App() {
               <p className="text-slate-300">آلية العمل والتسليم المرحلي</p>
             </div>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-6 mb-6">
             <div className="bg-slate-700/50 rounded-xl p-6 border border-slate-600">
               <h3 className="text-xl font-bold mb-3 text-amber-400">مدة التنفيذ الكاملة</h3>
               <p className="text-3xl font-bold mb-2">2.5 شهر</p>
               <p className="text-slate-300 text-sm">تشمل التصميم، البرمجة، الاختبارات، ورفع التطبيق على المتاجر</p>
             </div>
-            
+
             <div className="bg-slate-700/50 rounded-xl p-6 border border-slate-600">
               <h3 className="text-xl font-bold mb-3 text-green-400">التسليم المرحلي</h3>
               <ul className="space-y-2 text-slate-300">
@@ -337,7 +334,7 @@ export default function App() {
             </div>
             <h2 className="text-2xl font-bold">Pricing - التكلفة الإجمالية</h2>
           </div>
-          
+
           <div className="text-center mb-8">
             <div className="text-6xl font-bold mb-2">80,000 جنيه</div>
             <div className="text-emerald-100 text-lg">التكلفة الإجمالية للمشروع</div>
@@ -372,9 +369,9 @@ export default function App() {
             <div className="p-3 bg-green-100 rounded-lg">
               <Award className="w-7 h-7 text-green-600" />
             </div>
-            <h2 className="text-2xl font-bold text-slate-900">Free Services - مميزات مقدمة من شركة Penta</h2>
+            <h2 className="text-2xl font-bold text-slate-900">Free Services - مميزات مقدمة من شركة Penta-k</h2>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
               <div className="text-green-600 font-bold text-lg mb-1">سيرفر مجاني</div>
@@ -399,7 +396,7 @@ export default function App() {
               <CheckCircle className="w-5 h-5 text-amber-600 mt-0.5" />
               <div>
                 <p className="text-slate-700 font-semibold mb-1">سياسة حسابات النشر (Google & Apple)</p>
-                <p className="text-sm text-slate-600">يتم رفع التطبيق مجاناً خلال أول سنة على حسابات شركة Penta لتقليل التكلفة المبدئية وضمان الالتزام بسياسات المتاجر</p>
+                <p className="text-sm text-slate-600">يتم رفع التطبيق مجاناً خلال أول سنة على حسابات شركة Penta-k لتقليل التكلفة المبدئية وضمان الالتزام بسياسات المتاجر</p>
               </div>
             </div>
           </div>
@@ -413,7 +410,7 @@ export default function App() {
             </div>
             <h2 className="text-2xl font-bold text-slate-900">Technologies & Development Standards</h2>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-6 mb-6">
             <div className="p-6 bg-blue-50 rounded-xl border border-blue-200">
               <div className="flex items-center gap-3 mb-4">
@@ -522,10 +519,10 @@ export default function App() {
             </div>
 
             <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-              <h3 className="font-bold text-slate-900 mb-2">Hostinger Private Server</h3>
+              <h3 className="font-bold text-slate-900 mb-2">Hostinger VPS</h3>
               <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$96</div>
               <p className="text-sm text-slate-600">سنوياً (سيرفر خاص)</p>
-              <p className="text-xs text-green-600 mt-2">مجاني من Penta لأول سنة</p>
+              <p className="text-xs text-green-600 mt-2">مجاني من Penta-k لأول سنة</p>
             </div>
           </div>
 
@@ -548,10 +545,10 @@ export default function App() {
           </div>
         </div>
 
-        {/* Why Penta Section */}
+        {/* Why Penta-k Section */}
         <div className="bg-gradient-to-l from-blue-600 to-indigo-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-3">Why Penta? - ليه تختار Penta؟</h2>
+            <h2 className="text-3xl font-bold mb-3">Why Penta-k? - ليه تختار Penta-k؟</h2>
             <p className="text-blue-100 text-lg">نحن لا نكتب كود فقط، نبني حلول قابلة للنمو والتطور</p>
           </div>
 
@@ -611,10 +608,10 @@ export default function App() {
               </a>
             </div>
           </div>
-          
+
           <div className="mt-8 pt-6 border-t border-slate-200">
             <p className="text-slate-600">
-              شكراً لثقتكم في <span className="font-bold text-blue-600">Penta</span>
+              شكراً لثقتكم في <span className="font-bold text-blue-600">Penta-k</span>
             </p>
             <p className="text-sm text-slate-500 mt-2">
               نتطلع للعمل معكم على مشروع Bubbles Laundry
