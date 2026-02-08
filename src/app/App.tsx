@@ -118,8 +118,11 @@ const websiteSections: SectionInfo[] = [
     title: 'العروض العقارية (Property Offers)',
     icon: TrendingUp,
     items: [
-      'إبراز عقارات بعروض قوية ومميزة.',
-      'شارات تنبيه مثل: عرض ساخن، عرض لفترة محدودة.'
+      'يتصفح المستخدم جميع العروض المطروحة لدى الشركة.',
+      'تصنيفات العروض: الكل، فلل، أرض، محلات تجارية، أراضي زراعية، شاليهات، دبلكسات، استراحات، وحدات، شقق.',
+      'تصنيفات إضافية: مخططات، دورين، مزرعة، عمائر (تجارية وسكني)، صالات، مستودعات، قصور، ورش صناعية.',
+      'تصنيفات إضافية: فندق، حوش، منتجع، محطة، مركز صيانة، دور وشقتين، أدوار.',
+      'تصنيف العقار حسب النوع: الكل، بيع، إيجار، بيع تجاري، إيجار تجاري.'
     ],
     goal: 'زيادة التفاعل وتحفيز الشراء.'
   },
@@ -176,12 +179,12 @@ const websiteSections: SectionInfo[] = [
 ];
 
 const internalSystemFeatures: FeatureInfo[] = [
-  { icon: <Users className="w-5 h-5" />, title: 'تسجيل بيانات الموظفين', color: 'purple' },
-  { icon: <DollarSign className="w-5 h-5" />, title: 'تحديد راتب كل موظف', color: 'purple' },
-  { icon: <CheckCircle className="w-5 h-5" />, title: 'متابعة صرف الرواتب (تم / لم يتم)', color: 'purple' },
-  { icon: <Shield className="w-5 h-5" />, title: 'الخصومات بإذن المدير فقط', color: 'purple' },
-  { icon: <FileText className="w-5 h-5" />, title: 'تقارير مالية داخلية', color: 'purple' },
-  { icon: <Settings className="w-5 h-5" />, title: 'صلاحيات إدارية محددة', color: 'purple' }
+  { icon: <Users className="w-5 h-5" />, title: 'لوحة داخلية لموظفي الشركة', color: 'purple' },
+  { icon: <DollarSign className="w-5 h-5" />, title: 'تسجيل الأموال المدفوعة من العملاء', color: 'purple' },
+  { icon: <FileText className="w-5 h-5" />, title: 'تسجيل الأموال لكل قسم وإدارة العمليات', color: 'purple' },
+  { icon: <CheckCircle className="w-5 h-5" />, title: 'متابعة المدفوعات وحالاتها', color: 'purple' },
+  { icon: <Shield className="w-5 h-5" />, title: 'صلاحيات وصول محددة حسب الموظف', color: 'purple' },
+  { icon: <Settings className="w-5 h-5" />, title: 'تقارير مالية داخلية للإدارة', color: 'purple' }
 ];
 
 const mobileAppFeatures: FeatureInfo[] = [
@@ -201,13 +204,25 @@ const futureSections: SectionInfo[] = [
       'قسم مخصص لخدمات التمويل العقاري.',
       'سيتم تحديد التفاصيل الوظيفية والتنفيذية لاحقًا من قبل الأستاذ كريم.'
     ]
-  },
+  }
+];
+
+const serviceSections: SectionInfo[] = [
   {
-    title: 'المقاولات والبناء',
+    title: 'قسم المقاولات',
     icon: Package,
     items: [
-      'قسم خاص بخدمات المقاولات والبناء.',
-      'تفاصيل هذا القسم سيتم مناقشتها واعتمادها لاحقًا من قبل الأستاذ كريم.'
+      'قسم لتقديم خدمة البناء.',
+      'سيتم الاتفاق على التفاصيل لاحقًا مع الأستاذ كريم.'
+    ]
+  },
+  {
+    title: 'إدارة الأملاك',
+    icon: Shield,
+    items: [
+      'تقديم خدمة إدارة العقار عبر تأجيره للعملاء.',
+      'تحصيل الإيجارات وتسليمها للمالك دون أي احتكاك بالمستأجرين.',
+      'خدمة متكاملة لتخفيف عبء الإدارة عن المالك.'
     ]
   }
 ];
@@ -250,7 +265,7 @@ export default function App() {
                 </div>
                 <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3 border border-white/20">
                   <Settings className="w-5 h-5" />
-                  <span>نظام إداري مالي داخلي</span>
+                  <span>لوحة التحكم الداخلية</span>
                 </div>
               </div>
             </div>
@@ -335,8 +350,8 @@ export default function App() {
               <Settings className="w-7 h-7 text-purple-600" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-slate-900">النظام الإداري المالي للموظفين</h2>
-              <p className="text-sm text-slate-600">نظام داخلي خاص بالشركة غير مخصص للعملاء</p>
+              <h2 className="text-2xl font-bold text-slate-900">لوحة إدارة المدفوعات المالية</h2>
+              <p className="text-sm text-slate-600">داش بورد داخلية لتسجيل الأموال المدفوعة من العملاء</p>
             </div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -370,6 +385,36 @@ export default function App() {
                 color={feature.color}
               />
             ))}
+          </div>
+        </div>
+
+        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
+          <div className="flex items-center gap-3 mb-6">
+            <Package className="w-8 h-8 text-amber-600" />
+            <h2 className="text-2xl font-bold text-slate-900">خدمات إضافية</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
+            {serviceSections.map((section) => {
+              const Icon = section.icon;
+              return (
+                <div key={section.title} className="bg-amber-50 rounded-xl p-6 border border-amber-200">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-3 bg-white rounded-lg border border-amber-200">
+                      <Icon className="w-5 h-5 text-amber-700" />
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-900">{section.title}</h3>
+                  </div>
+                  <ul className="space-y-2 text-sm text-slate-700">
+                    {section.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-amber-600 mt-0.5" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -411,9 +456,34 @@ export default function App() {
             <h2 className="text-2xl font-bold">السعر الإجمالي للمشروع</h2>
           </div>
           <div className="text-center mb-6">
-            <div className="text-6xl font-bold mb-2">8,900 ريال سعودي</div>
+            <div className="text-6xl font-bold mb-2">12,500 ريال سعودي</div>
             <div className="text-emerald-100 text-lg">
               يشمل الموقع الإلكتروني وتطبيقات Android و iOS والنظام الإداري المالي
+            </div>
+          </div>
+          <div className="bg-emerald-500/30 rounded-xl p-6 border border-emerald-400 mb-6">
+            <h3 className="text-xl font-bold mb-4">طريقة الدفع</h3>
+            <div className="grid md:grid-cols-4 gap-4">
+              <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
+                <div className="text-2xl font-bold mb-1">25%</div>
+                <div className="text-sm text-emerald-100">مقدم</div>
+                <div className="text-sm text-emerald-100 mt-1">3,125 ريال سعودي</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
+                <div className="text-2xl font-bold mb-1">30%</div>
+                <div className="text-sm text-emerald-100">بعد تسليم الموقع الإلكتروني</div>
+                <div className="text-sm text-emerald-100 mt-1">3,750 ريال سعودي</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
+                <div className="text-2xl font-bold mb-1">30%</div>
+                <div className="text-sm text-emerald-100">بعد تسليم تطبيقات Android و iOS</div>
+                <div className="text-sm text-emerald-100 mt-1">3,750 ريال سعودي</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
+                <div className="text-2xl font-bold mb-1">15%</div>
+                <div className="text-sm text-emerald-100">بعد إطلاق التطبيقات وتدريب الموظفين</div>
+                <div className="text-sm text-emerald-100 mt-1">1,875 ريال سعودي</div>
+              </div>
             </div>
           </div>
           <div className="grid md:grid-cols-3 gap-4">
@@ -427,7 +497,7 @@ export default function App() {
             </div>
             <div className="bg-emerald-500/30 rounded-xl p-4 border border-emerald-400 text-center">
               <CheckCircle className="w-6 h-6 mx-auto mb-2 text-white" />
-              <div className="font-semibold">نظام إداري مالي داخلي</div>
+              <div className="font-semibold">لوحة التحكم الداخلية</div>
             </div>
           </div>
         </div>
