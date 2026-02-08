@@ -1,12 +1,15 @@
 import {
   Award,
+  Bell,
   CheckCircle,
+  Code,
   DollarSign,
   FileText,
   Globe,
   Monitor,
   Package,
   PhoneCall,
+  Server,
   Shield,
   Smartphone,
   TrendingUp,
@@ -194,6 +197,45 @@ const mobileAppFeatures: FeatureInfo[] = [
   { icon: <Users className="w-5 h-5" />, title: 'إدارة الحساب والمفضلة والطلبات', color: 'blue' },
   { icon: <TrendingUp className="w-5 h-5" />, title: 'إشعارات بالعروض الجديدة', color: 'blue' },
   { icon: <Smartphone className="w-5 h-5" />, title: 'تطبيقات Android و iOS', color: 'blue' }
+];
+
+const technologies: ModuleInfo[] = [
+  {
+    title: 'واجهة الويب',
+    description: 'Next.js بلغة JavaScript.',
+    icon: Monitor,
+    items: []
+  },
+  {
+    title: 'الخلفية البرمجية',
+    description: 'Node.js للـ Backend وواجهات الـ API.',
+    icon: Server,
+    items: []
+  },
+  {
+    title: 'تطبيقات الموبايل',
+    description: 'Flutter لتطبيقات Android و iOS.',
+    icon: Smartphone,
+    items: []
+  },
+  {
+    title: 'الاستضافة والنسخ الاحتياطي',
+    description: 'Hostinger مع نسخ احتياطي دوري.',
+    icon: Shield,
+    items: []
+  },
+  {
+    title: 'نسخة احتياطية للادمن',
+    description: 'إمكانية أخذ نسخة احتياطية على هاتف الادمن عند الحاجة.',
+    icon: FileText,
+    items: []
+  },
+  {
+    title: 'الإشعارات والتوزيع',
+    description: 'Firebase للإشعارات والتوزيع.',
+    icon: Bell,
+    items: []
+  }
 ];
 
 const futureSections: SectionInfo[] = [
@@ -385,6 +427,29 @@ export default function App() {
                 color={feature.color}
               />
             ))}
+          </div>
+        </div>
+
+        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
+          <div className="flex items-center gap-3 mb-6">
+            <Code className="w-8 h-8 text-blue-600" />
+            <h2 className="text-2xl font-bold text-slate-900">التقنيات المستخدمة</h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {technologies.map((tech) => {
+              const Icon = tech.icon;
+              return (
+                <div key={tech.title} className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="p-3 bg-white rounded-lg border border-slate-200">
+                      <Icon className="w-6 h-6 text-slate-700" />
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-900">{tech.title}</h3>
+                  </div>
+                  <p className="text-sm text-slate-600">{tech.description}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
 
