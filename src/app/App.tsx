@@ -1,353 +1,443 @@
 import {
+  Award,
+  CheckCircle,
+  DollarSign,
   FileText,
-  Smartphone,
+  Globe,
   Monitor,
   Package,
-  DollarSign,
-  Calendar,
-  CheckCircle,
-  Globe,
-  Code,
-  Shield,
   PhoneCall,
-  Mail,
-  Palette,
-  Clock,
-  CreditCard,
-  Users,
-  Settings,
+  Shield,
+  Smartphone,
   TrendingUp,
-  Award,
-  Server,
-  Database,
-  Zap
+  Users,
+  Settings
 } from 'lucide-react';
-import React, { useState } from 'react';
+import React from 'react';
+
+type IconType = React.ComponentType<{ className?: string }>;
+
+type ModuleInfo = {
+  title: string;
+  description: string;
+  icon: IconType;
+  items: string[];
+};
+
+type SectionInfo = {
+  title: string;
+  icon: IconType;
+  items: string[];
+  goal?: string;
+};
+
+type FeatureInfo = {
+  icon: React.ReactNode;
+  title: string;
+  color?: 'blue' | 'green' | 'purple' | 'orange';
+};
+
+const coreModules: ModuleInfo[] = [
+  {
+    title: 'الموقع الإلكتروني',
+    description: 'واجهة عقارية احترافية للبحث والبيع والإيجار ونشر الإعلانات.',
+    icon: Monitor,
+    items: [
+      'شريط بحث متقدم وفلاتر سريعة.',
+      'شبكة تصنيفات وعقارات مميزة.',
+      'روابط سريعة للبيع والإيجار والعروض وطلب العقار.'
+    ]
+  },
+  {
+    title: 'تطبيقات الموبايل',
+    description: 'تطبيقات Android و iOS بنفس خصائص الموقع.',
+    icon: Smartphone,
+    items: [
+      'تصفح العقارات والبحث والفلاتر.',
+      'إضافة الإعلانات وإدارتها بسهولة.',
+      'إشعارات بالعروض الجديدة.'
+    ]
+  },
+  {
+    title: 'النظام الإداري المالي',
+    description: 'نظام داخلي للموظفين لإدارة الرواتب والعمليات المالية.',
+    icon: Settings,
+    items: [
+      'بيانات الموظفين والرواتب.',
+      'متابعة الصرف والخصومات.',
+      'تقارير مالية وصلاحيات إدارية.'
+    ]
+  }
+];
+
+const websiteSections: SectionInfo[] = [
+  {
+    title: 'الرئيسية (Home)',
+    icon: Globe,
+    items: [
+      'شريط بحث متقدم باستخدام كود العقار، المدينة، نوع العقار، والكلمات المفتاحية.',
+      'فلاتر سريعة لتضييق النتائج بسهولة.',
+      'شبكة تصنيفات العقارات مع عدد الإعلانات لكل نوع.',
+      'إبراز العقارات المميزة مع المساحة والسعر والموقع على الخريطة.',
+      'روابط سريعة إلى بيع، إيجار، العروض، واطلب عقارك.',
+      'قسم الثقة والخدمات (جودة الإعلانات، الشفافية، خدمات ما بعد البيع).',
+      'فوتر يحتوي على بيانات التواصل، معلومات الشركة، الشروط والأحكام، وسياسة الخصوصية.'
+    ],
+    goal: 'نقطة الانطلاق التي تعكس قوة المنصة وسهولة استخدامها.'
+  },
+  {
+    title: 'قسم البيع (Sell)',
+    icon: DollarSign,
+    items: [
+      'نموذج إضافة عقار للبيع يشمل نوع العقار، المساحة، السعر، المدينة، والوصف.',
+      'رفع الصور والمرفقات.',
+      'زر نشر الإعلان.'
+    ],
+    goal: 'تمكين الملاك والوسطاء من نشر عقاراتهم بسهولة.'
+  },
+  {
+    title: 'قسم الإيجار (Rent)',
+    icon: Package,
+    items: [
+      'عرض قائمة عقارات الإيجار.',
+      'فلاتر حسب المدينة، النوع، المساحة، والسعر.',
+      'عرض الخريطة لتحديد مواقع العقارات.'
+    ],
+    goal: 'تسهيل وصول الباحثين عن الإيجار للعقارات المناسبة.'
+  },
+  {
+    title: 'اطلب عقارك (Request Your Property)',
+    icon: FileText,
+    items: [
+      'نموذج يحدد نوع العقار، المساحة المطلوبة، الميزانية، والمدينة.',
+      'إرسال الطلب مباشرة للإدارة أو الوسطاء.'
+    ],
+    goal: 'مطابقة الطلبات مع العروض المناسبة بسرعة.'
+  },
+  {
+    title: 'العروض العقارية (Property Offers)',
+    icon: TrendingUp,
+    items: [
+      'إبراز عقارات بعروض قوية ومميزة.',
+      'شارات تنبيه مثل: عرض ساخن، عرض لفترة محدودة.'
+    ],
+    goal: 'زيادة التفاعل وتحفيز الشراء.'
+  },
+  {
+    title: 'تعرف علينا (About Us)',
+    icon: Users,
+    items: [
+      'رسالة الشركة: الشفافية، الجودة، رضا العميل.',
+      'الخدمات: صيانة، تشطيب، استشارات.',
+      'رؤية الشركة المستقبلية.'
+    ],
+    goal: 'بناء مصداقية قوية للعلامة التجارية.'
+  },
+  {
+    title: 'اتصل بنا (Contact Us)',
+    icon: PhoneCall,
+    items: [
+      'رقم الهاتف، البريد الإلكتروني، والموقع.',
+      'نموذج تواصل مباشر.'
+    ],
+    goal: 'تسهيل التواصل والدعم.'
+  },
+  {
+    title: 'تسجيل الدخول (Login)',
+    icon: Shield,
+    items: [
+      'تسجيل الدخول بالإيميل أو اسم المستخدم.',
+      'كلمة مرور.',
+      'رابط نسيت كلمة المرور.'
+    ],
+    goal: 'إدارة الإعلانات والمفضلة والطلبات.'
+  },
+  {
+    title: 'إضافة إعلان (Add Listing)',
+    icon: Monitor,
+    items: [
+      'نموذج تدريجي خطوة بخطوة.',
+      'رفع الصور.',
+      'معاينة الإعلان قبل النشر.'
+    ],
+    goal: 'تجربة نشر سهلة واحترافية.'
+  },
+  {
+    title: 'الصفحات القانونية والخدمية',
+    icon: FileText,
+    items: [
+      'الشروط والأحكام.',
+      'سياسة الخصوصية.',
+      'أداة مقارنة العقارات.',
+      'صفحة تحميل التطبيق.'
+    ],
+    goal: 'الامتثال القانوني وتحسين تجربة المستخدم.'
+  }
+];
+
+const internalSystemFeatures: FeatureInfo[] = [
+  { icon: <Users className="w-5 h-5" />, title: 'تسجيل بيانات الموظفين', color: 'purple' },
+  { icon: <DollarSign className="w-5 h-5" />, title: 'تحديد راتب كل موظف', color: 'purple' },
+  { icon: <CheckCircle className="w-5 h-5" />, title: 'متابعة صرف الرواتب (تم / لم يتم)', color: 'purple' },
+  { icon: <Shield className="w-5 h-5" />, title: 'الخصومات بإذن المدير فقط', color: 'purple' },
+  { icon: <FileText className="w-5 h-5" />, title: 'تقارير مالية داخلية', color: 'purple' },
+  { icon: <Settings className="w-5 h-5" />, title: 'صلاحيات إدارية محددة', color: 'purple' }
+];
+
+const mobileAppFeatures: FeatureInfo[] = [
+  { icon: <Globe className="w-5 h-5" />, title: 'تصفح العقارات كما في الموقع', color: 'blue' },
+  { icon: <CheckCircle className="w-5 h-5" />, title: 'بحث متقدم وفلاتر سريعة', color: 'blue' },
+  { icon: <FileText className="w-5 h-5" />, title: 'إضافة الإعلانات ومعاينتها قبل النشر', color: 'blue' },
+  { icon: <Users className="w-5 h-5" />, title: 'إدارة الحساب والمفضلة والطلبات', color: 'blue' },
+  { icon: <TrendingUp className="w-5 h-5" />, title: 'إشعارات بالعروض الجديدة', color: 'blue' },
+  { icon: <Smartphone className="w-5 h-5" />, title: 'تطبيقات Android و iOS', color: 'blue' }
+];
+
+const futureSections: SectionInfo[] = [
+  {
+    title: 'التمويل العقاري',
+    icon: DollarSign,
+    items: [
+      'قسم مخصص لخدمات التمويل العقاري.',
+      'سيتم تحديد التفاصيل الوظيفية والتنفيذية لاحقًا من قبل الأستاذ كريم.'
+    ]
+  },
+  {
+    title: 'المقاولات والبناء',
+    icon: Package,
+    items: [
+      'قسم خاص بخدمات المقاولات والبناء.',
+      'تفاصيل هذا القسم سيتم مناقشتها واعتمادها لاحقًا من قبل الأستاذ كريم.'
+    ]
+  }
+];
 
 export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100" dir="rtl">
-      {/* Header */}
       <header className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-slate-900">Bubbles Laundry</h1>
+              <h1 className="text-2xl font-bold text-slate-900">عرض سعر منصة عقارية متكاملة</h1>
               <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
             </div>
-            <a
-              href="https://penta-k.com"
-              className="text-left inline-flex items-center"
-              aria-label="Penta-k website"
-            >
-              <img src="/logo.png" alt="Penta-k Logo" className="h-15 inline-block" />
-            </a>
+            <div className="text-left inline-flex items-center">
+              <img src="/logo.png" alt="Project Logo" className="h-15 inline-block" />
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-8">
-        {/* Company Info Card */}
         <div className="bg-gradient-to-l from-blue-600 to-blue-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
           <div className="flex items-start justify-between flex-wrap gap-6">
             <div className="flex-1">
-              <h2 className="text-3xl font-bold mb-2">شركة Penta-k</h2>
+              <h2 className="text-3xl font-bold mb-2">وصف عام للمشروع</h2>
               <p className="text-blue-100 text-lg mb-4 leading-relaxed max-w-3xl">
-                شركة متخصصة في تصميم وتطوير حلول البرمجيات والتطبيقات الذكية،
-                وتقديم أنظمة متكاملة بجودة عالية وتجربة استخدام احترافية
+                منصة عقارية متكاملة (موقع إلكتروني + تطبيقات موبايل) تهدف إلى تسهيل عمليات البيع، الإيجار،
+                البحث، ونشر العقارات، مع واجهة سهلة الاستخدام وتجربة مستخدم احترافية، إضافة إلى نظام إداري
+                داخلي لإدارة موظفي الشركة ماليًا.
               </p>
-              <div className="flex flex-wrap gap-6">
-                <div className="flex items-center gap-2">
-                  <Globe className="w-5 h-5" />
-                  <a href="https://penta-k.com" className="hover:underline">penta-k.com</a>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3 border border-white/20">
+                  <Monitor className="w-5 h-5" />
+                  <span>موقع إلكتروني احترافي</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <PhoneCall className="w-5 h-5" />
-                  <a href="tel:+201061942646" className="hover:underline" dir="ltr">+20 10 61942646</a>
+                <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3 border border-white/20">
+                  <Smartphone className="w-5 h-5" />
+                  <span>تطبيقات Android و iOS</span>
+                </div>
+                <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3 border border-white/20">
+                  <Settings className="w-5 h-5" />
+                  <span>نظام إداري مالي داخلي</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Project Overview */}
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
           <div className="flex items-center gap-3 mb-6">
             <FileText className="w-8 h-8 text-blue-600" />
-            <h2 className="text-2xl font-bold text-slate-900">نظرة عامة على المشروع</h2>
+            <h2 className="text-2xl font-bold text-slate-900">نطاق العمل</h2>
           </div>
-          <div className="prose prose-slate max-w-none">
-            <h3 className="text-xl font-semibold text-slate-800 mb-3">
-              نظام متكامل لإدارة خدمات استلام وتسليم الملابس
-            </h3>
-            <p className="text-slate-600 text-lg leading-relaxed">
-              يشمل النظام أربعة مكونات أساسية لضمان تجربة متكاملة لجميع الأطراف المعنية
-            </p>
-          </div>
-        </div>
-
-        {/* System Components Grid */}
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          {/* Customer App */}
-          <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-100 hover:border-blue-300 transition-colors">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <Smartphone className="w-6 h-6 text-blue-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900">تطبيق العميل</h3>
-                <p className="text-sm text-slate-600">Android & iOS</p>
-              </div>
-            </div>
-            <p className="text-slate-600 mb-3">
-              تطبيق شامل للعملاء يتيح طلب خدمات الغسيل والتتبع والدفع الإلكتروني
-            </p>
-            <div className="text-sm text-slate-500">
-              <span className="font-semibold text-blue-600">المميزات الرئيسية:</span>
-              <span> تسجيل دخول، طلب استلام، تتبع الطلبات، دفع إلكتروني، محفظة، اشتراكات</span>
-            </div>
-          </div>
-
-          {/* Delivery Agent App */}
-          <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-green-100 hover:border-green-300 transition-colors">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-green-100 rounded-lg">
-                <Package className="w-6 h-6 text-green-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900">تطبيق المندوب</h3>
-                <p className="text-sm text-slate-600">Android & iOS</p>
-              </div>
-            </div>
-            <p className="text-slate-600 mb-3">
-              تطبيق مخصص للمندوبين لاستقبال وتنفيذ طلبات التوصيل
-            </p>
-            <div className="text-sm text-slate-500">
-              <span className="font-semibold text-green-600">المميزات الرئيسية:</span>
-              <span> استقبال الطلبات، التواصل مع العميل، تحديث الحالة، سجل التوصيلات</span>
-            </div>
-          </div>
-
-          {/* Admin Dashboard */}
-          <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-purple-100 hover:border-purple-300 transition-colors">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-purple-100 rounded-lg">
-                <Monitor className="w-6 h-6 text-purple-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900">لوحة التحكم المركزية</h3>
-                <p className="text-sm text-slate-600">Web App + Android App + Windows App</p>
-              </div>
-            </div>
-            <p className="text-slate-600 mb-3">
-              لوحة تحكم شاملة لإدارة كافة جوانب النظام
-            </p>
-            <div className="text-sm text-slate-500">
-              <span className="font-semibold text-purple-600">المميزات الرئيسية:</span>
-              <span> إدارة كاملة، تحكم في الأسعار، تقارير مالية، إدارة المستخدمين، الشكاوى</span>
-            </div>
-          </div>
-
-          {/* Partner Dashboard */}
-          <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-orange-100 hover:border-orange-300 transition-colors">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-orange-100 rounded-lg">
-                <Monitor className="w-6 h-6 text-orange-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900">لوحة المغاسل الشريكة</h3>
-                <p className="text-sm text-slate-600">Web App & Windows App & Android App</p>
-              </div>
-            </div>
-            <p className="text-slate-600 mb-3">
-              لوحة تحكم مستقلة لكل مغسلة شريكة
-            </p>
-            <div className="text-sm text-slate-500">
-              <span className="font-semibold text-orange-600">المميزات الرئيسية:</span>
-              <span> حساب مستقل، تحديد مناطق التغطية، متابعة الطلبات والأرباح</span>
-            </div>
+          <p className="text-slate-600 text-lg leading-relaxed mb-4">
+            يشمل نطاق المشروع تطوير موقع إلكتروني عقاري شامل مع لوحة إدارة، وتطبيقات موبايل متكاملة، ونظام
+            إداري داخلي خاص بالشركة لإدارة الموظفين ماليًا، مع قابلية التوسع لإضافة أقسام جديدة لاحقًا.
+          </p>
+          <div className="grid md:grid-cols-3 gap-4">
+            {coreModules.map((module) => {
+              const Icon = module.icon;
+              return (
+                <div key={module.title} className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-3 bg-white rounded-lg border border-slate-200">
+                      <Icon className="w-6 h-6 text-slate-700" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-slate-900">{module.title}</h3>
+                      <p className="text-sm text-slate-600">{module.description}</p>
+                    </div>
+                  </div>
+                  <ul className="space-y-2 text-sm text-slate-700">
+                    {module.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Detailed Features Sections */}
-        {/* Customer App Features */}
+        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
+          <div className="flex items-center gap-3 mb-6">
+            <Globe className="w-8 h-8 text-blue-600" />
+            <h2 className="text-2xl font-bold text-slate-900">أقسام وميزات الموقع الإلكتروني</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {websiteSections.map((section) => {
+              const Icon = section.icon;
+              return (
+                <div key={section.title} className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-3 bg-white rounded-lg border border-slate-200">
+                      <Icon className="w-5 h-5 text-slate-700" />
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-900">{section.title}</h3>
+                  </div>
+                  <ul className="space-y-2 text-sm text-slate-700">
+                    {section.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {section.goal ? (
+                    <p className="text-sm text-slate-600 mt-4">
+                      <span className="font-semibold">الهدف:</span> {section.goal}
+                    </p>
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
+          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
+            <div className="p-3 bg-purple-100 rounded-lg">
+              <Settings className="w-7 h-7 text-purple-600" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900">النظام الإداري المالي للموظفين</h2>
+              <p className="text-sm text-slate-600">نظام داخلي خاص بالشركة غير مخصص للعملاء</p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {internalSystemFeatures.map((feature) => (
+              <FeatureItem
+                key={feature.title}
+                icon={feature.icon}
+                title={feature.title}
+                color={feature.color}
+              />
+            ))}
+          </div>
+        </div>
+
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
             <div className="p-3 bg-blue-100 rounded-lg">
               <Smartphone className="w-7 h-7 text-blue-600" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-slate-900">تطبيق العميل - Customer Mobile App</h2>
-              <p className="text-sm text-slate-600">Android & iOS</p>
+              <h2 className="text-2xl font-bold text-slate-900">تطبيقات الموبايل (Android & iOS)</h2>
+              <p className="text-sm text-slate-600">نفس خصائص الموقع مع تجربة استخدام سلسة عبر الهواتف</p>
             </div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <FeatureItem icon={<Users className="w-5 h-5" />} title="تسجيل / تسجيل دخول" />
-            <FeatureItem icon={<Calendar className="w-5 h-5" />} title="طلب استلام وتسليم مع جدولة المواعيد" />
-            <FeatureItem icon={<Package className="w-5 h-5" />} title="اختيار نوع الخدمة" />
-            <FeatureItem icon={<TrendingUp className="w-5 h-5" />} title="تتبع حالة الطلب والمندوب" />
-            <FeatureItem icon={<CreditCard className="w-5 h-5" />} title="الدفع الإلكتروني" />
-            <FeatureItem icon={<DollarSign className="w-5 h-5" />} title="محفظة إلكترونية" />
-            <FeatureItem icon={<Award className="w-5 h-5" />} title="الاشتراكات ومتابعة الرصيد" />
-            <FeatureItem icon={<CheckCircle className="w-5 h-5" />} title="كوبونات خصم وعروض" />
-            <FeatureItem icon={<FileText className="w-5 h-5" />} title="سجل الطلبات والفواتير" />
-            <FeatureItem icon={<PhoneCall className="w-5 h-5" />} title="التواصل مع المندوب" />
-            <FeatureItem icon={<Globe className="w-5 h-5" />} title="دعم لغتين (عربي/English)" />
-            <FeatureItem icon={<Settings className="w-5 h-5" />} title="نظام شكاوى ودعم فني" />
+            {mobileAppFeatures.map((feature) => (
+              <FeatureItem
+                key={feature.title}
+                icon={feature.icon}
+                title={feature.title}
+                color={feature.color}
+              />
+            ))}
           </div>
         </div>
 
-        {/* Delivery Agent App Features */}
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-green-100 rounded-lg">
-              <Package className="w-7 h-7 text-green-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">تطبيق المندوب - Delivery Agent App</h2>
-              <p className="text-sm text-slate-600">Android & iOS</p>
-            </div>
+          <div className="flex items-center gap-3 mb-6">
+            <Package className="w-8 h-8 text-amber-600" />
+            <h2 className="text-2xl font-bold text-slate-900">أقسام جديدة (تطوير لاحقًا)</h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <FeatureItem icon={<Users className="w-5 h-5" />} title="تسجيل واعتماد حساب المندوب" color="green" />
-            <FeatureItem icon={<Package className="w-5 h-5" />} title="استقبال وتنفيذ الطلبات" color="green" />
-            <FeatureItem icon={<PhoneCall className="w-5 h-5" />} title="التواصل مع العميل (دردشة)" color="green" />
-            <FeatureItem icon={<CheckCircle className="w-5 h-5" />} title="تحديث حالة الطلب" color="green" />
-            <FeatureItem icon={<FileText className="w-5 h-5" />} title="سجل التوصيلات" color="green" />
-            <FeatureItem icon={<DollarSign className="w-5 h-5" />} title="عرض الأرباح" color="green" />
-          </div>
-        </div>
-
-        {/* Admin Dashboard Features */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-purple-100 rounded-lg">
-              <Monitor className="w-7 h-7 text-purple-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">لوحة التحكم المركزية - Central Admin Dashboard</h2>
-              <p className="text-sm text-slate-600">Web App + Android App + Windows App</p>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <FeatureItem icon={<Settings className="w-5 h-5" />} title="إدارة التطبيق بالكامل" color="purple" />
-            <FeatureItem icon={<DollarSign className="w-5 h-5" />} title="التحكم الكامل في الأسعار" color="purple" />
-            <FeatureItem icon={<Award className="w-5 h-5" />} title="إدارة الاشتراكات" color="purple" />
-            <FeatureItem icon={<CheckCircle className="w-5 h-5" />} title="إدارة كوبونات الخصم" color="purple" />
-            <FeatureItem icon={<Users className="w-5 h-5" />} title="إدارة العملاء والمندوبين" color="purple" />
-            <FeatureItem icon={<TrendingUp className="w-5 h-5" />} title="تقارير مالية وفنية لحظية" color="purple" />
-            <FeatureItem icon={<FileText className="w-5 h-5" />} title="نظام عمولات مرن" color="purple" />
-            <FeatureItem icon={<Shield className="w-5 h-5" />} title="صلاحيات متعددة" color="purple" />
-            <FeatureItem icon={<Package className="w-5 h-5" />} title="Backup تلقائي للبيانات" color="purple" />
+          <div className="grid md:grid-cols-2 gap-6">
+            {futureSections.map((section) => {
+              const Icon = section.icon;
+              return (
+                <div key={section.title} className="bg-amber-50 rounded-xl p-6 border border-amber-200">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-3 bg-white rounded-lg border border-amber-200">
+                      <Icon className="w-5 h-5 text-amber-700" />
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-900">{section.title}</h3>
+                  </div>
+                  <ul className="space-y-2 text-sm text-slate-700">
+                    {section.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-amber-600 mt-0.5" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Partner Dashboard Features */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-orange-100 rounded-lg">
-              <Monitor className="w-7 h-7 text-orange-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">لوحة المغاسل الشريكة - Partner Laundry Dashboard</h2>
-              <p className="text-sm text-slate-600">Web App + Android App + Windows App</p>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <FeatureItem icon={<Users className="w-5 h-5" />} title="حساب مستقل لكل مغسلة" color="orange" />
-            <FeatureItem icon={<Globe className="w-5 h-5" />} title="تحديد مناطق التغطية" color="orange" />
-            <FeatureItem icon={<Package className="w-5 h-5" />} title="استقبال طلبات المناطق المحددة" color="orange" />
-            <FeatureItem icon={<TrendingUp className="w-5 h-5" />} title="متابعة عدد الطلبات" color="orange" />
-            <FeatureItem icon={<DollarSign className="w-5 h-5" />} title="عرض الأرباح والعمولات" color="orange" />
-            <FeatureItem icon={<FileText className="w-5 h-5" />} title="تقارير خاصة" color="orange" />
-          </div>
-        </div>
-
-        {/* UI/UX Design Section */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-indigo-100 rounded-lg">
-              <Palette className="w-7 h-7 text-indigo-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">UI / UX Design - التصميم</h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
-              <CheckCircle className="w-5 h-5 text-indigo-600 mt-0.5" />
-              <span className="text-slate-700">تصميم احترافي مخصص متوافق مع هوية Bubbles Laundry</span>
-            </div>
-            <div className="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
-              <CheckCircle className="w-5 h-5 text-indigo-600 mt-0.5" />
-              <span className="text-slate-700">دعم Light Mode & Dark Mode</span>
-            </div>
-            <div className="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
-              <CheckCircle className="w-5 h-5 text-indigo-600 mt-0.5" />
-              <span className="text-slate-700">دعم Arabic / English</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Timeline Section */}
-        <div className="bg-gradient-to-l from-slate-800 to-slate-900 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-700">
-            <div className="p-3 bg-slate-700 rounded-lg">
-              <Clock className="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold">Delivery Timeline - خطة التنفيذ والتسليم</h2>
-              <p className="text-slate-300">آلية العمل والتسليم المرحلي</p>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
-            <div className="bg-slate-700/50 rounded-xl p-6 border border-slate-600">
-              <h3 className="text-xl font-bold mb-3 text-amber-400">مدة التنفيذ الكاملة</h3>
-              <p className="text-3xl font-bold mb-2">2.5 شهر</p>
-              <p className="text-slate-300 text-sm">تشمل التصميم، البرمجة، الاختبارات، ورفع التطبيق على المتاجر</p>
-            </div>
-
-            <div className="bg-slate-700/50 rounded-xl p-6 border border-slate-600">
-              <h3 className="text-xl font-bold mb-3 text-green-400">التسليم المرحلي</h3>
-              <ul className="space-y-2 text-slate-300">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
-                  <span>تسليم نسخة Android Test (APK) لكل جزء</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
-                  <span>مراجعة كل مرحلة مع العميل</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
-                  <span>تنفيذ التعديلات المطلوبة</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Pricing Section - interactive */}
         <div className="bg-gradient-to-l from-emerald-600 to-emerald-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-emerald-500">
             <div className="p-3 bg-emerald-500 rounded-lg">
               <DollarSign className="w-7 h-7 text-white" />
             </div>
-            <h2 className="text-2xl font-bold">Pricing - التكلفة الإجمالية</h2>
+            <h2 className="text-2xl font-bold">السعر الإجمالي للمشروع</h2>
           </div>
-
-          {/* Pricing logic */}
-          {/** Using small local state to toggle chat inclusion. UI design cost is shown separately and not included in main total. */}
-          <PricingControl />
+          <div className="text-center mb-6">
+            <div className="text-6xl font-bold mb-2">8,900 ريال سعودي</div>
+            <div className="text-emerald-100 text-lg">
+              يشمل الموقع الإلكتروني وتطبيقات Android و iOS والنظام الإداري المالي
+            </div>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-emerald-500/30 rounded-xl p-4 border border-emerald-400 text-center">
+              <CheckCircle className="w-6 h-6 mx-auto mb-2 text-white" />
+              <div className="font-semibold">موقع إلكتروني متكامل</div>
+            </div>
+            <div className="bg-emerald-500/30 rounded-xl p-4 border border-emerald-400 text-center">
+              <CheckCircle className="w-6 h-6 mx-auto mb-2 text-white" />
+              <div className="font-semibold">تطبيقات Android و iOS</div>
+            </div>
+            <div className="bg-emerald-500/30 rounded-xl p-4 border border-emerald-400 text-center">
+              <CheckCircle className="w-6 h-6 mx-auto mb-2 text-white" />
+              <div className="font-semibold">نظام إداري مالي داخلي</div>
+            </div>
+          </div>
         </div>
 
-        {/* Free Services Section */}
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-green-200">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
             <div className="p-3 bg-green-100 rounded-lg">
               <Award className="w-7 h-7 text-green-600" />
             </div>
-            <h2 className="text-2xl font-bold text-slate-900">Free Services - مميزات مقدمة من شركة Penta-k</h2>
+            <h2 className="text-2xl font-bold text-slate-900">Free Services - مميزات مجانية ضمن العرض</h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -374,208 +464,17 @@ export default function App() {
               <CheckCircle className="w-5 h-5 text-amber-600 mt-0.5" />
               <div>
                 <p className="text-slate-700 font-semibold mb-1">سياسة حسابات النشر (Google & Apple)</p>
-                <p className="text-sm text-slate-600">يتم رفع التطبيق مجاناً خلال أول سنة على حسابات شركة Penta-k لتقليل التكلفة المبدئية وضمان الالتزام بسياسات المتاجر</p>
+                <p className="text-sm text-slate-600">
+                  يتم رفع التطبيق مجاناً خلال أول سنة على حسابات الشركة لتقليل التكلفة المبدئية وضمان
+                  الالتزام بسياسات المتاجر.
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Technologies Section */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-blue-100 rounded-lg">
-              <Code className="w-7 h-7 text-blue-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">Technologies & Development Standards</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
-            <div className="p-6 bg-blue-50 rounded-xl border border-blue-200">
-              <div className="flex items-center gap-3 mb-4">
-                <Smartphone className="w-6 h-6 text-blue-600" />
-                <h3 className="text-lg font-bold text-slate-900">Flutter</h3>
-              </div>
-              <ul className="space-y-2 text-sm text-slate-700">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
-                  <span>تطوير تطبيقات الموبايل (Android & iOS)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
-                  <span>تطوير تطبيقات الديسكتوب (Windows)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
-                  <span>كود موحد (Single Codebase)</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="p-6 bg-emerald-50 rounded-xl border border-emerald-200">
-              <div className="flex items-center gap-3 mb-4">
-                <Server className="w-6 h-6 text-emerald-600" />
-                <h3 className="text-lg font-bold text-slate-900">Nest.JS Backend</h3>
-              </div>
-              <ul className="space-y-2 text-sm text-slate-700">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-600 mt-0.5" />
-                  <span>RESTful APIs</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-600 mt-0.5" />
-                  <span>PostgreSQL DB</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-600 mt-0.5" />
-                  <span>بنية قوية وقابلة للتوسع</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-600 mt-0.5" />
-                  <span>أداء عالي وتأمين البيانات</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="p-6 bg-purple-50 rounded-xl border border-purple-200">
-            <div className="flex items-center gap-3 mb-4">
-              <Shield className="w-6 h-6 text-purple-600" />
-              <h3 className="text-lg font-bold text-slate-900">Code Quality & Clean Architecture</h3>
-            </div>
-            <div className="grid md:grid-cols-3 gap-3">
-              <div className="flex items-center gap-2 text-sm text-slate-700">
-                <Zap className="w-4 h-4 text-purple-600" />
-                <span>Clean Code منظم</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-slate-700">
-                <Zap className="w-4 h-4 text-purple-600" />
-                <span>Best Practices</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-slate-700">
-                <Zap className="w-4 h-4 text-purple-600" />
-                <span>سهولة الصيانة</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-slate-700">
-                <Zap className="w-4 h-4 text-purple-600" />
-                <span>Code Review</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-slate-700">
-                <Zap className="w-4 h-4 text-purple-600" />
-                <span>Scalable Architecture</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-slate-700">
-                <Zap className="w-4 h-4 text-purple-600" />
-                <span>حماية من الأعطال</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* External Costs Section */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-amber-200">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-amber-100 rounded-lg">
-              <DollarSign className="w-7 h-7 text-amber-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">External Running Costs - التكاليف الخارجية</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-4 mb-6">
-            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-              <h3 className="font-bold text-slate-900 mb-2">Google Play Console</h3>
-              <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$25</div>
-              <p className="text-sm text-slate-600">مدى الحياة (دفعة واحدة)</p>
-            </div>
-
-            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-              <h3 className="font-bold text-slate-900 mb-2">Apple Developer Account</h3>
-              <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$100</div>
-              <p className="text-sm text-slate-600">سنوياً</p>
-            </div>
-
-            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-              <h3 className="font-bold text-slate-900 mb-2">Google Maps Platform</h3>
-              <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$300</div>
-              <p className="text-sm text-slate-600">حد مجاني شهرياً</p>
-              <p className="text-xs text-slate-500 mt-2">يتطلب حساب Google Console مع Visa دولارية</p>
-            </div>
-
-            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-              <h3 className="font-bold text-slate-900 mb-2">Hostinger VPS</h3>
-              <div className="text-2xl font-bold text-blue-600 mb-1" dir="ltr">$96</div>
-              <p className="text-sm text-slate-600">سنوياً (سيرفر خاص)</p>
-              <p className="text-xs text-green-600 mt-2">مجاني من Penta-k لأول سنة</p>
-            </div>
-          </div>
-
-          <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
-            <h3 className="font-bold text-slate-900 mb-2">دعم فني مدفوع (إضافات جديدة)</h3>
-            <div className="flex items-baseline gap-2 mb-2">
-              <span className="text-3xl font-bold text-amber-600">5,000 جنيه</span>
-              <span className="text-slate-600">شهرياً</span>
-            </div>
-            <ul className="space-y-1 text-sm text-slate-700">
-              <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-amber-600 mt-0.5" />
-                <span>20 ساعة عمل مع مبرمج مخصص</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-amber-600 mt-0.5" />
-                <span>تنفيذ أي إضافات أو تطويرات حسب الطلب</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Why Penta-k Section */}
-        <div className="bg-gradient-to-l from-blue-600 to-indigo-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-3">Why Penta-k? - ليه تختار Penta-k؟</h2>
-            <p className="text-blue-100 text-lg">نحن لا نكتب كود فقط، نبني حلول قابلة للنمو والتطور</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-              <Shield className="w-8 h-8 mb-3" />
-              <h3 className="font-bold text-lg mb-2">جودة الكود</h3>
-              <p className="text-sm text-blue-100">اهتمام حقيقي بجودة الكود وليس مجرد تنفيذ</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-              <TrendingUp className="w-8 h-8 mb-3" />
-              <h3 className="font-bold text-lg mb-2">قابلية التوسع</h3>
-              <p className="text-sm text-blue-100">تطبيقات قابلة للتوسع والنمو مع عملك</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-              <Clock className="w-8 h-8 mb-3" />
-              <h3 className="font-bold text-lg mb-2">تسليم منظم</h3>
-              <p className="text-sm text-blue-100">تسليم على مراحل مع متابعة مستمرة</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-              <Users className="w-8 h-8 mb-3" />
-              <h3 className="font-bold text-lg mb-2">سهولة الاستلام</h3>
-              <p className="text-sm text-blue-100">سهولة استلام المشروع من أي فريق تقني لاحقاً</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-              <DollarSign className="w-8 h-8 mb-3" />
-              <h3 className="font-bold text-lg mb-2">توفير المستقبل</h3>
-              <p className="text-sm text-blue-100">كود نظيف = تكلفة أقل في المستقبل</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-              <Award className="w-8 h-8 mb-3" />
-              <h3 className="font-bold text-lg mb-2">خبرة احترافية</h3>
-              <p className="text-sm text-blue-100">فريق متخصص بخبرة عالية</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Contact Section */}
         <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">للتواصل والاستفسار</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">تواصل معنا</h2>
           <div className="flex flex-col items-center gap-4">
             <div className="flex items-center gap-3 text-lg">
               <Globe className="w-6 h-6 text-blue-600" />
@@ -593,100 +492,16 @@ export default function App() {
 
           <div className="mt-8 pt-6 border-t border-slate-200">
             <p className="text-slate-600">
-              شكراً لثقتكم في <span className="font-bold text-blue-600">Penta-k</span>
+              شكرًا لثقتكم في <span className="font-bold text-blue-600">Penta-k</span>
             </p>
-            <p className="text-sm text-slate-500 mt-2">
-              نتطلع للعمل معكم على مشروع Bubbles Laundry
-            </p>
+            <p className="text-sm text-slate-500 mt-2">نتطلع للعمل معكم على هذا المشروع العقاري.</p>
           </div>
         </div>
-
       </main>
     </div>
   );
 }
 
-// Helper Component for Feature Items
-function PricingControl() {
-  const BASE_COST = 70000;
-  const CHAT_COST = 10000;
-  const UI_COST = 18000;
-  const [chatIncluded, setChatIncluded] = useState(true);
-  const [uiIncluded, setUiIncluded] = useState(false);
-
-  const mainTotal = BASE_COST + (chatIncluded ? CHAT_COST : 0) + (uiIncluded ? UI_COST : 0);
-  const installment = Math.ceil(mainTotal / 4);
-
-  const fmt = (n: number) => n.toLocaleString();
-
-  return (
-    <div>
-      <div className="text-center mb-6">
-        <div className="text-6xl font-bold mb-2">{fmt(mainTotal)} جنيه</div>
-        <div className="text-emerald-100 text-lg">التكلفة الإجمالية للمشروع {uiIncluded ? '(شاملة تكلفة التصميم UI)' : '(بدون تكلفة التصميم UI)'} </div>
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-4 mb-6">
-        <div className="flex-1 bg-emerald-500/30 rounded-xl p-6 border border-emerald-400">
-          <h3 className="text-xl font-bold mb-4">خيار الدردشة - Chat Feature</h3>
-          <label className="flex items-center gap-3">
-            <input
-              type="checkbox"
-              checked={chatIncluded}
-              onChange={(e) => setChatIncluded(e.target.checked)}
-              className="w-4 h-4"
-            />
-            <span className="text-emerald-100">تمكين الدردشة بين المندوب والعميل وبين العميل والمغسلة</span>
-          </label>
-          <div className="mt-4 text-2xl font-bold">تكلفة الدردشة: {fmt(CHAT_COST)} جنيه</div>
-          <p className="text-sm text-emerald-100 mt-2">إلغاء هذه الخاصية يجعل التكلفة الكلية {fmt(BASE_COST)} جنيه</p>
-        </div>
-
-        <div className="w-full md:w-72 bg-white/10 rounded-xl p-6 border border-white/20">
-          <h4 className="font-bold text-lg mb-2">تكلفة واجهة المستخدم - UI Cost</h4>
-          <label className="flex items-center gap-3 mb-3">
-            <input
-              type="checkbox"
-              checked={uiIncluded}
-              onChange={(e) => setUiIncluded(e.target.checked)}
-              className="w-4 h-4"
-            />
-            <span className="text-emerald-100">إضافة تكلفة الواجهة (UI) إلى التكلفة الكلية</span>
-          </label>
-          <div className="text-3xl font-bold">{fmt(UI_COST)} جنيه</div>
-          <div className="text-sm text-emerald-100 mt-2">شاملة تسليم تصميم فيجما كامل لتطبيق المستخدم والمندوب</div>
-          <div className="text-sm text-emerald-100 mt-3">مدة التسليم: <span className="font-semibold">15 يوم</span></div>
-        </div>
-      </div>
-
-      <div className="bg-emerald-500/30 rounded-xl p-6 border border-emerald-400">
-        <h3 className="text-xl font-bold mb-4">شروط الدفع - Payment Terms</h3>
-        <div className="grid md:grid-cols-4 gap-4">
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(installment)} جنيه</div>
-            <div className="text-sm text-emerald-100">دفعة أولى مقدم</div>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(installment)} جنيه</div>
-            <div className="text-sm text-emerald-100">بعد أول شهر</div>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(installment)} جنيه</div>
-            <div className="text-sm text-emerald-100">بعد الشهر الثاني</div>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-            <div className="text-2xl font-bold mb-1">{fmt(installment)} جنيه</div>
-            <div className="text-sm text-emerald-100">عند التسليم النهائي</div>
-          </div>
-        </div>
-
-        <p className="text-sm text-emerald-100 mt-4">ملاحظة: تكلفة التصميم UI ({fmt(UI_COST)} جنيه) معروضة ويمكن إضافتها إلى التكلفة أعلاه عبر التفعيل.</p>
-
-      
-      </div>
-    </div>
-  );
-}
 function FeatureItem({ icon, title, color = 'blue' }: { icon: React.ReactNode; title: string; color?: string }) {
   const colorClasses = {
     blue: 'bg-blue-50 text-blue-600 border-blue-100',
