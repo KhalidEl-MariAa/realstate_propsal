@@ -225,6 +225,12 @@ const technologies: ModuleInfo[] = [
     items: []
   },
   {
+    title: 'نسخ احتياطي أوتوماتيك',
+    description: 'خدمة Backup أوتوماتيك أعلى أمان باشتراك 2 دولار.',
+    icon: FileText,
+    items: []
+  },
+  {
     title: 'نسخة احتياطية للادمن',
     description: 'إمكانية أخذ نسخة احتياطية على هاتف الادمن عند الحاجة.',
     icon: FileText,
@@ -576,6 +582,10 @@ export default function App() {
                     <CheckCircle className="w-4 h-4 text-white mt-0.5" />
                     <span>منصة Apple iOS: 380 ريال سنويًا.</span>
                   </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
+                    <span>خدمة Backup أوتوماتيك أعلى أمان: اشتراك 2 دولار.</span>
+                  </li>
                 </ul>
               </div>
               <div>
@@ -596,6 +606,10 @@ export default function App() {
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-4 h-4 text-white mt-0.5" />
                     <span>منصة Apple iOS: 380 ريال سنويًا.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
+                    <span>خدمة Backup أوتوماتيك أعلى أمان: اشتراك 2 دولار.</span>
                   </li>
                 </ul>
               </div>
