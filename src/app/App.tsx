@@ -282,7 +282,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-slate-900">عرض سعر منصة ابو ركان للعقارات</h1>
+              <h1 className="text-2xl font-bold text-slate-900">عرض سعر منصة ركان للعقارات</h1>
               <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
             </div>
             <div className="text-left inline-flex items-center">
@@ -296,9 +296,9 @@ export default function App() {
         <div className="bg-gradient-to-l from-blue-600 to-blue-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
           <div className="flex items-start justify-between flex-wrap gap-6">
             <div className="flex-1">
-              <h2 className="text-3xl font-bold mb-2">وصف عام لمنصة ابو ركان للعقارات</h2>
+              <h2 className="text-3xl font-bold mb-2">وصف عام لمنصة ركان للعقارات</h2>
               <p className="text-blue-100 text-lg mb-4 leading-relaxed max-w-3xl">
-                منصة ابو ركان للعقارات (موقع إلكتروني + تطبيقات موبايل) تهدف إلى تسهيل عمليات البيع، الإيجار،
+                منصة ركان للعقارات (موقع إلكتروني + تطبيقات موبايل) تهدف إلى تسهيل عمليات البيع، الإيجار،
                 البحث، ونشر العقارات، مع واجهة سهلة الاستخدام وتجربة مستخدم احترافية، إضافة إلى نظام إداري
                 داخلي لإدارة موظفي الشركة ماليًا.
               </p>
