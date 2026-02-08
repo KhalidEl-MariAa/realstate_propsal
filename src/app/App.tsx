@@ -460,6 +460,9 @@ export default function App() {
             <div className="text-emerald-100 text-lg">
               يشمل الموقع الإلكتروني وتطبيقات Android و iOS والنظام الإداري المالي
             </div>
+            <div className="text-emerald-100 text-sm mt-2">
+              السعر الإجمالي يشمل باقة السيرفرات الخاصة لشركة العقارات بقيمة 1,200 ريال سعودي.
+            </div>
           </div>
           <div className="bg-emerald-500/30 rounded-xl p-6 border border-emerald-400 mb-6">
             <h3 className="text-xl font-bold mb-4">طريقة الدفع</h3>
@@ -483,6 +486,53 @@ export default function App() {
                 <div className="text-2xl font-bold mb-1">15%</div>
                 <div className="text-sm text-emerald-100">بعد إطلاق التطبيقات وتدريب الموظفين</div>
                 <div className="text-sm text-emerald-100 mt-1">1,875 ريال سعودي</div>
+              </div>
+            </div>
+          </div>
+          <div className="bg-emerald-500/30 rounded-xl p-6 border border-emerald-400 mb-6">
+            <h3 className="text-xl font-bold mb-4">اشتراكات وتشغيل</h3>
+            <div className="space-y-4 text-sm text-emerald-100">
+              <div>
+                <div className="font-semibold mb-2">باقة السيرفرات الخاصة (مدرجة في السعر 12,500)</div>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
+                    <span>إجمالي باقة السيرفرات الخاصة: 1,200 ريال.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
+                    <span>سيرفر خاص للشركة: 700 ريال (يشمل المتابعة والدعم الفني).</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
+                    <span>منصة Google Play: 94 ريال دفع مرة واحدة مدى الحياة.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
+                    <span>منصة Apple iOS: 380 ريال سنويًا.</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <div className="font-semibold mb-2">في حالة الاشتراك على سيرفرات شركتنا</div>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
+                    <span>إجمالي الباقة يصبح 900 ريال بدلًا من 1,200 ريال.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
+                    <span>اشتراك السيرفر لدينا: 400 ريال (ضمن الباقة).</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
+                    <span>منصة Google Play: 94 ريال دفع مرة واحدة مدى الحياة.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
+                    <span>منصة Apple iOS: 380 ريال سنويًا.</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -511,14 +561,7 @@ export default function App() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">سيرفر مجاني</div>
-              <div className="text-slate-600 text-sm">لمدة سنة</div>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">دومين مجاني</div>
-              <div className="text-slate-600 text-sm">لمدة سنة</div>
-            </div>
+            
             <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
               <div className="text-green-600 font-bold text-lg mb-1">دعم فني مجاني</div>
               <div className="text-slate-600 text-sm">لمدة سنة</div>
