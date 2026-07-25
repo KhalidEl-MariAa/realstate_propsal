@@ -1,4 +1,4 @@
-import {
+﻿import {
   Award,
   Bell,
   CheckCircle,
@@ -556,7 +556,7 @@ export default function App() {
               <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
                 <div className="text-2xl font-bold mb-1">15%</div>
                 <div className="text-sm text-emerald-100">بعد إطلاق التطبيقات وتدريب الموظفين</div>
-                <div className="text-sm text-emerald-100 mt-1">1,875 ريال سعودي</div>
+                <div className="text-sm text-emerald-100 mt-1">2,375 ريال سعودي</div>
               </div>
             </div>
           </div>
