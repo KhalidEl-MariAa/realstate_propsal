@@ -564,7 +564,7 @@ export default function App() {
             <h3 className="text-xl font-bold mb-4">اشتراكات وتشغيل</h3>
             <div className="space-y-4 text-sm text-emerald-100">
               <div>
-                <div className="font-semibold mb-2">باقة السيرفرات الخاصة (مدرجة في السعر 12,500)</div>
+                <div className="font-semibold mb-2">باقة السيرفرات الخاصة (مدرجة في السعر 13,000)</div>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-4 h-4 text-white mt-0.5" />
