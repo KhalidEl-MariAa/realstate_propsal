@@ -527,7 +527,7 @@ export default function App() {
             <h2 className="text-2xl font-bold">السعر الإجمالي للمشروع</h2>
           </div>
           <div className="text-center mb-6">
-            <div className="text-6xl font-bold mb-2">12,500 ريال سعودي</div>
+            <div className="text-6xl font-bold mb-2">13,000 ريال سعودي</div>
             <div className="text-emerald-100 text-lg">
               يشمل الموقع الإلكتروني وتطبيقات Android و iOS والنظام الإداري المالي
             </div>
