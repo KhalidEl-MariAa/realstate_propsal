@@ -1,20 +1,23 @@
-﻿import {
+import {
   Award,
-  Bell,
+  Box,
   CheckCircle,
   Code,
-  DollarSign,
-  FileText,
+  Database,
+  Gift,
   Globe,
+  LayoutDashboard,
   Monitor,
   Package,
   PhoneCall,
-  Server,
+  Ruler,
+  ScanLine,
+  Settings,
   Shield,
-  Smartphone,
-  TrendingUp,
+  ShoppingBag,
+  Tags,
   Users,
-  Settings
+  WalletCards,
 } from 'lucide-react';
 import React from 'react';
 
@@ -27,12 +30,7 @@ type ModuleInfo = {
   items: string[];
 };
 
-type SectionInfo = {
-  title: string;
-  icon: IconType;
-  items: string[];
-  goal?: string;
-};
+type SectionInfo = ModuleInfo & { goal?: string };
 
 type FeatureInfo = {
   icon: React.ReactNode;
@@ -43,236 +41,147 @@ type FeatureInfo = {
 const coreModules: ModuleInfo[] = [
   {
     title: 'الموقع الإلكتروني',
-    description: 'واجهة عقارية احترافية للبحث والبيع والإيجار ونشر الإعلانات.',
+    description: 'موقع احترافي يعرض منتجات الشركاء ويوجه العميل لقرار شراء واثق.',
     icon: Monitor,
     items: [
-      'شريط بحث متقدم وفلاتر سريعة.',
-      'شبكة تصنيفات وعقارات مميزة.',
-      'روابط سريعة للبيع والإيجار والعروض وطلب العقار.'
+      'واجهة متجاوبة بالكامل للهواتف والأجهزة المكتبية.',
+      'عرض منتجات IKEA وHome Box ضمن تصنيفات واضحة.',
+      'بحث وفلاتر ومفضلة وتجربة تصفح سريعة.'
     ]
   },
   {
-    title: 'تطبيقات الموبايل',
-    description: 'تطبيقات Android و iOS بنفس خصائص الموقع.',
-    icon: Smartphone,
+    title: 'تجهيز تجربة AR',
+    description: 'تجهيز وربط الموقع لدعم معاينة الأثاث بالواقع المعزز.',
+    icon: ScanLine,
     items: [
-      'تصفح العقارات والبحث والفلاتر.',
-      'إضافة الإعلانات وإدارتها بسهولة.',
-      'إشعارات بالعروض الجديدة.'
+      'تجهيز زر معاينة القطعة في المكان عبر الموبايل (AR).',
+      'تهيئة مسارات عرض النماذج ثلاثية الأبعاد المتاحة.',
+      'ربط المنتج بنموذج 3D عند توفره من الشركة أو الشريك.'
     ]
   },
   {
-    title: 'النظام الإداري المالي',
-    description: 'نظام داخلي للموظفين لإدارة الرواتب والعمليات المالية.',
-    icon: Settings,
+    title: 'لوحة التحكم',
+    description: 'لوحة إدارية لإدارة المحتوى والمنتجات والعروض والنقاط.',
+    icon: LayoutDashboard,
     items: [
-      'بيانات الموظفين والرواتب.',
-      'متابعة الصرف والخصومات.',
-      'تقارير مالية وصلاحيات إدارية.'
+      'إدارة المنتجات والتصنيفات والصور والموديلات ثلاثية الأبعاد.',
+      'إدارة الأسعار والخصومات والعروض الموسمية.',
+      'متابعة العملاء والنقاط والكاش باك.'
     ]
   }
 ];
 
 const websiteSections: SectionInfo[] = [
   {
-    title: 'الرئيسية (Home)',
+    title: 'الصفحة الرئيسية',
     icon: Globe,
     items: [
-      'شريط بحث متقدم باستخدام كود العقار، المدينة، نوع العقار، والكلمات المفتاحية.',
-      'فلاتر سريعة لتضييق النتائج بسهولة.',
-      'شبكة تصنيفات العقارات مع عدد الإعلانات لكل نوع.',
-      'إبراز العقارات المميزة مع المساحة والسعر والموقع على الخريطة.',
-      'روابط سريعة إلى بيع، إيجار، العروض، واطلب عقارك.',
-      'قسم الثقة والخدمات (جودة الإعلانات، الشفافية، خدمات ما بعد البيع).',
-      'فوتر يحتوي على بيانات التواصل، معلومات الشركة، الشروط والأحكام، وسياسة الخصوصية.'
+      'تعريف مختصر بالشركة وفكرة معاينة الأثاث قبل الشراء.',
+      'إبراز الشراكات مع IKEA وHome Box.',
+      'عرض التصنيفات والمنتجات المميزة وأحدث العروض.',
+      'دعوات واضحة للتصفح وتجربة المعاينة بالواقع المعزز.'
     ],
-    goal: 'نقطة الانطلاق التي تعكس قوة المنصة وسهولة استخدامها.'
+    goal: 'بناء الثقة وتحويل الزائر إلى عميل مهتم بالشراء.'
   },
   {
-    title: 'قسم البيع (Sell)',
-    icon: DollarSign,
+    title: 'كتالوج المنتجات',
+    icon: ShoppingBag,
     items: [
-      'نموذج إضافة عقار للبيع يشمل نوع العقار، المساحة، السعر، المدينة، والوصف.',
-      'رفع الصور والمرفقات.',
-      'زر نشر الإعلان.'
+      'تصنيفات مثل غرف المعيشة، غرف النوم، المكاتب، الإضاءة والإكسسوارات.',
+      'بحث ذكي وفلاتر حسب الفئة، العلامة التجارية، السعر، اللون والخامة.',
+      'بطاقات منتج واضحة تشمل الصورة والسعر والخصم وحالة توفر المعاينة ثلاثية الأبعاد.'
     ],
-    goal: 'تمكين الملاك والوسطاء من نشر عقاراتهم بسهولة.'
+    goal: 'تسهيل اكتشاف القطعة المناسبة بأقل عدد من الخطوات.'
   },
   {
-    title: 'قسم الإيجار (Rent)',
-    icon: Package,
+    title: 'تفاصيل المنتج والمقاسات',
+    icon: Ruler,
     items: [
-      'عرض قائمة عقارات الإيجار.',
-      'فلاتر حسب المدينة، النوع، المساحة، والسعر.',
-      'عرض الخريطة لتحديد مواقع العقارات.'
+      'عرض دقيق للطول والعرض والارتفاع والوزن وأي مقاسات إضافية.',
+      'وصف مختصر للخامات المستخدمة: خشب، معدن، قماش وغيرها.',
+      'صور متعددة ومعلومات العلامة التجارية والسعر الحالي.',
+      'إظهار حالة الخصم وتفاصيل السعر قبل وبعد العرض.'
     ],
-    goal: 'تسهيل وصول الباحثين عن الإيجار للعقارات المناسبة.'
+    goal: 'مساعدة العميل على التأكد من ملاءمة القطعة لمساحته وديكوره.'
   },
   {
-    title: 'اطلب عقارك (Request Your Property)',
-    icon: FileText,
+    title: 'تجهيز المعاينة بالواقع المعزز AR',
+    icon: ScanLine,
     items: [
-      'نموذج يحدد نوع العقار، المساحة المطلوبة، الميزانية، والمدينة.',
-      'إرسال الطلب مباشرة للإدارة أو الوسطاء.'
+      'تجهيز صفحة المنتج لفتح نموذج ثلاثي الأبعاد على الهاتف.',
+      'ربط النماذج المتاحة بخدمة أو تطبيق الواقع المعزز.',
+      'تهيئة تجربة قابلة للتوسع عند اعتماد النماذج ثلاثية الأبعاد.'
     ],
-    goal: 'مطابقة الطلبات مع العروض المناسبة بسرعة.'
+    goal: 'تجهيز أساس تقني يدعم تجربة معاينة واقعية عند توفير النماذج.'
   },
   {
-    title: 'العروض العقارية (Property Offers)',
-    icon: TrendingUp,
+    title: 'العروض والخصومات',
+    icon: Tags,
     items: [
-      'يتصفح المستخدم جميع العروض المطروحة لدى الشركة.',
-      'تصنيفات العروض: الكل، فلل، أرض، محلات تجارية، أراضي زراعية، شاليهات، دبلكسات، استراحات، وحدات، شقق.',
-      'تصنيفات إضافية: مخططات، دورين، مزرعة، عمائر (تجارية وسكني)، صالات، مستودعات، قصور، ورش صناعية.',
-      'تصنيفات إضافية: فندق، حوش، منتجع، محطة، مركز صيانة، دور وشقتين، أدوار.',
-      'تصنيف العقار حسب النوع: الكل، بيع، إيجار، بيع تجاري، إيجار تجاري.'
+      'صفحة مخصصة لكل المنتجات المخفضة.',
+      'إظهار السعر السابق والسعر بعد الخصم ونسبة التوفير.',
+      'تصنيفات للعروض لتصل للعميل بسهولة.'
     ],
-    goal: 'زيادة التفاعل وتحفيز الشراء.'
+    goal: 'زيادة الوصول للعروض وتحفيز الشراء.'
   },
   {
-    title: 'تعرف علينا (About Us)',
+    title: 'برنامج الولاء والنقاط',
+    icon: Gift,
+    items: [
+      'احتساب نقاط للعميل عند كل عملية شراء من التطبيق.',
+      'عرض رصيد النقاط وسجل عمليات الكسب والاستبدال.',
+      'تحويل النقاط إلى كاش باك يستخدم كخصم على عملية شراء لاحقة.',
+      'قواعد قابلة للإدارة لتحديد قيمة النقاط وشروط الاستخدام.'
+    ],
+    goal: 'زيادة عودة العملاء ورفع قيمة المشتريات المتكررة.'
+  },
+  {
+    title: 'حساب العميل والمفضلة',
     icon: Users,
     items: [
-      'رسالة الشركة: الشفافية، الجودة، رضا العميل.',
-      'الخدمات: صيانة، تشطيب، استشارات.',
-      'رؤية الشركة المستقبلية.'
+      'تسجيل دخول آمن وإدارة بيانات العميل.',
+      'حفظ المنتجات المفضلة للرجوع إليها لاحقًا.',
+      'متابعة النقاط والكاش باك والعروض ذات الصلة.'
     ],
-    goal: 'بناء مصداقية قوية للعلامة التجارية.'
+    goal: 'تجربة شخصية متصلة بالموقع والتطبيق.'
   },
   {
-    title: 'اتصل بنا (Contact Us)',
-    icon: PhoneCall,
-    items: [
-      'رقم الهاتف، البريد الإلكتروني، والموقع.',
-      'نموذج تواصل مباشر.'
-    ],
-    goal: 'تسهيل التواصل والدعم.'
-  },
-  {
-    title: 'تسجيل الدخول (Login)',
+    title: 'صفحات الشركة والدعم',
     icon: Shield,
     items: [
-      'تسجيل الدخول بالإيميل أو اسم المستخدم.',
-      'كلمة مرور.',
-      'رابط نسيت كلمة المرور.'
+      'من نحن، الشركاء، تواصل معنا، الأسئلة الشائعة.',
+      'الشروط والأحكام وسياسة الخصوصية.',
+      'روابط تحميل التطبيق وقنوات الدعم.'
     ],
-    goal: 'إدارة الإعلانات والمفضلة والطلبات.'
-  },
-  {
-    title: 'إضافة إعلان (Add Listing)',
-    icon: Monitor,
-    items: [
-      'نموذج تدريجي خطوة بخطوة.',
-      'رفع الصور.',
-      'معاينة الإعلان قبل النشر.'
-    ],
-    goal: 'تجربة نشر سهلة واحترافية.'
-  },
-  {
-    title: 'الصفحات القانونية والخدمية',
-    icon: FileText,
-    items: [
-      'الشروط والأحكام.',
-      'سياسة الخصوصية.',
-      'أداة مقارنة العقارات.',
-      'صفحة تحميل التطبيق.'
-    ],
-    goal: 'الامتثال القانوني وتحسين تجربة المستخدم.'
+    goal: 'تعزيز مصداقية الشركة وتسهيل التواصل مع العملاء.'
   }
 ];
 
-const internalSystemFeatures: FeatureInfo[] = [
-  { icon: <Users className="w-5 h-5" />, title: 'لوحة داخلية لموظفي الشركة', color: 'purple' },
-  { icon: <DollarSign className="w-5 h-5" />, title: 'تسجيل الأموال المدفوعة من العملاء', color: 'purple' },
-  { icon: <FileText className="w-5 h-5" />, title: 'تسجيل الأموال لكل قسم وإدارة العمليات', color: 'purple' },
-  { icon: <CheckCircle className="w-5 h-5" />, title: 'متابعة المدفوعات وحالاتها', color: 'purple' },
-  { icon: <Shield className="w-5 h-5" />, title: 'صلاحيات وصول محددة حسب الموظف', color: 'purple' },
-  { icon: <Settings className="w-5 h-5" />, title: 'تقارير مالية داخلية للإدارة', color: 'purple' }
+const adminFeatures: FeatureInfo[] = [
+  { icon: <Package className="w-5 h-5" />, title: 'إضافة وتعديل المنتجات والتصنيفات', color: 'purple' },
+  { icon: <Ruler className="w-5 h-5" />, title: 'إدارة المقاسات والخامات والتفاصيل الفنية', color: 'purple' },
+  { icon: <ScanLine className="w-5 h-5" />, title: 'ربط الصور والنماذج ثلاثية الأبعاد بالمنتجات', color: 'purple' },
+  { icon: <Tags className="w-5 h-5" />, title: 'إنشاء وإدارة العروض والخصومات', color: 'purple' },
+  { icon: <WalletCards className="w-5 h-5" />, title: 'إدارة قواعد النقاط والكاش باك', color: 'purple' },
+  { icon: <Users className="w-5 h-5" />, title: 'متابعة العملاء وصلاحيات فريق العمل', color: 'purple' }
 ];
 
-const mobileAppFeatures: FeatureInfo[] = [
-  { icon: <Globe className="w-5 h-5" />, title: 'تصفح العقارات كما في الموقع', color: 'blue' },
-  { icon: <CheckCircle className="w-5 h-5" />, title: 'بحث متقدم وفلاتر سريعة', color: 'blue' },
-  { icon: <FileText className="w-5 h-5" />, title: 'إضافة الإعلانات ومعاينتها قبل النشر', color: 'blue' },
-  { icon: <Users className="w-5 h-5" />, title: 'إدارة الحساب والمفضلة والطلبات', color: 'blue' },
-  { icon: <TrendingUp className="w-5 h-5" />, title: 'إشعارات بالعروض الجديدة', color: 'blue' },
-  { icon: <Smartphone className="w-5 h-5" />, title: 'تطبيقات Android و iOS', color: 'blue' }
+const integrationFeatures: FeatureInfo[] = [
+  { icon: <Database className="w-5 h-5" />, title: 'ربط الموقع بقاعدة بيانات المنتجات والعملاء', color: 'blue' },
+  { icon: <ShoppingBag className="w-5 h-5" />, title: 'تكامل مرن مع التطبيق الحالي وواجهات API المتاحة', color: 'blue' },
+  { icon: <Gift className="w-5 h-5" />, title: 'مزامنة برنامج النقاط والكاش باك بين المنصات', color: 'blue' },
+  { icon: <Tags className="w-5 h-5" />, title: 'تحديث الأسعار والعروض من لوحة التحكم', color: 'blue' },
+  { icon: <ScanLine className="w-5 h-5" />, title: 'تهيئة روابط وملفات النماذج ثلاثية الأبعاد للـ AR', color: 'blue' },
+  { icon: <Settings className="w-5 h-5" />, title: 'بنية قابلة للتوسع لشركاء ومنتجات إضافية', color: 'blue' }
 ];
 
 const technologies: ModuleInfo[] = [
-  {
-    title: 'واجهة الويب',
-    description: 'Next.js بلغة JavaScript.',
-    icon: Monitor,
-    items: []
-  },
-  {
-    title: 'الخلفية البرمجية',
-    description: 'Node.js للـ Backend وواجهات الـ API.',
-    icon: Server,
-    items: []
-  },
-  {
-    title: 'تطبيقات الموبايل',
-    description: 'Flutter لتطبيقات Android و iOS.',
-    icon: Smartphone,
-    items: []
-  },
-  {
-    title: 'الاستضافة والنسخ الاحتياطي',
-    description: 'Hostinger مع نسخ احتياطي دوري.',
-    icon: Shield,
-    items: []
-  },
-  {
-    title: 'نسخ احتياطي أوتوماتيك',
-    description: 'خدمة Backup أوتوماتيك أعلى أمان باشتراك 2 دولار.',
-    icon: FileText,
-    items: []
-  },
-  {
-    title: 'نسخة احتياطية للادمن',
-    description: 'إمكانية أخذ نسخة احتياطية على هاتف الادمن عند الحاجة.',
-    icon: FileText,
-    items: []
-  },
-  {
-    title: 'الإشعارات والتوزيع',
-    description: 'Firebase للإشعارات والتوزيع.',
-    icon: Bell,
-    items: []
-  }
-];
-
-const futureSections: SectionInfo[] = [
-  {
-    title: 'التمويل العقاري',
-    icon: DollarSign,
-    items: [
-      'قسم مخصص لخدمات التمويل العقاري.',
-      'سيتم تحديد التفاصيل الوظيفية والتنفيذية لاحقًا من قبل الأستاذ كريم.'
-    ]
-  }
-];
-
-const serviceSections: SectionInfo[] = [
-  {
-    title: 'قسم المقاولات',
-    icon: Package,
-    items: [
-      'قسم لتقديم خدمة البناء.',
-      'سيتم الاتفاق على التفاصيل لاحقًا مع الأستاذ كريم.'
-    ]
-  },
-  {
-    title: 'إدارة الأملاك',
-    icon: Shield,
-    items: [
-      'تقديم خدمة إدارة العقار عبر تأجيره للعملاء.',
-      'تحصيل الإيجارات وتسليمها للمالك دون أي احتكاك بالمستأجرين.',
-      'خدمة متكاملة لتخفيف عبء الإدارة عن المالك.'
-    ]
-  }
+  { title: 'واجهة الويب', description: 'Next.js / React لتجربة سريعة ومتجاوبة ومحسّنة لمحركات البحث.', icon: Monitor, items: [] },
+  { title: 'الخلفية البرمجية', description: 'Node.js وواجهات API آمنة لربط المنتجات والحسابات والنقاط.', icon: Database, items: [] },
+  { title: 'تجهيز الواقع المعزز', description: 'تهيئة ملفات 3D وروابط المنتجات لتتكامل مع تجربة AR عند توفر النماذج.', icon: Box, items: [] },
+  { title: 'لوحة التحكم', description: 'لوحة إدارية سهلة لإدارة الكتالوج والعروض والمحتوى.', icon: LayoutDashboard, items: [] },
+  { title: 'الحماية والصلاحيات', description: 'إدارة آمنة للحسابات والأدوار والبيانات.', icon: Shield, items: [] },
+  { title: 'التكاملات', description: 'تهيئة الربط مع التطبيق الحالي ومصادر بيانات الشركاء حسب الواجهات المتاحة.', icon: Code, items: [] }
 ];
 
 export default function App() {
@@ -280,432 +189,128 @@ export default function App() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100" dir="rtl">
       <header className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-slate-900">عرض سعر منصة ركان للعقارات</h1>
-              <p className="text-sm text-slate-600">عرض السعر التفصيلي للمشروع</p>
+              <h1 className="text-2xl font-bold text-slate-900">عرض سعر منصة الأثاث الذكية</h1>
+              <p className="text-sm text-slate-600">تطوير الموقع الإلكتروني وتجربة عرض الأثاث التفاعلية</p>
             </div>
-            <div className="text-left inline-flex items-center">
-              <img src="/logo.png" alt="Project Logo" className="h-15 inline-block" />
-            </div>
+            <img src="/logo.png" alt="Penta-k" className="h-15 shrink-0" />
           </div>
         </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8">
-        <div className="bg-gradient-to-l from-blue-600 to-blue-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="flex items-start justify-between flex-wrap gap-6">
-            <div className="flex-1">
-              <h2 className="text-3xl font-bold mb-2">وصف عام لمنصة ركان للعقارات</h2>
-              <p className="text-blue-100 text-lg mb-4 leading-relaxed max-w-3xl">
-                منصة ركان للعقارات (موقع إلكتروني + تطبيقات موبايل) تهدف إلى تسهيل عمليات البيع، الإيجار،
-                البحث، ونشر العقارات، مع واجهة سهلة الاستخدام وتجربة مستخدم احترافية، إضافة إلى نظام إداري
-                داخلي لإدارة موظفي الشركة ماليًا.
-              </p>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3 border border-white/20">
-                  <Monitor className="w-5 h-5" />
-                  <span>موقع إلكتروني احترافي</span>
-                </div>
-                <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3 border border-white/20">
-                  <Smartphone className="w-5 h-5" />
-                  <span>تطبيقات Android و iOS</span>
-                </div>
-                <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3 border border-white/20">
-                  <Settings className="w-5 h-5" />
-                  <span>لوحة التحكم الداخلية</span>
-                </div>
-              </div>
-            </div>
+        <section className="bg-gradient-to-l from-indigo-700 to-blue-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
+          <h2 className="text-3xl font-bold mb-3">وصف عام للمشروع</h2>
+          <p className="text-blue-100 text-lg mb-6 leading-relaxed max-w-4xl">
+            تطوير موقع إلكتروني احترافي لشركة ناشئة في مجال الأثاث، يتيح للعميل استكشاف منتجات شركاء الشركة مثل
+            <span className="font-bold text-white"> IKEA</span> و<span className="font-bold text-white"> Home Box</span>،
+            وتجهيز الموقع لمعاينة شكل الأثاث في المنزل عبر الواقع المعزز (AR) عند توفر النماذج ثلاثية الأبعاد.
+            الهدف هو رفع ثقة العميل في قرار الشراء وتقليل التردد وطلبات الإرجاع.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Highlight icon={<ShoppingBag className="w-5 h-5" />} text="كتالوج أثاث متكامل" />
+            <Highlight icon={<ScanLine className="w-5 h-5" />} text="تجهيز وربط تجربة AR" />
+            <Highlight icon={<Gift className="w-5 h-5" />} text="برنامج نقاط وكاش باك" />
           </div>
-        </div>
+        </section>
 
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6">
-            <FileText className="w-8 h-8 text-blue-600" />
-            <h2 className="text-2xl font-bold text-slate-900">نطاق العمل</h2>
-          </div>
-          <p className="text-slate-600 text-lg leading-relaxed mb-4">
-            يشمل نطاق المشروع تطوير موقع إلكتروني عقاري شامل مع لوحة إدارة، وتطبيقات موبايل متكاملة، ونظام
-            إداري داخلي خاص بالشركة لإدارة الموظفين ماليًا، مع قابلية التوسع لإضافة أقسام جديدة لاحقًا.
+        <section className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
+          <div className="flex items-center gap-3 mb-6"><Package className="w-8 h-8 text-blue-600" /><h2 className="text-2xl font-bold text-slate-900">نطاق العمل</h2></div>
+          <p className="text-slate-600 text-lg leading-relaxed mb-6">
+            يشمل نطاق المشروع تصميم وتطوير الموقع الإلكتروني ولوحة التحكم، وربطهما بالتطبيق الحالي وبيانات المنتجات
+            بحسب الواجهات المتاحة، مع تجهيز وربط تجربة AR للمنتجات والنماذج المتوفرة وبرنامج الولاء. لا يشمل العرض تكلفة الاستضافة أو السيرفرات.
           </p>
           <div className="grid md:grid-cols-3 gap-4">
-            {coreModules.map((module) => {
-              const Icon = module.icon;
-              return (
-                <div key={module.title} className="bg-slate-50 rounded-xl p-6 border border-slate-200">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-3 bg-white rounded-lg border border-slate-200">
-                      <Icon className="w-6 h-6 text-slate-700" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-slate-900">{module.title}</h3>
-                      <p className="text-sm text-slate-600">{module.description}</p>
-                    </div>
-                  </div>
-                  <ul className="space-y-2 text-sm text-slate-700">
-                    {module.items.map((item) => (
-                      <li key={item} className="flex items-start gap-2">
-                        <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
+            {coreModules.map((module) => <InfoCard key={module.title} module={module} />)}
           </div>
-        </div>
+        </section>
 
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6">
-            <Globe className="w-8 h-8 text-blue-600" />
-            <h2 className="text-2xl font-bold text-slate-900">أقسام وميزات الموقع الإلكتروني</h2>
-          </div>
+        <section className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
+          <div className="flex items-center gap-3 mb-6"><Globe className="w-8 h-8 text-blue-600" /><h2 className="text-2xl font-bold text-slate-900">أقسام وميزات الموقع الإلكتروني</h2></div>
           <div className="grid md:grid-cols-2 gap-6">
-            {websiteSections.map((section) => {
-              const Icon = section.icon;
-              return (
-                <div key={section.title} className="bg-slate-50 rounded-xl p-6 border border-slate-200">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-3 bg-white rounded-lg border border-slate-200">
-                      <Icon className="w-5 h-5 text-slate-700" />
-                    </div>
-                    <h3 className="text-lg font-bold text-slate-900">{section.title}</h3>
-                  </div>
-                  <ul className="space-y-2 text-sm text-slate-700">
-                    {section.items.map((item) => (
-                      <li key={item} className="flex items-start gap-2">
-                        <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {section.goal ? (
-                    <p className="text-sm text-slate-600 mt-4">
-                      <span className="font-semibold">الهدف:</span> {section.goal}
-                    </p>
-                  ) : null}
-                </div>
-              );
-            })}
+            {websiteSections.map((section) => <InfoCard key={section.title} module={section} />)}
           </div>
-        </div>
+        </section>
 
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-purple-100 rounded-lg">
-              <Settings className="w-7 h-7 text-purple-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">لوحة إدارة المدفوعات المالية</h2>
-              <p className="text-sm text-slate-600">داش بورد داخلية لتسجيل الأموال المدفوعة من العملاء</p>
-            </div>
-          </div>
+        <FeatureSection icon={<LayoutDashboard className="w-7 h-7 text-purple-600" />} title="لوحة التحكم والإدارة" subtitle="إدارة كل ما يظهر للعميل من مكان واحد" features={adminFeatures} color="purple" />
+        <FeatureSection icon={<Settings className="w-7 h-7 text-blue-600" />} title="الربط والتكامل مع التطبيق" subtitle="تجربة موحدة بين الموقع والتطبيق الحالي" features={integrationFeatures} color="blue" />
+
+        <section className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
+          <div className="flex items-center gap-3 mb-6"><Code className="w-8 h-8 text-blue-600" /><h2 className="text-2xl font-bold text-slate-900">التقنيات المقترحة</h2></div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {internalSystemFeatures.map((feature) => (
-              <FeatureItem
-                key={feature.title}
-                icon={feature.icon}
-                title={feature.title}
-                color={feature.color}
-              />
-            ))}
+            {technologies.map((tech) => <InfoCard key={tech.title} module={tech} compact />)}
           </div>
-        </div>
+        </section>
 
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-blue-100 rounded-lg">
-              <Smartphone className="w-7 h-7 text-blue-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900">تطبيقات الموبايل (Android & iOS)</h2>
-              <p className="text-sm text-slate-600">نفس خصائص الموقع مع تجربة استخدام سلسة عبر الهواتف</p>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {mobileAppFeatures.map((feature) => (
-              <FeatureItem
-                key={feature.title}
-                icon={feature.icon}
-                title={feature.title}
-                color={feature.color}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6">
-            <Code className="w-8 h-8 text-blue-600" />
-            <h2 className="text-2xl font-bold text-slate-900">التقنيات المستخدمة</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {technologies.map((tech) => {
-              const Icon = tech.icon;
-              return (
-                <div key={tech.title} className="bg-slate-50 rounded-xl p-6 border border-slate-200">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="p-3 bg-white rounded-lg border border-slate-200">
-                      <Icon className="w-6 h-6 text-slate-700" />
-                    </div>
-                    <h3 className="text-lg font-bold text-slate-900">{tech.title}</h3>
-                  </div>
-                  <p className="text-sm text-slate-600">{tech.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6">
-            <Package className="w-8 h-8 text-amber-600" />
-            <h2 className="text-2xl font-bold text-slate-900">خدمات إضافية</h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
-            {serviceSections.map((section) => {
-              const Icon = section.icon;
-              return (
-                <div key={section.title} className="bg-amber-50 rounded-xl p-6 border border-amber-200">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-3 bg-white rounded-lg border border-amber-200">
-                      <Icon className="w-5 h-5 text-amber-700" />
-                    </div>
-                    <h3 className="text-lg font-bold text-slate-900">{section.title}</h3>
-                  </div>
-                  <ul className="space-y-2 text-sm text-slate-700">
-                    {section.items.map((item) => (
-                      <li key={item} className="flex items-start gap-2">
-                        <CheckCircle className="w-4 h-4 text-amber-600 mt-0.5" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6">
-            <Package className="w-8 h-8 text-amber-600" />
-            <h2 className="text-2xl font-bold text-slate-900">أقسام جديدة (تطوير لاحقًا)</h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {futureSections.map((section) => {
-              const Icon = section.icon;
-              return (
-                <div key={section.title} className="bg-amber-50 rounded-xl p-6 border border-amber-200">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-3 bg-white rounded-lg border border-amber-200">
-                      <Icon className="w-5 h-5 text-amber-700" />
-                    </div>
-                    <h3 className="text-lg font-bold text-slate-900">{section.title}</h3>
-                  </div>
-                  <ul className="space-y-2 text-sm text-slate-700">
-                    {section.items.map((item) => (
-                      <li key={item} className="flex items-start gap-2">
-                        <CheckCircle className="w-4 h-4 text-amber-600 mt-0.5" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-l from-emerald-600 to-emerald-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-emerald-500">
-            <div className="p-3 bg-emerald-500 rounded-lg">
-              <DollarSign className="w-7 h-7 text-white" />
-            </div>
-            <h2 className="text-2xl font-bold">السعر الإجمالي للمشروع</h2>
-          </div>
+        <section className="bg-gradient-to-l from-emerald-600 to-teal-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
+          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-emerald-400"><WalletCards className="w-7 h-7" /><h2 className="text-2xl font-bold">السعر الإجمالي للمشروع</h2></div>
           <div className="text-center mb-6">
-            <div className="text-6xl font-bold mb-2">13,000 ريال سعودي</div>
-            <div className="text-emerald-100 text-lg">
-              يشمل الموقع الإلكتروني وتطبيقات Android و iOS والنظام الإداري المالي
-            </div>
-            <div className="text-emerald-100 text-sm mt-2">
-              السعر الإجمالي يشمل باقة السيرفرات الخاصة لشركة العقارات بقيمة 1,200 ريال سعودي.
+            <div className="text-5xl sm:text-6xl font-bold mb-2">١٥٠,٠٠٠ جنيه مصري</div>
+            <div className="text-emerald-100 text-lg">يشمل تطوير الموقع الإلكتروني ولوحة التحكم والتكاملات الموضحة في نطاق العمل</div>
+            <div className="mt-3 inline-flex items-center gap-2 bg-amber-400/20 border border-amber-200/50 rounded-full px-4 py-2 text-amber-50 font-semibold">
+              <Shield className="w-4 h-4" /> السعر لا يشمل تكلفة السيرفر أو الاستضافة أو رسوم الخدمات الخارجية.
             </div>
           </div>
           <div className="bg-emerald-500/30 rounded-xl p-6 border border-emerald-400 mb-6">
             <h3 className="text-xl font-bold mb-4">طريقة الدفع</h3>
             <div className="grid md:grid-cols-4 gap-4">
-              <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-                <div className="text-2xl font-bold mb-1">25%</div>
-                <div className="text-sm text-emerald-100">مقدم</div>
-                <div className="text-sm text-emerald-100 mt-1">3,125 ريال سعودي</div>
-              </div>
-              <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-                <div className="text-2xl font-bold mb-1">30%</div>
-                <div className="text-sm text-emerald-100">بعد تسليم الموقع الإلكتروني</div>
-                <div className="text-sm text-emerald-100 mt-1">3,750 ريال سعودي</div>
-              </div>
-              <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-                <div className="text-2xl font-bold mb-1">30%</div>
-                <div className="text-sm text-emerald-100">بعد تسليم تطبيقات Android و iOS</div>
-                <div className="text-sm text-emerald-100 mt-1">3,750 ريال سعودي</div>
-              </div>
-              <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20">
-                <div className="text-2xl font-bold mb-1">15%</div>
-                <div className="text-sm text-emerald-100">بعد إطلاق التطبيقات وتدريب الموظفين</div>
-                <div className="text-sm text-emerald-100 mt-1">2,375 ريال سعودي</div>
-              </div>
-            </div>
-          </div>
-          <div className="bg-emerald-500/30 rounded-xl p-6 border border-emerald-400 mb-6">
-            <h3 className="text-xl font-bold mb-4">اشتراكات وتشغيل</h3>
-            <div className="space-y-4 text-sm text-emerald-100">
-              <div>
-                <div className="font-semibold mb-2">باقة السيرفرات الخاصة (مدرجة في السعر 13,000)</div>
-                <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
-                    <span>إجمالي باقة السيرفرات الخاصة: 1,200 ريال.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
-                    <span>سيرفر خاص للشركة: 700 ريال (يشمل المتابعة والدعم الفني).</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
-                    <span>منصة Google Play: 94 ريال دفع مرة واحدة مدى الحياة.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
-                    <span>منصة Apple iOS: 380 ريال سنويًا.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
-                    <span>خدمة Backup أوتوماتيك أعلى أمان: اشتراك 2 دولار.</span>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <div className="font-semibold mb-2">في حالة الاشتراك على سيرفرات شركتنا</div>
-                <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
-                    <span>إجمالي الباقة يصبح 900 ريال بدلًا من 1,200 ريال.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
-                    <span>اشتراك السيرفر لدينا: 400 ريال (ضمن الباقة).</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
-                    <span>منصة Google Play: 94 ريال دفع مرة واحدة مدى الحياة.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
-                    <span>منصة Apple iOS: 380 ريال سنويًا.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-white mt-0.5" />
-                    <span>خدمة Backup أوتوماتيك أعلى أمان: اشتراك 2 دولار.</span>
-                  </li>
-                </ul>
-              </div>
+              <Payment percent="25%" label="مقدم لبدء العمل" amount="٣٧,٥٠٠ جنيه" />
+              <Payment percent="30%" label="بعد اعتماد التصميم وتسليم النسخة الأولية" amount="٤٥,٠٠٠ جنيه" />
+              <Payment percent="30%" label="بعد تسليم الموقع ولوحة التحكم" amount="٤٥,٠٠٠ جنيه" />
+              <Payment percent="15%" label="بعد الإطلاق والتسليم النهائي" amount="٢٢,٥٠٠ جنيه" />
             </div>
           </div>
           <div className="grid md:grid-cols-3 gap-4">
-            <div className="bg-emerald-500/30 rounded-xl p-4 border border-emerald-400 text-center">
-              <CheckCircle className="w-6 h-6 mx-auto mb-2 text-white" />
-              <div className="font-semibold">موقع إلكتروني متكامل</div>
-            </div>
-            <div className="bg-emerald-500/30 rounded-xl p-4 border border-emerald-400 text-center">
-              <CheckCircle className="w-6 h-6 mx-auto mb-2 text-white" />
-              <div className="font-semibold">تطبيقات Android و iOS</div>
-            </div>
-            <div className="bg-emerald-500/30 rounded-xl p-4 border border-emerald-400 text-center">
-              <CheckCircle className="w-6 h-6 mx-auto mb-2 text-white" />
-              <div className="font-semibold">لوحة التحكم الداخلية</div>
-            </div>
+            <Highlight icon={<CheckCircle className="w-6 h-6" />} text="موقع إلكتروني متكامل" />
+            <Highlight icon={<CheckCircle className="w-6 h-6" />} text="لوحة تحكم للمنتجات والعروض" />
+            <Highlight icon={<CheckCircle className="w-6 h-6" />} text="نقاط وكاش باك وتجهيز AR" />
           </div>
-        </div>
+        </section>
 
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-green-200">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
-            <div className="p-3 bg-green-100 rounded-lg">
-              <Award className="w-7 h-7 text-green-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900">Free Services - مميزات مجانية ضمن العرض</h2>
+        <section className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-green-200">
+          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200"><Award className="w-7 h-7 text-green-600" /><h2 className="text-2xl font-bold text-slate-900">خدمات مجانية ضمن العرض</h2></div>
+          <div className="grid md:grid-cols-3 gap-4">
+            <FreeService title="دعم فني مجاني" detail="لمدة 3 أشهر بعد الإطلاق" />
+            <FreeService title="تدريب فريق الإدارة" detail="على لوحة التحكم وإدارة المحتوى" />
+            <FreeService title="تهيئة أولية للمحتوى" detail="لإضافة التصنيفات والمنتجات الأولى" />
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">دعم فني مجاني</div>
-              <div className="text-slate-600 text-sm">لمدة سنة</div>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-              <div className="text-green-600 font-bold text-lg mb-1">رفع على المتاجر</div>
-              <div className="text-slate-600 text-sm">مجاناً خلال أول سنة</div>
-            </div>
+          <div className="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200 flex items-start gap-3">
+            <Shield className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" />
+            <p className="text-sm text-slate-600"><span className="font-semibold text-slate-700">ملاحظة مهمة:</span> تكلفة السيرفر والاستضافة، ورسوم المتاجر أو خدمات الطرف الثالث، وتجهيز أو إنتاج النماذج ثلاثية الأبعاد غير مشمولة ما لم يتم الاتفاق عليها بشكل منفصل.</p>
           </div>
+        </section>
 
-          <div className="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200">
-            <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-amber-600 mt-0.5" />
-              <div>
-                <p className="text-slate-700 font-semibold mb-1">سياسة حسابات النشر (Google & Apple)</p>
-                <p className="text-sm text-slate-600">
-                  يتم رفع التطبيق مجاناً خلال أول سنة على حسابات الشركة لتقليل التكلفة المبدئية وضمان
-                  الالتزام بسياسات المتاجر.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg text-center">
+        <section className="bg-white rounded-2xl p-8 mb-8 shadow-lg text-center">
           <h2 className="text-3xl font-bold text-slate-900 mb-4">تواصل معنا</h2>
           <div className="flex flex-col items-center gap-4">
-            <div className="flex items-center gap-3 text-lg">
-              <Globe className="w-6 h-6 text-blue-600" />
-              <a href="https://penta-k.com" className="text-blue-600 hover:underline font-semibold">
-                penta-k.com
-              </a>
-            </div>
-            <div className="flex items-center gap-3 text-lg" dir="ltr">
-              <PhoneCall className="w-6 h-6 text-green-600" />
-              <a href="tel:+201061942646" className="text-green-600 hover:underline font-semibold">
-                +20 10 61942646
-              </a>
-            </div>
+            <a href="https://penta-k.com" className="flex items-center gap-3 text-lg text-blue-600 hover:underline font-semibold"><Globe className="w-6 h-6" />penta-k.com</a>
+            <a href="tel:+201061942646" dir="ltr" className="flex items-center gap-3 text-lg text-green-600 hover:underline font-semibold"><PhoneCall className="w-6 h-6" />+20 10 61942646</a>
           </div>
-
-          <div className="mt-8 pt-6 border-t border-slate-200">
-            <p className="text-slate-600">
-              شكرًا لثقتكم في <span className="font-bold text-blue-600">Penta-k</span>
-            </p>
-            <p className="text-sm text-slate-500 mt-2">نتطلع للعمل معكم على هذا المشروع العقاري.</p>
-          </div>
-        </div>
+          <div className="mt-8 pt-6 border-t border-slate-200"><p className="text-slate-600">شكرًا لثقتكم في <span className="font-bold text-blue-600">Penta-k</span></p><p className="text-sm text-slate-500 mt-2">نتطلع لبناء تجربة أثاث رقمية مميزة لعملائكم.</p></div>
+        </section>
       </main>
     </div>
   );
 }
 
-function FeatureItem({ icon, title, color = 'blue' }: { icon: React.ReactNode; title: string; color?: string }) {
-  const colorClasses = {
-    blue: 'bg-blue-50 text-blue-600 border-blue-100',
-    green: 'bg-green-50 text-green-600 border-green-100',
-    purple: 'bg-purple-50 text-purple-600 border-purple-100',
-    orange: 'bg-orange-50 text-orange-600 border-orange-100'
-  };
-
-  return (
-    <div className={`flex items-start gap-3 p-3 rounded-lg border ${colorClasses[color as keyof typeof colorClasses]}`}>
-      <div className="mt-0.5">{icon}</div>
-      <span className="text-sm text-slate-700">{title}</span>
-    </div>
-  );
+function InfoCard({ module, compact = false }: { module: SectionInfo; compact?: boolean }) {
+  const Icon = module.icon;
+  return <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+    <div className="flex items-center gap-3 mb-3"><div className="p-3 bg-white rounded-lg border border-slate-200"><Icon className="w-5 h-5 text-slate-700" /></div><div><h3 className="text-lg font-bold text-slate-900">{module.title}</h3>{!compact && <p className="text-sm text-slate-600">{module.description}</p>}</div></div>
+    {compact ? <p className="text-sm text-slate-600">{module.description}</p> : <><ul className="space-y-2 text-sm text-slate-700">{module.items.map((item) => <li key={item} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" /><span>{item}</span></li>)}</ul>{module.goal && <p className="text-sm text-slate-600 mt-4"><span className="font-semibold">الهدف:</span> {module.goal}</p>}</>}
+  </div>;
 }
+
+function FeatureSection({ icon, title, subtitle, features, color }: { icon: React.ReactNode; title: string; subtitle: string; features: FeatureInfo[]; color: 'blue' | 'purple' }) {
+  return <section className="bg-white rounded-2xl p-8 mb-8 shadow-lg"><div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200"><div className={`p-3 rounded-lg ${color === 'purple' ? 'bg-purple-100' : 'bg-blue-100'}`}>{icon}</div><div><h2 className="text-2xl font-bold text-slate-900">{title}</h2><p className="text-sm text-slate-600">{subtitle}</p></div></div><div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">{features.map((feature) => <FeatureItem key={feature.title} {...feature} />)}</div></section>;
+}
+
+function FeatureItem({ icon, title, color = 'blue' }: FeatureInfo) {
+  const colorClasses = { blue: 'bg-blue-50 text-blue-600 border-blue-100', green: 'bg-green-50 text-green-600 border-green-100', purple: 'bg-purple-50 text-purple-600 border-purple-100', orange: 'bg-orange-50 text-orange-600 border-orange-100' };
+  return <div className={`flex items-start gap-3 p-3 rounded-lg border ${colorClasses[color]}`}><div className="mt-0.5">{icon}</div><span className="text-sm text-slate-700">{title}</span></div>;
+}
+
+function Highlight({ icon, text }: { icon: React.ReactNode; text: string }) { return <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3 border border-white/20">{icon}<span>{text}</span></div>; }
+function Payment({ percent, label, amount }: { percent: string; label: string; amount: string }) { return <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20"><div className="text-2xl font-bold mb-1">{percent}</div><div className="text-sm text-emerald-100 min-h-10">{label}</div><div className="text-sm text-emerald-100 mt-1">{amount}</div></div>; }
+function FreeService({ title, detail }: { title: string; detail: string }) { return <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center"><div className="text-green-600 font-bold text-lg mb-1">{title}</div><div className="text-slate-600 text-sm">{detail}</div></div>; }
