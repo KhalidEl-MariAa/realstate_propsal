@@ -1,316 +1,256 @@
 import {
   Award,
-  Box,
-  CheckCircle,
-  Code,
+  BarChart3,
+  Bell,
+  BookOpen,
+  CalendarDays,
+  CheckCircle2,
+  CircleDollarSign,
+  ClipboardList,
+  Clock3,
+  Coins,
+  CreditCard,
   Database,
-  Gift,
-  Globe,
+  FileQuestion,
+  GraduationCap,
   LayoutDashboard,
   Monitor,
-  Package,
+  NotebookTabs,
   PhoneCall,
-  Ruler,
-  ScanLine,
   Settings,
-  Shield,
-  ShoppingBag,
-  Tags,
-  Users,
-  WalletCards,
+  ShieldCheck,
+  Sparkles,
+  UserRound,
+  UsersRound,
+  Video,
 } from 'lucide-react';
 import React from 'react';
 
 type IconType = React.ComponentType<{ className?: string }>;
 
-type ModuleInfo = {
+type Module = {
   title: string;
-  description: string;
+  description?: string;
   icon: IconType;
   items: string[];
+  tone?: 'blue' | 'violet' | 'emerald' | 'amber';
 };
 
-type SectionInfo = ModuleInfo & { goal?: string };
-
-type FeatureInfo = {
-  icon: React.ReactNode;
-  title: string;
-  color?: 'blue' | 'green' | 'purple' | 'orange';
-};
-
-const coreModules: ModuleInfo[] = [
+const mobileModules: Module[] = [
   {
-    title: 'الموقع الإلكتروني',
-    description: 'موقع احترافي يعرض منتجات الشركاء ويوجه العميل لقرار شراء واثق.',
-    icon: Monitor,
-    items: [
-      'واجهة متجاوبة بالكامل للهواتف والأجهزة المكتبية.',
-      'عرض منتجات IKEA وHome Box ضمن تصنيفات واضحة.',
-      'بحث وفلاتر ومفضلة وتجربة تصفح سريعة.'
-    ]
+    title: 'تسجيل الدخول والحسابات',
+    description: 'رحلة تسجيل بسيطة ومخصصة لكل طالب.',
+    icon: UserRound,
+    items: ['تسجيل حساب جديد وتسجيل الدخول.', 'استعادة كلمة المرور.', 'إعداد الملف الشخصي.', 'تحديد الجامعة والفرقة الدراسية.'],
   },
-  {
-    title: 'تجهيز تجربة AR',
-    description: 'تجهيز وربط الموقع لدعم معاينة الأثاث بالواقع المعزز.',
-    icon: ScanLine,
-    items: [
-      'تجهيز زر معاينة القطعة في المكان عبر الموبايل (AR).',
-      'تهيئة مسارات عرض النماذج ثلاثية الأبعاد المتاحة.',
-      'ربط المنتج بنموذج 3D عند توفره من الشركة أو الشريك.'
-    ]
-  },
-  {
-    title: 'لوحة التحكم',
-    description: 'لوحة إدارية لإدارة المحتوى والمنتجات والعروض والنقاط.',
-    icon: LayoutDashboard,
-    items: [
-      'إدارة المنتجات والتصنيفات والصور والموديلات ثلاثية الأبعاد.',
-      'إدارة الأسعار والخصومات والعروض الموسمية.',
-      'متابعة العملاء والنقاط والكاش باك.'
-    ]
-  }
-];
-
-const websiteSections: SectionInfo[] = [
   {
     title: 'الصفحة الرئيسية',
-    icon: Globe,
-    items: [
-      'تعريف مختصر بالشركة وفكرة معاينة الأثاث قبل الشراء.',
-      'إبراز الشراكات مع IKEA وHome Box.',
-      'عرض التصنيفات والمنتجات المميزة وأحدث العروض.',
-      'دعوات واضحة للتصفح وتجربة المعاينة بالواقع المعزز.'
-    ],
-    goal: 'بناء الثقة وتحويل الزائر إلى عميل مهتم بالشراء.'
+    description: 'لوحة يومية تساعد الطالب على الاستمرار في المذاكرة.',
+    icon: Sparkles,
+    items: ['ترحيب مخصص بالطالب.', 'XP وCurrent Streak.', 'الأهداف اليومية وMotivation Quote.', 'متابعة آخر محتوى تم الوصول إليه.', 'عرض المواد والشابترز الحالية، والجلسات القادمة، ومستوى التقدم الدراسي.'],
+    tone: 'violet',
   },
   {
-    title: 'كتالوج المنتجات',
-    icon: ShoppingBag,
-    items: [
-      'تصنيفات مثل غرف المعيشة، غرف النوم، المكاتب، الإضاءة والإكسسوارات.',
-      'بحث ذكي وفلاتر حسب الفئة، العلامة التجارية، السعر، اللون والخامة.',
-      'بطاقات منتج واضحة تشمل الصورة والسعر والخصم وحالة توفر المعاينة ثلاثية الأبعاد.'
-    ],
-    goal: 'تسهيل اكتشاف القطعة المناسبة بأقل عدد من الخطوات.'
+    title: 'المواد الدراسية',
+    description: 'تنظيم المحتوى: Subjects ← Chapters ← Educational Content.',
+    icon: BookOpen,
+    items: ['محاضرات ومواد دراسية وملفات PDF.', 'Videos / External Links عند الحاجة.', 'Question Bank وFlashcards.', 'Practice Questions وTimed Quizzes.', 'Bookmarked Questions مع متابعة نسبة الإنجاز لكل مادة وChapter.'],
+    tone: 'emerald',
   },
   {
-    title: 'تفاصيل المنتج والمقاسات',
-    icon: Ruler,
-    items: [
-      'عرض دقيق للطول والعرض والارتفاع والوزن وأي مقاسات إضافية.',
-      'وصف مختصر للخامات المستخدمة: خشب، معدن، قماش وغيرها.',
-      'صور متعددة ومعلومات العلامة التجارية والسعر الحالي.',
-      'إظهار حالة الخصم وتفاصيل السعر قبل وبعد العرض.'
-    ],
-    goal: 'مساعدة العميل على التأكد من ملاءمة القطعة لمساحته وديكوره.'
+    title: 'بنك الأسئلة',
+    description: 'تجربة اختبار واضحة ومناسبة للمراجعة والتقييم.',
+    icon: FileQuestion,
+    items: ['أسئلة MCQ واختيار الإجابة.', 'إظهار الإجابة الصحيحة وشرحها.', 'الانتقال بين الأسئلة وإضافتها للمفضلة.', 'Timer للاختبارات المحددة بوقت.', 'حساب الإجابات الصحيحة والخاطئة وعدد الأسئلة المحلولة.'],
+    tone: 'amber',
   },
   {
-    title: 'تجهيز المعاينة بالواقع المعزز AR',
-    icon: ScanLine,
-    items: [
-      'تجهيز صفحة المنتج لفتح نموذج ثلاثي الأبعاد على الهاتف.',
-      'ربط النماذج المتاحة بخدمة أو تطبيق الواقع المعزز.',
-      'تهيئة تجربة قابلة للتوسع عند اعتماد النماذج ثلاثية الأبعاد.'
-    ],
-    goal: 'تجهيز أساس تقني يدعم تجربة معاينة واقعية عند توفير النماذج.'
+    title: 'Flashcards',
+    description: 'مراجعة سريعة ومرنة للمفاهيم المهمة.',
+    icon: NotebookTabs,
+    items: ['عرض السؤال والإجابة وتقليب الكارت.', 'الانتقال بين الكروت.', 'تحديد الكروت الصعبة.', 'متابعة مستوى التقدم.'],
+    tone: 'violet',
   },
-  {
-    title: 'العروض والخصومات',
-    icon: Tags,
-    items: [
-      'صفحة مخصصة لكل المنتجات المخفضة.',
-      'إظهار السعر السابق والسعر بعد الخصم ونسبة التوفير.',
-      'تصنيفات للعروض لتصل للعميل بسهولة.'
-    ],
-    goal: 'زيادة الوصول للعروض وتحفيز الشراء.'
-  },
-  {
-    title: 'برنامج الولاء والنقاط',
-    icon: Gift,
-    items: [
-      'احتساب نقاط للعميل عند كل عملية شراء من التطبيق.',
-      'عرض رصيد النقاط وسجل عمليات الكسب والاستبدال.',
-      'تحويل النقاط إلى كاش باك يستخدم كخصم على عملية شراء لاحقة.',
-      'قواعد قابلة للإدارة لتحديد قيمة النقاط وشروط الاستخدام.'
-    ],
-    goal: 'زيادة عودة العملاء ورفع قيمة المشتريات المتكررة.'
-  },
-  {
-    title: 'حساب العميل والمفضلة',
-    icon: Users,
-    items: [
-      'تسجيل دخول آمن وإدارة بيانات العميل.',
-      'حفظ المنتجات المفضلة للرجوع إليها لاحقًا.',
-      'متابعة النقاط والكاش باك والعروض ذات الصلة.'
-    ],
-    goal: 'تجربة شخصية متصلة بالموقع والتطبيق.'
-  },
-  {
-    title: 'صفحات الشركة والدعم',
-    icon: Shield,
-    items: [
-      'من نحن، الشركاء، تواصل معنا، الأسئلة الشائعة.',
-      'الشروط والأحكام وسياسة الخصوصية.',
-      'روابط تحميل التطبيق وقنوات الدعم.'
-    ],
-    goal: 'تعزيز مصداقية الشركة وتسهيل التواصل مع العملاء.'
-  }
 ];
 
-const adminFeatures: FeatureInfo[] = [
-  { icon: <Package className="w-5 h-5" />, title: 'إضافة وتعديل المنتجات والتصنيفات', color: 'purple' },
-  { icon: <Ruler className="w-5 h-5" />, title: 'إدارة المقاسات والخامات والتفاصيل الفنية', color: 'purple' },
-  { icon: <ScanLine className="w-5 h-5" />, title: 'ربط الصور والنماذج ثلاثية الأبعاد بالمنتجات', color: 'purple' },
-  { icon: <Tags className="w-5 h-5" />, title: 'إنشاء وإدارة العروض والخصومات', color: 'purple' },
-  { icon: <WalletCards className="w-5 h-5" />, title: 'إدارة قواعد النقاط والكاش باك', color: 'purple' },
-  { icon: <Users className="w-5 h-5" />, title: 'متابعة العملاء وصلاحيات فريق العمل', color: 'purple' }
+const planner: Module = {
+  title: 'Planner',
+  description: 'قسم مخصص لتنظيم مذاكرة الطالب ومتابعة أهدافه.',
+  icon: CalendarDays,
+  items: ['Study Calendar.', 'Daily Goals.', 'Exam Planner وإضافة مواعيد الامتحانات.', 'Countdown للامتحان.', 'Reminder Notifications.', 'Progress Checklist ومتابعة المهام اليومية.'],
+  tone: 'emerald',
+};
+
+const mentorStudentItems = [
+  'مشاهدة قائمة الـ Mentors والـ Profile الخاص بكل Mentor.',
+  'معرفة التخصص والخبرة والتقييم وسعر الجلسة بالـ Coins.',
+  'مشاهدة المواعيد المتاحة واختيار الموعد وحجز الجلسة.',
+  'دفع قيمة الجلسة من رصيد الـ Coins.',
+  'مشاهدة الجلسات القادمة والسابقة وتقييم الـ Mentor بعد انتهاء الجلسة.',
 ];
 
-const integrationFeatures: FeatureInfo[] = [
-  { icon: <Database className="w-5 h-5" />, title: 'ربط الموقع بقاعدة بيانات المنتجات والعملاء', color: 'blue' },
-  { icon: <ShoppingBag className="w-5 h-5" />, title: 'تكامل مرن مع التطبيق الحالي وواجهات API المتاحة', color: 'blue' },
-  { icon: <Gift className="w-5 h-5" />, title: 'مزامنة برنامج النقاط والكاش باك بين المنصات', color: 'blue' },
-  { icon: <Tags className="w-5 h-5" />, title: 'تحديث الأسعار والعروض من لوحة التحكم', color: 'blue' },
-  { icon: <ScanLine className="w-5 h-5" />, title: 'تهيئة روابط وملفات النماذج ثلاثية الأبعاد للـ AR', color: 'blue' },
-  { icon: <Settings className="w-5 h-5" />, title: 'بنية قابلة للتوسع لشركاء ومنتجات إضافية', color: 'blue' }
+const mentorItems = [
+  'إنشاء وتعديل الـ Profile الخاص به.',
+  'تحديد المواعيد المتاحة واستقبال طلبات الحجز.',
+  'قبول أو رفض الحجز وإضافة Zoom Meeting Link للجلسة.',
+  'مشاهدة الجلسات القادمة والسابقة ومتابعة الأرباح.',
+  'تقديم طلب سحب الأرباح.',
 ];
 
-const technologies: ModuleInfo[] = [
-  { title: 'واجهة الويب', description: 'Next.js / React لتجربة سريعة ومتجاوبة ومحسّنة لمحركات البحث.', icon: Monitor, items: [] },
-  { title: 'الخلفية البرمجية', description: 'Node.js وواجهات API آمنة لربط المنتجات والحسابات والنقاط.', icon: Database, items: [] },
-  { title: 'تجهيز الواقع المعزز', description: 'تهيئة ملفات 3D وروابط المنتجات لتتكامل مع تجربة AR عند توفر النماذج.', icon: Box, items: [] },
-  { title: 'لوحة التحكم', description: 'لوحة إدارية سهلة لإدارة الكتالوج والعروض والمحتوى.', icon: LayoutDashboard, items: [] },
-  { title: 'الحماية والصلاحيات', description: 'إدارة آمنة للحسابات والأدوار والبيانات.', icon: Shield, items: [] },
-  { title: 'التكاملات', description: 'تهيئة الربط مع التطبيق الحالي ومصادر بيانات الشركاء حسب الواجهات المتاحة.', icon: Code, items: [] }
+const dashboardModules: Module[] = [
+  { title: 'المستخدمون', icon: UsersRound, items: ['إدارة الطلاب والـ Mentors.', 'إدارة الحسابات والصلاحيات.'] },
+  { title: 'المواد والمحتوى', icon: BookOpen, items: ['إضافة وتعديل وحذف المواد والـ Chapters.', 'رفع ملفات PDF وإضافة المحاضرات والمواد.', 'إضافة الروابط والفيديوهات.'], tone: 'emerald' },
+  { title: 'Question Bank وFlashcards', icon: FileQuestion, items: ['إضافة الأسئلة والاختيارات والإجابات الصحيحة والشرح.', 'تصنيف السؤال حسب المادة والـ Chapter.', 'إضافة وتعديل وحذف الـ Flashcards.'], tone: 'violet' },
+  { title: 'Mentors وSessions', icon: Video, items: ['مراجعة واعتماد الـ Mentors وإدارة بياناتهم.', 'متابعة التقييمات والجلسات والحجوزات.', 'إدارة حالات الجلسات ومتابعة روابط Zoom.'], tone: 'amber' },
+  { title: 'Coins والأرباح', icon: Coins, items: ['إنشاء باقات Coins وتحديد أسعارها وأسعار الجلسات.', 'متابعة معاملات الـ Coins.', 'متابعة أرباح الـ Mentors وطلبات السحب وقبولها أو رفضها.'], tone: 'emerald' },
+  { title: 'الإشعارات والإحصائيات', icon: BarChart3, items: ['إرسال Notifications للمستخدمين.', 'عرض عدد المستخدمين ونشاط الطلاب والأسئلة المحلولة.', 'متابعة الجلسات والإيرادات ومعاملات الـ Coins.'], tone: 'violet' },
+];
+
+const overviewItems = [
+  { icon: <GraduationCap className="w-5 h-5" />, label: 'تطبيق مخصص لطلاب الطب' },
+  { icon: <Video className="w-5 h-5" />, label: 'جلسات فردية مع Mentors' },
+  { icon: <LayoutDashboard className="w-5 h-5" />, label: 'Web Dashboard متكامل' },
+];
+
+const userInsights = [
+  { icon: <BarChart3 className="w-5 h-5" />, title: 'الإحصائيات', items: ['الأسئلة المحلولة والإجابات الصحيحة والخاطئة ونسبة النجاح.', 'XP وStreak وStudy Progress.', 'Daily / Weekly Progress وعدد الـ Chapters المكتملة.'] },
+  { icon: <UserRound className="w-5 h-5" />, title: 'الملف الشخصي', items: ['الاسم، الصورة الشخصية، الجامعة والفرقة الدراسية.', 'XP وRank وStreak وQuestions Solved.', 'Study Hours وCompleted Chapters وCoins Balance وAchievements والإعدادات.'] },
+  { icon: <Bell className="w-5 h-5" />, title: 'الإشعارات', items: ['تذكير بالجلسات والامتحانات والمذاكرة.', 'قبول أو رفض الحجز.', 'إضافة محتوى جديد، والإعلانات والتنبيهات العامة.'] },
 ];
 
 export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100" dir="rtl">
-      <header className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl font-bold text-slate-900">عرض سعر منصة الأثاث الذكية</h1>
-              <p className="text-sm text-slate-600">تطوير الموقع الإلكتروني وتجربة عرض الأثاث التفاعلية</p>
-            </div>
-            <img src="/logo.png" alt="Penta-k" className="h-15 shrink-0" />
+      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900">عرض سعر – تطبيق تعليمي لطلاب الطب</h1>
+            <p className="mt-1 text-sm text-slate-600">تطبيق موبايل ومنصة إدارة متكاملة</p>
           </div>
+          <img src="/logo.png" alt="Penta-k" className="h-14 shrink-0 object-contain" />
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        <section className="bg-gradient-to-l from-indigo-700 to-blue-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <h2 className="text-3xl font-bold mb-3">وصف عام للمشروع</h2>
-          <p className="text-blue-100 text-lg mb-6 leading-relaxed max-w-4xl">
-            تطوير موقع إلكتروني احترافي لشركة ناشئة في مجال الأثاث، يتيح للعميل استكشاف منتجات شركاء الشركة مثل
-            <span className="font-bold text-white"> IKEA</span> و<span className="font-bold text-white"> Home Box</span>،
-            وتجهيز الموقع لمعاينة شكل الأثاث في المنزل عبر الواقع المعزز (AR) عند توفر النماذج ثلاثية الأبعاد.
-            الهدف هو رفع ثقة العميل في قرار الشراء وتقليل التردد وطلبات الإرجاع.
+      <main className="mx-auto max-w-7xl px-6 py-8">
+        <section className="mb-8 rounded-2xl bg-gradient-to-l from-indigo-700 to-blue-700 p-8 text-white shadow-xl">
+          <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-sm font-medium"><GraduationCap className="w-4 h-4" /> عرض سعر</p>
+          <h2 className="mb-3 text-3xl font-bold">نبذة عن المشروع</h2>
+          <p className="max-w-5xl text-lg leading-8 text-blue-100">
+            تنفيذ تطبيق تعليمي متكامل مخصص لطلاب كليات الطب، يهدف إلى توفير المواد الدراسية وبنوك الأسئلة وتنظيم عملية المذاكرة، بالإضافة إلى منصة للتواصل بين الطلاب والـ Mentors من خلال جلسات فردية مدفوعة.
           </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Highlight icon={<ShoppingBag className="w-5 h-5" />} text="كتالوج أثاث متكامل" />
-            <Highlight icon={<ScanLine className="w-5 h-5" />} text="تجهيز وربط تجربة AR" />
-            <Highlight icon={<Gift className="w-5 h-5" />} text="برنامج نقاط وكاش باك" />
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {overviewItems.map((item) => <Highlight key={item.label} {...item} />)}
           </div>
         </section>
 
-        <section className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6"><Package className="w-8 h-8 text-blue-600" /><h2 className="text-2xl font-bold text-slate-900">نطاق العمل</h2></div>
-          <p className="text-slate-600 text-lg leading-relaxed mb-6">
-            يشمل نطاق المشروع تصميم وتطوير الموقع الإلكتروني ولوحة التحكم، وربطهما بالتطبيق الحالي وبيانات المنتجات
-            بحسب الواجهات المتاحة، مع تجهيز وربط تجربة AR للمنتجات والنماذج المتوفرة وبرنامج الولاء. لا يشمل العرض تكلفة الاستضافة أو السيرفرات.
-          </p>
-          <div className="grid md:grid-cols-3 gap-4">
-            {coreModules.map((module) => <InfoCard key={module.title} module={module} />)}
+        <section className="mb-8 rounded-2xl bg-white p-8 shadow-lg">
+          <SectionHeading icon={<Monitor className="w-7 h-7 text-blue-600" />} title="مكونات المشروع" subtitle="سيتم تنفيذ المشروع على هيئة منصتين مترابطتين." />
+          <div className="grid gap-5 md:grid-cols-2">
+            <ScopeCard icon={GraduationCap} title="Mobile App" text="تطبيق للطلاب والـ Mentors، يضم التعلم والمراجعة وتنظيم الدراسة وحجز الجلسات." />
+            <ScopeCard icon={LayoutDashboard} title="Web Dashboard" text="لوحة تحكم للإدارة الكاملة في محتوى التطبيق والمستخدمين والجلسات والمعاملات." tone="violet" />
           </div>
         </section>
 
-        <section className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6"><Globe className="w-8 h-8 text-blue-600" /><h2 className="text-2xl font-bold text-slate-900">أقسام وميزات الموقع الإلكتروني</h2></div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {websiteSections.map((section) => <InfoCard key={section.title} module={section} />)}
+        <section className="mb-8 rounded-2xl bg-white p-8 shadow-lg">
+          <SectionHeading icon={<GraduationCap className="w-7 h-7 text-blue-600" />} title="أولاً: تطبيق الموبايل" subtitle="تجربة تعليمية متكاملة للطلاب والـ Mentors." />
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {mobileModules.map((module) => <ModuleCard key={module.title} module={module} />)}
           </div>
         </section>
 
-        <FeatureSection icon={<LayoutDashboard className="w-7 h-7 text-purple-600" />} title="لوحة التحكم والإدارة" subtitle="إدارة كل ما يظهر للعميل من مكان واحد" features={adminFeatures} color="purple" />
-        <FeatureSection icon={<Settings className="w-7 h-7 text-blue-600" />} title="الربط والتكامل مع التطبيق" subtitle="تجربة موحدة بين الموقع والتطبيق الحالي" features={integrationFeatures} color="blue" />
-
-        <section className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
-          <div className="flex items-center gap-3 mb-6"><Code className="w-8 h-8 text-blue-600" /><h2 className="text-2xl font-bold text-slate-900">التقنيات المقترحة</h2></div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {technologies.map((tech) => <InfoCard key={tech.title} module={tech} compact />)}
-          </div>
-        </section>
-
-        <section className="bg-gradient-to-l from-emerald-600 to-teal-700 rounded-2xl p-8 mb-8 text-white shadow-xl">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-emerald-400"><WalletCards className="w-7 h-7" /><h2 className="text-2xl font-bold">السعر الإجمالي للمشروع</h2></div>
-          <div className="text-center mb-6">
-            <div className="text-5xl sm:text-6xl font-bold mb-2">١٥٠,٠٠٠ جنيه مصري</div>
-            <div className="text-emerald-100 text-lg">يشمل تطوير الموقع الإلكتروني ولوحة التحكم والتكاملات الموضحة في نطاق العمل</div>
-            <div className="mt-3 inline-flex items-center gap-2 bg-amber-400/20 border border-amber-200/50 rounded-full px-4 py-2 text-amber-50 font-semibold">
-              <Shield className="w-4 h-4" /> السعر لا يشمل تكلفة السيرفر أو الاستضافة أو رسوم الخدمات الخارجية.
+        <section className="mb-8 grid gap-8 lg:grid-cols-2">
+          <div className="rounded-2xl bg-white p-8 shadow-lg"><ModuleCard module={planner} expanded /></div>
+          <div className="rounded-2xl bg-gradient-to-br from-violet-700 to-indigo-700 p-8 text-white shadow-xl">
+            <div className="mb-5 flex items-center gap-3"><div className="rounded-xl bg-white/15 p-3"><Video className="w-7 h-7" /></div><div><h2 className="text-2xl font-bold">نظام 1-to-1 Sessions</h2><p className="text-sm text-violet-100">جلسات فردية بين الطالب والـ Mentor.</p></div></div>
+            <div className="space-y-5">
+              <SessionList title="ما يستطيع الطالب القيام به" items={mentorStudentItems} />
+              <SessionList title="ما يستطيع الـ Mentor القيام به" items={mentorItems} />
+            </div>
+            <div className="mt-6 rounded-xl border border-violet-300/40 bg-white/10 p-4">
+              <p className="font-bold">طريقة الجلسة</p>
+              <p className="mt-1 text-sm leading-6 text-violet-100">لا يتم إنشاء نظام Video Call داخل التطبيق. يضيف الـ Mentor رابط Zoom الخاص به إلى الجلسة، ويظهر للطالب زر Join Meeting لفتح الرابط.</p>
             </div>
           </div>
-          <div className="bg-emerald-500/30 rounded-xl p-6 border border-emerald-400 mb-6">
-            <h3 className="text-xl font-bold mb-4">طريقة الدفع</h3>
-            <div className="grid md:grid-cols-4 gap-4">
-              <Payment percent="25%" label="مقدم لبدء العمل" amount="٣٧,٥٠٠ جنيه" />
-              <Payment percent="30%" label="بعد اعتماد التصميم وتسليم النسخة الأولية" amount="٤٥,٠٠٠ جنيه" />
-              <Payment percent="30%" label="بعد تسليم الموقع ولوحة التحكم" amount="٤٥,٠٠٠ جنيه" />
-              <Payment percent="15%" label="بعد الإطلاق والتسليم النهائي" amount="٢٢,٥٠٠ جنيه" />
-            </div>
-          </div>
-          <div className="grid md:grid-cols-3 gap-4">
-            <Highlight icon={<CheckCircle className="w-6 h-6" />} text="موقع إلكتروني متكامل" />
-            <Highlight icon={<CheckCircle className="w-6 h-6" />} text="لوحة تحكم للمنتجات والعروض" />
-            <Highlight icon={<CheckCircle className="w-6 h-6" />} text="نقاط وكاش باك وتجهيز AR" />
+        </section>
+
+        <section className="mb-8 rounded-2xl bg-white p-8 shadow-lg">
+          <SectionHeading icon={<Coins className="w-7 h-7 text-amber-600" />} title="نظام Coins" subtitle="نظام عملات داخل التطبيق لاستخدامها في الخدمات المدفوعة." />
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {['عرض رصيد الـ Coins.', 'شراء Coins وباقات Coins.', 'سجل عمليات الشراء والاستخدام.', 'خصم Coins عند حجز الجلسات.', 'إدارة أسعار الجلسات من خلال الـ Dashboard.'].map((item) => <FeatureTile key={item} icon={<CircleDollarSign className="w-5 h-5" />} text={item} color="amber" />)}
           </div>
         </section>
 
-        <section className="bg-white rounded-2xl p-8 mb-8 shadow-lg border-2 border-green-200">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200"><Award className="w-7 h-7 text-green-600" /><h2 className="text-2xl font-bold text-slate-900">خدمات مجانية ضمن العرض</h2></div>
-          <div className="grid md:grid-cols-3 gap-4">
-            <FreeService title="دعم فني مجاني" detail="لمدة 3 أشهر بعد الإطلاق" />
-            <FreeService title="تدريب فريق الإدارة" detail="على لوحة التحكم وإدارة المحتوى" />
-            <FreeService title="تهيئة أولية للمحتوى" detail="لإضافة التصنيفات والمنتجات الأولى" />
-          </div>
-          <div className="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200 flex items-start gap-3">
-            <Shield className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" />
-            <p className="text-sm text-slate-600"><span className="font-semibold text-slate-700">ملاحظة مهمة:</span> تكلفة السيرفر والاستضافة، ورسوم المتاجر أو خدمات الطرف الثالث، وتجهيز أو إنتاج النماذج ثلاثية الأبعاد غير مشمولة ما لم يتم الاتفاق عليها بشكل منفصل.</p>
+        <section className="mb-8 rounded-2xl bg-white p-8 shadow-lg">
+          <SectionHeading icon={<BarChart3 className="w-7 h-7 text-emerald-600" />} title="متابعة الطالب" subtitle="أدوات واضحة لمتابعة الإنجاز، وإدارة الملف الشخصي، والتنبيهات." />
+          <div className="grid gap-5 md:grid-cols-3">
+            {userInsights.map((section) => <InsightCard key={section.title} {...section} />)}
           </div>
         </section>
 
-        <section className="bg-white rounded-2xl p-8 mb-8 shadow-lg text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">تواصل معنا</h2>
-          <div className="flex flex-col items-center gap-4">
-            <a href="https://penta-k.com" className="flex items-center gap-3 text-lg text-blue-600 hover:underline font-semibold"><Globe className="w-6 h-6" />penta-k.com</a>
-            <a href="tel:+201061942646" dir="ltr" className="flex items-center gap-3 text-lg text-green-600 hover:underline font-semibold"><PhoneCall className="w-6 h-6" />+20 10 61942646</a>
+        <section className="mb-8 rounded-2xl bg-white p-8 shadow-lg">
+          <SectionHeading icon={<LayoutDashboard className="w-7 h-7 text-violet-600" />} title="ثامناً: Web Dashboard" subtitle="لوحة تحكم متكاملة لإدارة التطبيق والمحتوى." />
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {dashboardModules.map((module) => <ModuleCard key={module.title} module={module} />)}
           </div>
-          <div className="mt-8 pt-6 border-t border-slate-200"><p className="text-slate-600">شكرًا لثقتكم في <span className="font-bold text-blue-600">Penta-k</span></p><p className="text-sm text-slate-500 mt-2">نتطلع لبناء تجربة أثاث رقمية مميزة لعملائكم.</p></div>
         </section>
+
+        <section className="mb-8 rounded-2xl bg-gradient-to-l from-emerald-600 to-teal-700 p-8 text-white shadow-xl">
+          <div className="mb-6 flex items-center gap-3 border-b border-emerald-400 pb-4"><CreditCard className="w-7 h-7" /><div><h2 className="text-2xl font-bold">الأسعار</h2><p className="text-sm text-emerald-100">اختر الباقة المناسبة لاحتياجات الإطلاق.</p></div></div>
+          <div className="grid gap-5 lg:grid-cols-2">
+            <PriceCard title="الباقة الأولى" price="50,000 جنيه" items={['تطوير تطبيق الموبايل.', 'نظام 1-to-1 Sessions.', 'نظام Coins.', 'نظام المواد والـ Chapters.', 'Question Bank وFlashcards وPlanner.', 'Statistics وNotifications وProfiles.', 'Web Dashboard للإدارة.']} note="لا تشمل السيرفر والاستضافة والرفع." />
+            <PriceCard title="الباقة الثانية" price="55,000 جنيه" featured items={['تشمل جميع ما سبق.', 'السيرفر والاستضافة.', 'رفع وتشغيل التطبيق والخدمات المطلوبة.', 'الاستضافة والسيرفر لمدة سنة كاملة.', 'دعم فني مجاني لمدة 3 أشهر بعد تسليم المشروع.']} note="بعد السنة الأولى، يتم تجديد الخدمة سنوياً بسعر يتم الاتفاق عليه وقت التجديد." />
+          </div>
+        </section>
+
+        <section className="mb-8 rounded-2xl border-2 border-amber-200 bg-white p-8 shadow-lg">
+          <SectionHeading icon={<ClipboardList className="w-7 h-7 text-amber-600" />} title="ملاحظات" />
+          <ul className="space-y-3 text-slate-700">
+            {[
+              'السعر يشمل تنفيذ الـ Mobile App والـ Web Dashboard حسب المتطلبات الموضحة.',
+              'جلسات 1-to-1 تعتمد على روابط Zoom التي يضيفها الـ Mentor، ولا تشمل بناء نظام مكالمات فيديو داخلي.',
+              'أي خدمات أو Features إضافية غير مذكورة في عرض السعر يتم تقييمها وتسعيرها بشكل منفصل.',
+              'محتوى المواد والأسئلة والـ Flashcards يتم توفيره من طرف العميل، بينما يتم توفير النظام اللازم لإدارته وعرضه داخل التطبيق.',
+            ].map((note) => <li key={note} className="flex items-start gap-3"><CheckCircle2 className="mt-0.5 w-5 h-5 shrink-0 text-amber-600" /><span>{note}</span></li>)}
+          </ul>
+        </section>
+
+        <footer className="rounded-2xl bg-white p-8 text-center shadow-lg">
+          <h2 className="mb-4 text-2xl font-bold text-slate-900">تواصل معنا</h2>
+          <div className="flex flex-col items-center gap-3">
+            <a className="font-semibold text-blue-600 hover:underline" href="https://penta-k.com">penta-k.com</a>
+            <a className="inline-flex items-center gap-2 font-semibold text-emerald-600 hover:underline" dir="ltr" href="tel:+201061942646"><PhoneCall className="w-5 h-5" />+20 10 61942646</a>
+          </div>
+          <p className="mt-6 border-t border-slate-200 pt-5 text-sm text-slate-500">شكراً لثقتكم في <span className="font-bold text-blue-600">Penta-k</span></p>
+        </footer>
       </main>
     </div>
   );
 }
 
-function InfoCard({ module, compact = false }: { module: SectionInfo; compact?: boolean }) {
+function SectionHeading({ icon, title, subtitle }: { icon: React.ReactNode; title: string; subtitle?: string }) {
+  return <div className="mb-6 flex items-center gap-3 border-b border-slate-200 pb-4"><div className="rounded-xl bg-slate-50 p-3">{icon}</div><div><h2 className="text-2xl font-bold text-slate-900">{title}</h2>{subtitle && <p className="mt-0.5 text-sm text-slate-600">{subtitle}</p>}</div></div>;
+}
+
+function ModuleCard({ module, expanded = false }: { module: Module; expanded?: boolean }) {
   const Icon = module.icon;
-  return <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
-    <div className="flex items-center gap-3 mb-3"><div className="p-3 bg-white rounded-lg border border-slate-200"><Icon className="w-5 h-5 text-slate-700" /></div><div><h3 className="text-lg font-bold text-slate-900">{module.title}</h3>{!compact && <p className="text-sm text-slate-600">{module.description}</p>}</div></div>
-    {compact ? <p className="text-sm text-slate-600">{module.description}</p> : <><ul className="space-y-2 text-sm text-slate-700">{module.items.map((item) => <li key={item} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" /><span>{item}</span></li>)}</ul>{module.goal && <p className="text-sm text-slate-600 mt-4"><span className="font-semibold">الهدف:</span> {module.goal}</p>}</>}
-  </div>;
+  const tones = { blue: 'bg-blue-50 text-blue-600 border-blue-100', violet: 'bg-violet-50 text-violet-600 border-violet-100', emerald: 'bg-emerald-50 text-emerald-600 border-emerald-100', amber: 'bg-amber-50 text-amber-600 border-amber-100' };
+  return <article className={`rounded-xl border p-5 ${expanded ? 'h-full bg-slate-50' : 'bg-slate-50 border-slate-200'}`}>
+    <div className="mb-4 flex items-center gap-3"><div className={`rounded-lg border p-3 ${tones[module.tone ?? 'blue']}`}><Icon className="w-5 h-5" /></div><div><h3 className="text-lg font-bold text-slate-900">{module.title}</h3>{module.description && <p className="mt-0.5 text-sm text-slate-600">{module.description}</p>}</div></div>
+    <ul className="space-y-2.5 text-sm leading-6 text-slate-700">{module.items.map((item) => <li key={item} className="flex items-start gap-2"><CheckCircle2 className="mt-1 w-4 h-4 shrink-0 text-blue-600" /><span>{item}</span></li>)}</ul>
+  </article>;
 }
 
-function FeatureSection({ icon, title, subtitle, features, color }: { icon: React.ReactNode; title: string; subtitle: string; features: FeatureInfo[]; color: 'blue' | 'purple' }) {
-  return <section className="bg-white rounded-2xl p-8 mb-8 shadow-lg"><div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200"><div className={`p-3 rounded-lg ${color === 'purple' ? 'bg-purple-100' : 'bg-blue-100'}`}>{icon}</div><div><h2 className="text-2xl font-bold text-slate-900">{title}</h2><p className="text-sm text-slate-600">{subtitle}</p></div></div><div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">{features.map((feature) => <FeatureItem key={feature.title} {...feature} />)}</div></section>;
+function ScopeCard({ icon: Icon, title, text, tone = 'blue' }: { icon: IconType; title: string; text: string; tone?: 'blue' | 'violet' }) {
+  const colors = tone === 'violet' ? 'bg-violet-50 border-violet-100 text-violet-600' : 'bg-blue-50 border-blue-100 text-blue-600';
+  return <article className="rounded-xl border border-slate-200 bg-slate-50 p-6"><div className={`mb-4 inline-flex rounded-xl border p-3 ${colors}`}><Icon className="w-6 h-6" /></div><h3 className="mb-2 text-xl font-bold text-slate-900">{title}</h3><p className="leading-7 text-slate-600">{text}</p></article>;
 }
 
-function FeatureItem({ icon, title, color = 'blue' }: FeatureInfo) {
-  const colorClasses = { blue: 'bg-blue-50 text-blue-600 border-blue-100', green: 'bg-green-50 text-green-600 border-green-100', purple: 'bg-purple-50 text-purple-600 border-purple-100', orange: 'bg-orange-50 text-orange-600 border-orange-100' };
-  return <div className={`flex items-start gap-3 p-3 rounded-lg border ${colorClasses[color]}`}><div className="mt-0.5">{icon}</div><span className="text-sm text-slate-700">{title}</span></div>;
-}
+function Highlight({ icon, label }: { icon: React.ReactNode; label: string }) { return <div className="flex items-center gap-3 rounded-xl border border-white/20 bg-white/10 p-4 font-medium">{icon}<span>{label}</span></div>; }
 
-function Highlight({ icon, text }: { icon: React.ReactNode; text: string }) { return <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3 border border-white/20">{icon}<span>{text}</span></div>; }
-function Payment({ percent, label, amount }: { percent: string; label: string; amount: string }) { return <div className="bg-white/10 rounded-lg p-4 text-center border border-white/20"><div className="text-2xl font-bold mb-1">{percent}</div><div className="text-sm text-emerald-100 min-h-10">{label}</div><div className="text-sm text-emerald-100 mt-1">{amount}</div></div>; }
-function FreeService({ title, detail }: { title: string; detail: string }) { return <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center"><div className="text-green-600 font-bold text-lg mb-1">{title}</div><div className="text-slate-600 text-sm">{detail}</div></div>; }
+function SessionList({ title, items }: { title: string; items: string[] }) { return <div><h3 className="mb-2 font-bold">{title}</h3><ul className="space-y-2 text-sm leading-6 text-violet-100">{items.map((item) => <li key={item} className="flex items-start gap-2"><CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-violet-200" /><span>{item}</span></li>)}</ul></div>; }
+
+function FeatureTile({ icon, text, color }: { icon: React.ReactNode; text: string; color: 'amber' }) { return <div className="flex items-start gap-3 rounded-xl border border-amber-100 bg-amber-50 p-4"><div className="mt-0.5 text-amber-600">{icon}</div><p className="text-sm leading-6 text-slate-700">{text}</p></div>; }
+
+function InsightCard({ icon, title, items }: { icon: React.ReactNode; title: string; items: string[] }) { return <article className="rounded-xl border border-slate-200 bg-slate-50 p-5"><div className="mb-4 flex items-center gap-3 text-emerald-600">{icon}<h3 className="text-lg font-bold text-slate-900">{title}</h3></div><ul className="space-y-2 text-sm leading-6 text-slate-700">{items.map((item) => <li key={item} className="flex items-start gap-2"><CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-emerald-600" /><span>{item}</span></li>)}</ul></article>; }
+
+function PriceCard({ title, price, items, note, featured = false }: { title: string; price: string; items: string[]; note: string; featured?: boolean }) { return <article className={`rounded-xl border p-6 ${featured ? 'border-emerald-200 bg-white/15' : 'border-white/20 bg-white/10'}`}><div className="mb-5 flex items-start justify-between gap-3"><div><h3 className="text-xl font-bold">{title}</h3>{featured && <span className="mt-2 inline-block rounded-full bg-emerald-300/20 px-3 py-1 text-xs font-semibold text-emerald-50">تشمل الاستضافة والتشغيل</span>}</div><span className="text-xl font-bold whitespace-nowrap">{price}</span></div><ul className="space-y-2.5 text-sm text-emerald-50">{items.map((item) => <li key={item} className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" /><span>{item}</span></li>)}</ul><p className="mt-5 border-t border-white/20 pt-4 text-sm leading-6 text-emerald-100"><ShieldCheck className="ml-1 inline h-4 w-4" /> {note}</p></article>; }
