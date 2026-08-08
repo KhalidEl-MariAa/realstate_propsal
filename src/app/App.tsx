@@ -196,9 +196,8 @@ export default function App() {
 
         <section className="mb-8 rounded-2xl bg-gradient-to-l from-emerald-600 to-teal-700 p-8 text-white shadow-xl">
           <div className="mb-6 flex items-center gap-3 border-b border-emerald-400 pb-4"><CreditCard className="w-7 h-7" /><div><h2 className="text-2xl font-bold">الأسعار</h2><p className="text-sm text-emerald-100">اختر الباقة المناسبة لاحتياجات الإطلاق.</p></div></div>
-          <div className="grid gap-5 lg:grid-cols-2">
-            <PriceCard title="الباقة الأولى" price="50,000 جنيه" items={['تطوير تطبيق الموبايل.', 'نظام 1-to-1 Sessions.', 'نظام Coins.', 'نظام المواد والـ Chapters.', 'Question Bank وFlashcards وPlanner.', 'Statistics وNotifications وProfiles.', 'Web Dashboard للإدارة.']} note="لا تشمل السيرفر والاستضافة والرفع." />
-            <PriceCard title="الباقة الثانية" price="55,000 جنيه" featured items={['تشمل جميع ما سبق.', 'السيرفر والاستضافة.', 'رفع وتشغيل التطبيق والخدمات المطلوبة.', 'الاستضافة والسيرفر لمدة سنة كاملة.', 'دعم فني مجاني لمدة 3 أشهر بعد تسليم المشروع.']} note="بعد السنة الأولى، يتم تجديد الخدمة سنوياً بسعر يتم الاتفاق عليه وقت التجديد." />
+          <div className="mx-auto max-w-3xl">
+            <PriceCard title="الباقة المتكاملة" price="60,000 جنيه" featured items={['تطوير تطبيق الموبايل.', 'نظام 1-to-1 Sessions.', 'نظام Coins.', 'نظام المواد والـ Chapters.', 'Question Bank وFlashcards وPlanner.', 'Statistics وNotifications وProfiles.', 'Web Dashboard للإدارة.', 'السيرفر والاستضافة لمدة سنة كاملة.', 'رفع ونشر التطبيق على Apple Store.', 'دعم فني مجاني لمدة سنة بعد تسليم المشروع.']} note="بعد السنة الأولى، يتم تجديد السيرفر والاستضافة والدعم بسعر يتم الاتفاق عليه وقت التجديد." />
           </div>
         </section>
 
