@@ -22,13 +22,14 @@ import { useState } from 'react';
 type IconType = React.ComponentType<{ className?: string }>;
 type Feature = { title: string; description: string; icon: IconType };
 type Phase = { number: string; title: string; text: string };
+type Payment = { title: string; detail: string; percentage: string; amount: string };
 
 const copy = {
   ar: {
     label: 'عرض فني ومالي', date: 'أغسطس ٢٠٢٦', platform: 'منصة إعلانات مبوبة رقمية', preparedFor: 'عرض سعر لتطوير', company: 'تطبيق Marketplace',
     hero: 'منصة إلكترونية متكاملة للإعلانات المبوبة تُمكّن المستخدمين من نشر منتجاتهم أو خدماتهم، واستكشاف الإعلانات، والبحث والتواصل الآمن مع البائعين.',
     tags: ['MVP قابل للتوسع', 'تطبيق Android وiOS', 'لوحة تحكم ويب'],
-    priceLabel: 'استثمار المشروع', appLabel: 'منصات التطبيق', rolesLabel: 'أدوار الإدارة', price: '80,000 جنيه', appValue: 'Android + iOS', rolesValue: '3 أدوار',
+    priceLabel: 'استثمار المشروع', durationLabel: 'مدة التنفيذ', appLabel: 'منصات التطبيق', rolesLabel: 'أدوار الإدارة', price: '110,000 جنيه', durationValue: '3 شهور', appValue: 'Android + iOS', rolesValue: '3 أدوار',
     objectiveEyebrow: 'هدف المشروع', objectiveTitle: 'إطلاق Marketplace سريع وموثوق، يبدأ بالأساسيات الصحيحة وقابل للتوسع لاحقاً.', objectiveText: 'يُبنى المشروع كنسخة أولى MVP تركّز على سهولة الاستخدام، سرعة التطبيق، البحث القوي، نشر الإعلانات والتواصل المباشر بين المشتري والبائع، مع إدارة كاملة للمحتوى والأمان.',
     scopeEyebrow: 'نطاق المرحلة الأولى', scopeTitle: 'تطبيق للمستخدمين ولوحة إدارة مستقلة', scopeItems: ['تطبيق موبايل واحد يعمل على Android وiOS.', 'واجهة عربية RTL كأساس مع دعم اللغة الإنجليزية.', 'Backend وREST API مستقلان وقابلان للتوسع.', 'لوحة تحكم ويب لإدارة المستخدمين والإعلانات والمحتوى.'],
     userEyebrow: 'تجربة المستخدم', userTitle: 'كل ما يحتاجه المستخدم للبيع والشراء',
@@ -37,7 +38,7 @@ const copy = {
     securityEyebrow: 'الأمان وجودة البيانات', securityTitle: 'مصمم لحماية المنصة ومستخدميها من البداية', securityPoints: ['تشفير كلمات المرور ومصادقة API وصلاحيات حسب الدور.', 'تفعيل رقم الهاتف عبر OTP مع Rate Limiting.', 'التحقق من كل البيانات والصور وأحجام الملفات المرفوعة.', 'حماية من Spam ومحاولات الوصول غير المصرح بها.', 'Audit Logs للعمليات الإدارية الحساسة.', 'تخزين الصور على Cloud Storage مع ضغط الصور وإنشاء صور مصغّرة.'],
     phasesEyebrow: 'خطة التنفيذ', phasesTitle: 'تطوير منظم من الفكرة إلى الإطلاق',
     investmentEyebrow: 'الاستثمار', investmentTitle: 'سعر تطوير المرحلة الأولى', includedTitle: 'يشمل هذا السعر', included: ['تطبيق Marketplace للمستخدمين على Android وiOS.', 'Backend وREST API وقاعدة بيانات قابلة للتوسع.', 'لوحة تحكم ويب للإدارة.', 'واجهات المستخدم وتجربة الاستخدام للنسخة الأولى.', 'نظام تسجيل الدخول، الإعلانات، البحث، المحادثات، الإشعارات والبلاغات.', 'رفع الصور ومعالجة حالات الإعلانات وإدارة الأقسام.', 'إعدادات الأمان الأساسية والصلاحيات الإدارية.'],
-    noteOne: 'المرحلة الأولى لا تشمل بوابات الدفع أو الإعلانات المدفوعة أو الاشتراكات.', noteTwo: 'رسوم الخدمات الخارجية مثل رسائل OTP، الإشعارات، التخزين السحابي وحسابات المتاجر ليست ضمن سعر التطوير.', noteThree: 'المتاجر التجارية، الخرائط، التقييمات، الذكاء الاصطناعي والإعلانات المميزة تُنفذ في مراحل لاحقة.', thanks: 'شكراً لثقتكم ودراسة هذا العرض.',
+    paymentEyebrow: 'جدول الدفعات', paymentTitle: 'دفعات مرتبطة بمراحل تسليم واضحة', noteOne: 'المرحلة الأولى لا تشمل بوابات الدفع أو الإعلانات المدفوعة أو الاشتراكات.', noteTwo: 'رسوم الخدمات الخارجية مثل رسائل OTP، الإشعارات، التخزين السحابي وحسابات المتاجر ليست ضمن سعر التطوير.', noteThree: 'المتاجر التجارية، الخرائط، التقييمات، الذكاء الاصطناعي والإعلانات المميزة تُنفذ في مراحل لاحقة.', thanks: 'شكراً لثقتكم ودراسة هذا العرض.',
     features: [
       { title: 'التسجيل والملف الشخصي', description: 'إنشاء حساب وتسجيل دخول واستعادة كلمة المرور وتعديل الملف الشخصي، مع تفعيل رقم الهاتف عبر OTP.', icon: UserRound },
       { title: 'التصفح والأقسام', description: 'أقسام ديناميكية وإعلانات حديثة ومميزة ومقترحة، مع مرونة لإدارة المحتوى من لوحة التحكم.', icon: Store },
@@ -53,12 +54,19 @@ const copy = {
       { number: '02', title: 'تطوير المنصة', text: 'تنفيذ التطبيق والـ Backend ولوحة التحكم مع جميع وظائف النسخة الأولى.' },
       { number: '03', title: 'الاختبار والإطلاق', text: 'اختبار الوظائف والأمان والأداء، ثم تجهيز التطبيق للنشر والتشغيل.' },
     ] as Phase[],
+    payments: [
+      { title: 'الدفعة الأولى', detail: 'مقدم عند بدء المشروع', percentage: '20%', amount: '22,000 جنيه' },
+      { title: 'الدفعة الثانية', detail: 'عند تسليم واعتماد تصميم UI/UX', percentage: '15%', amount: '16,500 جنيه' },
+      { title: 'الدفعة الثالثة', detail: 'عند تسليم لوحة التحكم Dashboard', percentage: '20%', amount: '22,000 جنيه' },
+      { title: 'الدفعة الرابعة', detail: 'عند تسليم تطبيق الموبايل', percentage: '25%', amount: '27,500 جنيه' },
+      { title: 'الدفعة الأخيرة', detail: 'بعد القبول والنشر على Google Play وApple App Store', percentage: '20%', amount: '22,000 جنيه' },
+    ] as Payment[],
   },
   en: {
     label: 'Technical & Commercial Proposal', date: 'August 2026', platform: 'Digital classified marketplace', preparedFor: 'Development proposal for', company: 'Marketplace Application',
     hero: 'A complete classified marketplace that lets users publish products or services, browse listings, search and communicate securely with sellers.',
     tags: ['Scalable MVP', 'Android & iOS app', 'Web admin dashboard'],
-    priceLabel: 'Project investment', appLabel: 'Application platforms', rolesLabel: 'Admin roles', price: '80,000 L.E', appValue: 'Android + iOS', rolesValue: '3 roles',
+    priceLabel: 'Project investment', durationLabel: 'Delivery duration', appLabel: 'Application platforms', rolesLabel: 'Admin roles', price: '110,000 L.E', durationValue: '3 months', appValue: 'Android + iOS', rolesValue: '3 roles',
     objectiveEyebrow: 'Project objective', objectiveTitle: 'Launch a fast, trusted marketplace that starts with the right essentials and can grow over time.', objectiveText: 'The project is delivered as an MVP focused on ease of use, speed, strong search, listing publication and direct buyer-to-seller communication, backed by complete content management and security.',
     scopeEyebrow: 'Phase 1 scope', scopeTitle: 'A user mobile app and a separate admin dashboard', scopeItems: ['One mobile application for both Android and iOS.', 'Arabic RTL as the primary experience, with English support.', 'A separate, scalable backend and REST API.', 'A web dashboard for managing users, listings and content.'],
     userEyebrow: 'User experience', userTitle: 'Everything users need to sell and buy',
@@ -67,7 +75,7 @@ const copy = {
     securityEyebrow: 'Security & data quality', securityTitle: 'Designed to protect the platform and its users from day one', securityPoints: ['Password hashing, API authentication and role-based access.', 'Phone verification through OTP with rate limiting.', 'Validation of all data, images and uploaded file sizes.', 'Protection against spam and unauthorised access attempts.', 'Audit logs for sensitive administrative actions.', 'Cloud image storage with compression and thumbnails.'],
     phasesEyebrow: 'Delivery plan', phasesTitle: 'A structured journey from concept to launch',
     investmentEyebrow: 'Investment', investmentTitle: 'Phase 1 development price', includedTitle: 'This price includes', included: ['Marketplace application for users on Android and iOS.', 'Scalable backend, REST API and database.', 'Web admin dashboard.', 'UI and UX for the first release.', 'Authentication, listings, search, chat, notifications and reports.', 'Image uploading, listing statuses and category management.', 'Core security setup and admin permissions.'],
-    noteOne: 'Phase 1 does not include payment gateways, paid listings or subscriptions.', noteTwo: 'Third-party charges such as OTP messages, notifications, cloud storage and store accounts are not included in the development price.', noteThree: 'Business accounts, maps, reviews, AI, promoted listings and advanced monetisation can be added in later phases.', thanks: 'Thank you for considering this proposal.',
+    paymentEyebrow: 'Payment schedule', paymentTitle: 'Payments aligned to clear delivery milestones', noteOne: 'Phase 1 does not include payment gateways, paid listings or subscriptions.', noteTwo: 'Third-party charges such as OTP messages, notifications, cloud storage and store accounts are not included in the development price.', noteThree: 'Business accounts, maps, reviews, AI, promoted listings and advanced monetisation can be added in later phases.', thanks: 'Thank you for considering this proposal.',
     features: [
       { title: 'Authentication & profile', description: 'Registration, login, password recovery and profile editing, with optional OTP phone verification.', icon: UserRound },
       { title: 'Browsing & categories', description: 'Dynamic categories with recent, featured and suggested listings, fully managed from the dashboard.', icon: Store },
@@ -83,6 +91,13 @@ const copy = {
       { number: '02', title: 'Platform development', text: 'Build the app, backend and dashboard with all agreed MVP functions.' },
       { number: '03', title: 'Testing & launch', text: 'Test functionality, security and performance, then prepare the app for release.' },
     ] as Phase[],
+    payments: [
+      { title: 'First payment', detail: 'Advance payment at project start', percentage: '20%', amount: '22,000 L.E' },
+      { title: 'Second payment', detail: 'On delivery and approval of the UI/UX design', percentage: '15%', amount: '16,500 L.E' },
+      { title: 'Third payment', detail: 'On delivery of the admin dashboard', percentage: '20%', amount: '22,000 L.E' },
+      { title: 'Fourth payment', detail: 'On delivery of the mobile application', percentage: '25%', amount: '27,500 L.E' },
+      { title: 'Final payment', detail: 'After acceptance and publishing on Google Play and the Apple App Store', percentage: '20%', amount: '22,000 L.E' },
+    ] as Payment[],
   },
 };
 
@@ -111,7 +126,7 @@ export default function App() {
           <div className="relative max-w-3xl"><div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-sky-100"><Sparkles className="h-4 w-4" />{t.platform}</div><p className="mb-3 text-sm font-medium text-sky-300">{t.preparedFor}</p><h1 className="text-4xl font-semibold tracking-tight md:text-6xl">{t.company}</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">{t.hero}</p><div className="mt-9 flex flex-wrap gap-3 text-sm">{t.tags.map((tag) => <Pill key={tag} label={tag} />)}</div></div>
         </section>
 
-        <section className="grid gap-5 py-10 md:grid-cols-3"><Stat label={t.priceLabel} value={t.price} /><Stat label={t.appLabel} value={t.appValue} /><Stat label={t.rolesLabel} value={t.rolesValue} /></section>
+        <section className="grid gap-5 py-10 sm:grid-cols-2 lg:grid-cols-4"><Stat label={t.priceLabel} value={t.price} /><Stat label={t.durationLabel} value={t.durationValue} /><Stat label={t.appLabel} value={t.appValue} /><Stat label={t.rolesLabel} value={t.rolesValue} /></section>
 
         <section className="mb-10 grid gap-8 rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:grid-cols-[1.25fr_0.9fr] md:p-10"><div><Eyebrow text={t.objectiveEyebrow} /><h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">{t.objectiveTitle}</h2><p className="mt-5 max-w-2xl leading-8 text-slate-600">{t.objectiveText}</p></div><div className="rounded-2xl bg-sky-50 p-6"><Eyebrow text={t.scopeEyebrow} /><h3 className="mt-2 text-xl font-semibold text-slate-900">{t.scopeTitle}</h3><div className="mt-5 space-y-3">{t.scopeItems.map((item) => <CheckRow key={item} text={item} />)}</div></div></section>
 
@@ -123,7 +138,7 @@ export default function App() {
 
         <section className="mb-10"><SectionTitle eyebrow={t.phasesEyebrow} title={t.phasesTitle} /><div className="grid gap-4 md:grid-cols-3">{t.phases.map((phase) => <article key={phase.number} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"><span className="text-sm font-semibold text-sky-600">{phase.number}</span><h3 className="mt-5 text-xl font-semibold text-slate-950">{phase.title}</h3><p className="mt-2 leading-7 text-slate-600">{phase.text}</p></article>)}</div></section>
 
-        <section className="rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:p-10"><SectionTitle eyebrow={t.investmentEyebrow} title={t.investmentTitle} /><div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]"><div className="rounded-2xl bg-slate-950 p-7 text-white"><p className="text-sm font-medium text-sky-300">{t.investmentEyebrow}</p><p className="mt-3 text-4xl font-semibold">80,000 <span className="text-xl text-slate-300">{isArabic ? 'جنيه مصري' : 'L.E'}</span></p><div className="mt-6 flex items-center gap-2 border-t border-white/15 pt-5 text-sm text-slate-300"><Smartphone className="h-5 w-5 text-sky-300" />{t.appValue}</div></div><div><h3 className="mb-4 text-xl font-semibold text-slate-950">{t.includedTitle}</h3><div className="grid gap-3 sm:grid-cols-2">{t.included.map((item) => <CheckRow key={item} text={item} />)}</div></div></div><div className="mt-8 grid gap-3 text-sm leading-6 text-slate-600"><Note icon={ShieldCheck} text={t.noteOne} /><Note icon={UsersRound} text={t.noteTwo} /><Note icon={BarChart3} text={t.noteThree} /></div></section>
+        <section className="rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:p-10"><SectionTitle eyebrow={t.investmentEyebrow} title={t.investmentTitle} /><div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]"><div className="rounded-2xl bg-slate-950 p-7 text-white"><p className="text-sm font-medium text-sky-300">{t.investmentEyebrow}</p><p className="mt-3 text-4xl font-semibold">110,000 <span className="text-xl text-slate-300">{isArabic ? 'جنيه مصري' : 'L.E'}</span></p><div className="mt-6 flex items-center gap-2 border-t border-white/15 pt-5 text-sm text-slate-300"><Smartphone className="h-5 w-5 text-sky-300" />{t.appValue}</div></div><div><h3 className="mb-4 text-xl font-semibold text-slate-950">{t.includedTitle}</h3><div className="grid gap-3 sm:grid-cols-2">{t.included.map((item) => <CheckRow key={item} text={item} />)}</div></div></div><div className="mt-10"><SectionTitle eyebrow={t.paymentEyebrow} title={t.paymentTitle} /><div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">{t.payments.map((payment) => <PaymentCard key={payment.title} payment={payment} />)}</div></div><div className="mt-8 grid gap-3 text-sm leading-6 text-slate-600"><Note icon={ShieldCheck} text={t.noteOne} /><Note icon={UsersRound} text={t.noteTwo} /><Note icon={BarChart3} text={t.noteThree} /></div></section>
       </main>
       <footer className="border-t border-slate-200 bg-white px-6 py-8 text-center text-sm text-slate-500"><p className="font-semibold text-slate-800">Penta-k</p><p className="mt-1">{t.thanks}</p></footer>
     </div>
@@ -138,3 +153,4 @@ function FeatureCard({ feature }: { feature: Feature }) { const Icon = feature.i
 function CheckRow({ text, violet = false }: { text: string; violet?: boolean }) { return <div className="flex items-start gap-3 rounded-xl bg-slate-50 p-4 text-sm leading-6 text-slate-700"><Check className={`mt-0.5 h-4 w-4 shrink-0 ${violet ? 'text-violet-600' : 'text-sky-600'}`} />{text}</div>; }
 function DarkCheckRow({ text }: { text: string }) { return <div className="flex items-start gap-3 text-sm leading-6 text-slate-200"><Check className="mt-1 h-4 w-4 shrink-0 text-sky-300" />{text}</div>; }
 function Note({ icon: Icon, text }: { icon: IconType; text: string }) { return <div className="flex items-start gap-3"><Icon className="mt-0.5 h-5 w-5 shrink-0 text-sky-600" /><span>{text}</span></div>; }
+function PaymentCard({ payment }: { payment: Payment }) { return <article className="rounded-2xl border border-slate-200 bg-slate-50 p-5"><p className="text-sm font-semibold text-sky-700">{payment.title}</p><p className="mt-3 text-3xl font-semibold text-slate-950">{payment.percentage}</p><p className="mt-1 text-sm font-semibold text-slate-700">{payment.amount}</p><p className="mt-4 text-sm leading-6 text-slate-600">{payment.detail}</p></article>; }
