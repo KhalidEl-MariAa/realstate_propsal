@@ -1,103 +1,82 @@
 import {
-  BarChart3,
-  BellRing,
-  Check,
-  ClipboardCheck,
-  FileSearch,
-  Heart,
-  LayoutDashboard,
-  LockKeyhole,
-  MessageCircle,
-  PackagePlus,
-  Search,
-  ShieldCheck,
-  Smartphone,
-  Sparkles,
-  Store,
-  UserRound,
-  UsersRound,
+  AlertTriangle, BarChart3, Check, ClipboardCheck, FileSearch, MapPinned,
+  MessageCircle, PhoneCall, RadioTower, ShieldAlert, ShieldCheck, Smartphone,
+  Sparkles, UserRound, UsersRound, WalletCards,
 } from 'lucide-react';
 import { useState } from 'react';
 
 type IconType = React.ComponentType<{ className?: string }>;
 type Feature = { title: string; description: string; icon: IconType };
-type Phase = { number: string; title: string; text: string };
-type Payment = { title: string; detail: string; percentage: string; amount: string };
+type Plan = { name: string; price: string; badge: string; features: string[]; featured?: boolean };
 
 const copy = {
   ar: {
-    label: 'عرض فني ومالي', date: 'أغسطس ٢٠٢٦', platform: 'منصة إعلانات مبوبة رقمية', preparedFor: 'عرض سعر لتطوير', company: 'تطبيق Marketplace',
-    hero: 'منصة إلكترونية متكاملة للإعلانات المبوبة تُمكّن المستخدمين من نشر منتجاتهم أو خدماتهم، واستكشاف الإعلانات، والبحث والتواصل الآمن مع البائعين.',
-    tags: ['MVP قابل للتوسع', 'تطبيق Android وiOS', 'لوحة تحكم ويب'],
-    priceLabel: 'استثمار المشروع', durationLabel: 'مدة التنفيذ', appLabel: 'منصات التطبيق', rolesLabel: 'أدوار الإدارة', price: '110,000 جنيه', durationValue: '3 شهور', appValue: 'Android + iOS', rolesValue: '3 أدوار',
-    objectiveEyebrow: 'هدف المشروع', objectiveTitle: 'إطلاق Marketplace سريع وموثوق، يبدأ بالأساسيات الصحيحة وقابل للتوسع لاحقاً.', objectiveText: 'يُبنى المشروع كنسخة أولى MVP تركّز على سهولة الاستخدام، سرعة التطبيق، البحث القوي، نشر الإعلانات والتواصل المباشر بين المشتري والبائع، مع إدارة كاملة للمحتوى والأمان.',
-    scopeEyebrow: 'نطاق المرحلة الأولى', scopeTitle: 'تطبيق للمستخدمين ولوحة إدارة مستقلة', scopeItems: ['تطبيق موبايل واحد يعمل على Android وiOS.', 'واجهة عربية RTL كأساس مع دعم اللغة الإنجليزية.', 'Backend وREST API مستقلان وقابلان للتوسع.', 'لوحة تحكم ويب لإدارة المستخدمين والإعلانات والمحتوى.'],
-    userEyebrow: 'تجربة المستخدم', userTitle: 'كل ما يحتاجه المستخدم للبيع والشراء',
-    listingEyebrow: 'نظام الإعلانات', listingTitle: 'نشر منظم، ومراجعة تحافظ على جودة المحتوى', listingText: 'تدخل الإعلانات الجديدة في حالة انتظار المراجعة، ثم يعتمدها المسؤول قبل نشرها. يدعم النظام بيانات مرنة حسب القسم، حتى تتغير الحقول تلقائياً للسيارات أو الموبايلات أو أي قسم آخر.', listingPoints: ['عنوان، وصف، سعر، حالة المنتج والقسم والقسم الفرعي.', 'حتى ١٠ صور للإعلان مع ترتيب الصور وتحديد الصورة الرئيسية.', 'المحافظة والمدينة والمنطقة، مع إمكانية إضافة الخرائط لاحقاً.', 'حالات الإعلان: انتظار، نشط، مباع، منتهي، مرفوض ومحذوف.'],
-    dashboardEyebrow: 'لوحة التحكم', dashboardTitle: 'إدارة شاملة وآمنة للمنصة', dashboardPoints: ['إدارة المستخدمين وتعطيل أو حظر الحسابات عند الحاجة.', 'مراجعة الإعلانات وقبولها أو رفضها مع توضيح السبب.', 'إدارة الأقسام والأقسام الفرعية بشكل ديناميكي.', 'مراجعة البلاغات واتخاذ الإجراء المناسب.', 'إحصائيات للمستخدمين والإعلانات والمشاهدات والبلاغات.', 'صلاحيات Super Admin وModerator وSupport.'],
-    securityEyebrow: 'الأمان وجودة البيانات', securityTitle: 'مصمم لحماية المنصة ومستخدميها من البداية', securityPoints: ['تشفير كلمات المرور ومصادقة API وصلاحيات حسب الدور.', 'تفعيل رقم الهاتف عبر OTP مع Rate Limiting.', 'التحقق من كل البيانات والصور وأحجام الملفات المرفوعة.', 'حماية من Spam ومحاولات الوصول غير المصرح بها.', 'Audit Logs للعمليات الإدارية الحساسة.', 'تخزين الصور على Cloud Storage مع ضغط الصور وإنشاء صور مصغّرة.'],
-    phasesEyebrow: 'خطة التنفيذ', phasesTitle: 'تطوير منظم من الفكرة إلى الإطلاق',
-    investmentEyebrow: 'الاستثمار', investmentTitle: 'سعر تطوير المرحلة الأولى', includedTitle: 'يشمل هذا السعر', included: ['تطبيق Marketplace للمستخدمين على Android وiOS.', 'Backend وREST API وقاعدة بيانات قابلة للتوسع.', 'لوحة تحكم ويب للإدارة.', 'واجهات المستخدم وتجربة الاستخدام للنسخة الأولى.', 'نظام تسجيل الدخول، الإعلانات، البحث، المحادثات، الإشعارات والبلاغات.', 'رفع الصور ومعالجة حالات الإعلانات وإدارة الأقسام.', 'إعدادات الأمان الأساسية والصلاحيات الإدارية.'],
-    paymentEyebrow: 'جدول الدفعات', paymentTitle: 'دفعات مرتبطة بمراحل تسليم واضحة', noteOne: 'المرحلة الأولى لا تشمل بوابات الدفع أو الإعلانات المدفوعة أو الاشتراكات.', noteTwo: 'رسوم الخدمات الخارجية مثل رسائل OTP، الإشعارات، التخزين السحابي وحسابات المتاجر ليست ضمن سعر التطوير.', noteThree: 'المتاجر التجارية، الخرائط، التقييمات، الذكاء الاصطناعي والإعلانات المميزة تُنفذ في مراحل لاحقة.', thanks: 'شكراً لثقتكم ودراسة هذا العرض.',
-    features: [
-      { title: 'التسجيل والملف الشخصي', description: 'إنشاء حساب وتسجيل دخول واستعادة كلمة المرور وتعديل الملف الشخصي، مع تفعيل رقم الهاتف عبر OTP.', icon: UserRound },
-      { title: 'التصفح والأقسام', description: 'أقسام ديناميكية وإعلانات حديثة ومميزة ومقترحة، مع مرونة لإدارة المحتوى من لوحة التحكم.', icon: Store },
-      { title: 'البحث والفلاتر', description: 'بحث بالكلمات المفتاحية مع فلترة بالقسم والسعر والموقع وحالة المنتج، وخيارات ترتيب النتائج.', icon: Search },
-      { title: 'تفاصيل الإعلان', description: 'صور ووصف وسعر وموقع وبيانات البائع وعدد المشاهدات، مع الإعلانات المشابهة والمشاركة.', icon: FileSearch },
-      { title: 'المفضلة', description: 'حفظ الإعلانات ومتابعة حالتها تلقائياً عند البيع أو الحذف أو انتهاء المدة.', icon: Heart },
-      { title: 'المحادثات', description: 'محادثة داخلية مرتبطة بالإعلان بين المشتري والبائع، مع الرسائل وحالة القراءة والإشعارات.', icon: MessageCircle },
-      { title: 'الإشعارات', description: 'تنبيهات للرسائل وحالة الإعلان وقرارات المراجعة والتنبيهات الإدارية.', icon: BellRing },
-      { title: 'البلاغات', description: 'إبلاغ عن الإعلانات المخالفة أو الاحتيال أو المحتوى غير المناسب، مع متابعة من الإدارة.', icon: ClipboardCheck },
+    label: 'عرض فني ومالي', date: 'أغسطس ٢٠٢٦', platform: 'منصة توصيل توكتوك داخل المركز', preparedFor: 'عرض سعر لتطوير تطبيق', company: 'ينجز Yngez',
+    hero: 'منظومة توصيل محلية باللغة العربية، تربط العميل بسائق التوكتوك داخل نطاق المركز، مع متابعة حية للرحلة وإجراءات أمان وإدارة متكاملة من لوحة التحكم.',
+    tags: ['تطبيق العميل Android', 'تطبيق السائق Android', 'لوحة تحكم ويب'],
+    stats: [['مدة التنفيذ', '45 يوم عمل'], ['لغة التطبيق', 'عربي RTL 100%'], ['طريقة الدفع', 'كاش فقط'], ['العروض المتاحة', '50,000 أو 70,000 جنيه']],
+    objectiveEyebrow: 'نطاق التنفيذ', objectiveTitle: '3 أجزاء مترابطة لإدارة تجربة التوصيل بالكامل', objectiveText: 'يشمل المشروع تطبيق العميل، وتطبيق السائق، ولوحة تحكم إدارية على الويب. تعتمد الخرائط على OpenStreetMap، ويعتمد النظام على الدفع النقدي فقط مع عمولة قدرها جنيه واحد تُخصم من محفظة السائق بعد انتهاء الرحلة.',
+    coreEyebrow: 'أساسيات النظام', coreTitle: 'تشغيل آمن وسريع داخل نطاق المركز', core: ['تسجيل OTP للعميل مع الاسم ورقمي طوارئ إلزاميين.', 'Geofencing لتحديد نطاق الخدمة داخل المركز.', 'متابعة موقع السائق والرحلة مباشرة Live Tracking.', 'كود PIN من 4 أرقام لبدء الرحلة.', 'زر SOS ومشاركة الرحلة للعميل والسائق.', 'عمولة 1 جنيه من محفظة السائق بعد 30 دقيقة من إنهاء الرحلة.'],
+    riderEyebrow: 'تطبيق العميل', riderTitle: 'طلب رحلة ومتابعتها بثقة', driverEyebrow: 'تطبيق السائق', driverTitle: 'إدارة الرحلات والمحفظة بأمان', adminEyebrow: 'لوحة التحكم', adminTitle: 'سيطرة كاملة على التشغيل اليومي',
+    riderFeatures: [
+      { title: 'تسجيل وآمان', description: 'تسجيل OTP مع الاسم ورقمي طوارئ إلزاميين، وإدارة بيانات الحساب.', icon: UserRound },
+      { title: 'طلب ومتابعة الرحلة', description: 'إنشاء طلب رحلة، متابعة السائق والرحلة على الخريطة، ورؤية حالة الطلب لحظة بلحظة.', icon: MapPinned },
+      { title: 'التواصل والأمان', description: 'شات داخل التطبيق، اتصال، مشاركة الرحلة، زر SOS وتقييم السائق بعد الرحلة.', icon: ShieldAlert },
     ] as Feature[],
-    phases: [
-      { number: '01', title: 'التحليل والتصميم', text: 'تحديد المعمارية وقاعدة البيانات والـ API وخطة الأمان، ثم اعتماد واجهات UI/UX.' },
-      { number: '02', title: 'تطوير المنصة', text: 'تنفيذ التطبيق والـ Backend ولوحة التحكم مع جميع وظائف النسخة الأولى.' },
-      { number: '03', title: 'الاختبار والإطلاق', text: 'اختبار الوظائف والأمان والأداء، ثم تجهيز التطبيق للنشر والتشغيل.' },
-    ] as Phase[],
-    payments: [
-      { title: 'الدفعة الأولى', detail: 'مقدم عند بدء المشروع', percentage: '20%', amount: '22,000 جنيه' },
-      { title: 'الدفعة الثانية', detail: 'عند تسليم واعتماد تصميم UI/UX', percentage: '15%', amount: '16,500 جنيه' },
-      { title: 'الدفعة الثالثة', detail: 'عند تسليم لوحة التحكم Dashboard', percentage: '20%', amount: '22,000 جنيه' },
-      { title: 'الدفعة الرابعة', detail: 'عند تسليم تطبيق الموبايل', percentage: '25%', amount: '27,500 جنيه' },
-      { title: 'الدفعة الأخيرة', detail: 'بعد القبول والنشر على Google Play وApple App Store', percentage: '20%', amount: '22,000 جنيه' },
-    ] as Payment[],
+    driverFeatures: [
+      { title: 'توثيق وموافقة', description: 'تسجيل بصورة سيلفي وصورة البطاقة، ثم اعتماد الحساب من الإدارة قبل التفعيل.', icon: ClipboardCheck },
+      { title: 'استقبال الرحلات', description: 'حالة Online/Offline واستقبال طلبات الرحلات خلال 20 ثانية مع قبول أو رفض الطلب.', icon: RadioTower },
+      { title: 'محفظة السائق', description: 'تجميد الحساب عند وصول الرصيد إلى صفر، شحن المحفظة بصورة التحويل، وخصم العمولة تلقائياً.', icon: WalletCards },
+    ] as Feature[],
+    adminFeatures: [
+      { title: 'إدارة السائقين', description: 'مراجعة بيانات ووثائق السائقين، اعتماد أو إيقاف الحسابات وإدارة نطاق الخدمة.', icon: UsersRound },
+      { title: 'متابعة حية وSOS', description: 'متابعة الرحلات الجارية لايف، واستقبال بلاغات SOS والتعامل معها من لوحة التحكم.', icon: AlertTriangle },
+      { title: 'المحافظ والتقارير', description: 'مراجعة طلبات شحن المحافظ، إرسال Broadcast، وتقارير العمولة والرحلات.', icon: BarChart3 },
+    ] as Feature[],
+    chatEyebrow: 'التواصل داخل التطبيق', chatTitle: 'شات كامل في الباقتين، ومكالمات صوتية في باقة 70,000 جنيه', chatPoints: ['رسائل نصية داخل التطبيق.', 'إرسال واستقبال الصور داخل المحادثة.', 'رسائل صوتية Voice Messages داخل المحادثة.', 'المحادثة مرتبطة بالرحلة لتوضيح سياق التواصل.', 'المكالمات الصوتية داخل التطبيق متاحة في باقة 70,000 جنيه فقط.'],
+    securityEyebrow: 'الأمان والاختبار', securityTitle: 'متطلبات تشغيل موثوقة قبل الإطلاق', securityPoints: ['مصادقة OTP وصلاحيات منفصلة للعميل والسائق والإدارة.', 'حماية نقاط API والتحقق من البيانات وحدود الاستخدام.', 'اختبار Beta لمدة 30 يوماً.', 'Load Test لسيناريو حتى 1000 مستخدم.', 'تسليم السورس كود وقاعدة البيانات وملف Keystore.', 'دعم مجاني لمدة سنة يشمل 20 ساعة تعديلات.'],
+    offersEyebrow: 'العرض المالي', offersTitle: 'اختر الباقة المناسبة للتطبيق', recommended: 'يشمل المكالمات الصوتية', differenceTitle: 'الفرق بين الباقتين', differenceText: 'جميع المزايا الأساسية متطابقة في الباقتين، بما فيها تطبيق العميل والسائق، لوحة التحكم، تتبع الرحلات، المحفظة، SOS والشات الكامل. الفرق الوحيد: باقة 70,000 جنيه تشمل مكالمات صوتية داخل التطبيق، بينما باقة 50,000 جنيه تشمل الشات فقط.',
+    plans: [
+      { name: 'باقة المكالمات الصوتية', price: '70,000 جنيه', badge: 'الخيار المتكامل', featured: true, features: ['كل ما في باقة الشات الكامل.', 'مكالمات صوتية داخل التطبيق.', 'تواصل متكامل بين العميل والسائق.', 'إعدادات وإشعارات المكالمات داخل النظام.', 'جميع خصائص الرحلات والمحفظة وSOS.', 'تطبيق العميل والسائق ولوحة التحكم.'] },
+      { name: 'باقة الشات الكامل', price: '50,000 جنيه', badge: 'شات شامل', features: ['تطبيق العميل Android.', 'تطبيق السائق Android.', 'لوحة تحكم ويب.', 'شات: كتابة وصور ورسائل صوتية.', 'جميع خصائص الرحلات والمحفظة وSOS.', 'بدون مكالمات صوتية داخل التطبيق.'] },
+    ] as Plan[],
+    paymentsEyebrow: 'الدفعات والتسليم', paymentsTitle: 'تقسيم الدفعات لكل باقة', paymentNote: 'يتم تطبيق التقسيم نفسه على الباقة المختارة. تبدأ المدة من اعتماد تصميم UI/UX.', paymentSteps: ['25% مقدم عند بدء المشروع.', '25% عند تسليم واعتماد تصميم UI/UX.', '25% عند تسليم النسخة التجريبية للتطبيقات ولوحة التحكم.', '25% عند التسليم النهائي وقبل الرفع على حسابات العميل.'],
+    termsEyebrow: 'بنود التسليم والدعم', termsTitle: 'التزامات واضحة لضمان إطلاق منظم', terms: ['مدة التنفيذ 45 يوم عمل من اعتماد UI/UX.', 'تسليم Source Code كامل + Database + Keystore.', 'رفع تطبيقات Android على حساب Google Play الخاص بـ«ينجز».', 'رفع Apple App Store يحتاج تطبيق iOS مستقلاً، وهو غير مشمول في نطاق تطبيقات Android الحالي.', 'غرامة التأخير 1% يومياً وبحد أقصى 20% وفقاً للعقد النهائي المعتمد.', 'يتم توفير حسابات النشر وخدمات OTP وأي خدمات خارجية من العميل أو تُحاسب بشكل منفصل.'],
+    thanks: 'شكراً لثقتكم ودراسة هذا العرض.',
   },
   en: {
-    label: 'Technical & Commercial Proposal', date: 'August 2026', platform: 'Digital classified marketplace', preparedFor: 'Development proposal for', company: 'Marketplace Application',
-    hero: 'A complete classified marketplace that lets users publish products or services, browse listings, search and communicate securely with sellers.',
-    tags: ['Scalable MVP', 'Android & iOS app', 'Web admin dashboard'],
-    priceLabel: 'Project investment', durationLabel: 'Delivery duration', appLabel: 'Application platforms', rolesLabel: 'Admin roles', price: '110,000 L.E', durationValue: '3 months', appValue: 'Android + iOS', rolesValue: '3 roles',
-    objectiveEyebrow: 'Project objective', objectiveTitle: 'Launch a fast, trusted marketplace that starts with the right essentials and can grow over time.', objectiveText: 'The project is delivered as an MVP focused on ease of use, speed, strong search, listing publication and direct buyer-to-seller communication, backed by complete content management and security.',
-    scopeEyebrow: 'Phase 1 scope', scopeTitle: 'A user mobile app and a separate admin dashboard', scopeItems: ['One mobile application for both Android and iOS.', 'Arabic RTL as the primary experience, with English support.', 'A separate, scalable backend and REST API.', 'A web dashboard for managing users, listings and content.'],
-    userEyebrow: 'User experience', userTitle: 'Everything users need to sell and buy',
-    listingEyebrow: 'Listing system', listingTitle: 'Structured publishing with quality-controlled content', listingText: 'New listings enter a pending state for review, then are approved by an administrator before publishing. The system supports flexible data by category, so fields adapt automatically for cars, mobiles or any other category.', listingPoints: ['Title, description, price, condition, category and subcategory.', 'Up to 10 listing images, ordering and a defined main image.', 'Governorate, city and area, with maps available as a future addition.', 'Listing statuses: pending, active, sold, expired, rejected and deleted.'],
-    dashboardEyebrow: 'Admin dashboard', dashboardTitle: 'Comprehensive and secure platform control', dashboardPoints: ['Manage users and disable or ban accounts when required.', 'Review listings and approve or reject them with a reason.', 'Manage dynamic categories and subcategories.', 'Review reports and take the appropriate action.', 'Statistics for users, listings, views and reports.', 'Super Admin, Moderator and Support roles.'],
-    securityEyebrow: 'Security & data quality', securityTitle: 'Designed to protect the platform and its users from day one', securityPoints: ['Password hashing, API authentication and role-based access.', 'Phone verification through OTP with rate limiting.', 'Validation of all data, images and uploaded file sizes.', 'Protection against spam and unauthorised access attempts.', 'Audit logs for sensitive administrative actions.', 'Cloud image storage with compression and thumbnails.'],
-    phasesEyebrow: 'Delivery plan', phasesTitle: 'A structured journey from concept to launch',
-    investmentEyebrow: 'Investment', investmentTitle: 'Phase 1 development price', includedTitle: 'This price includes', included: ['Marketplace application for users on Android and iOS.', 'Scalable backend, REST API and database.', 'Web admin dashboard.', 'UI and UX for the first release.', 'Authentication, listings, search, chat, notifications and reports.', 'Image uploading, listing statuses and category management.', 'Core security setup and admin permissions.'],
-    paymentEyebrow: 'Payment schedule', paymentTitle: 'Payments aligned to clear delivery milestones', noteOne: 'Phase 1 does not include payment gateways, paid listings or subscriptions.', noteTwo: 'Third-party charges such as OTP messages, notifications, cloud storage and store accounts are not included in the development price.', noteThree: 'Business accounts, maps, reviews, AI, promoted listings and advanced monetisation can be added in later phases.', thanks: 'Thank you for considering this proposal.',
-    features: [
-      { title: 'Authentication & profile', description: 'Registration, login, password recovery and profile editing, with optional OTP phone verification.', icon: UserRound },
-      { title: 'Browsing & categories', description: 'Dynamic categories with recent, featured and suggested listings, fully managed from the dashboard.', icon: Store },
-      { title: 'Search & filters', description: 'Keyword search with category, price, location and condition filters, plus result sorting.', icon: Search },
-      { title: 'Listing details', description: 'Images, description, price, location, seller details, views, sharing and similar listings.', icon: FileSearch },
-      { title: 'Favourites', description: 'Save listings and automatically see their updated status when sold, deleted or expired.', icon: Heart },
-      { title: 'In-app chat', description: 'Listing-linked conversations between buyer and seller, with messages, read status and notifications.', icon: MessageCircle },
-      { title: 'Notifications', description: 'Alerts for messages, listing status, review decisions and administrative announcements.', icon: BellRing },
-      { title: 'Reports', description: 'Report fraudulent, inappropriate or prohibited listings for administrative review.', icon: ClipboardCheck },
+    label: 'Technical & Commercial Proposal', date: 'August 2026', platform: 'Local tuk-tuk delivery platform', preparedFor: 'Development proposal for', company: 'Yngez',
+    hero: 'An Arabic-first local delivery system connecting riders with tuk-tuk drivers within the town boundary, with live trip tracking, safety features and a complete admin dashboard.',
+    tags: ['Android rider app', 'Android driver app', 'Web admin dashboard'],
+    stats: [['Delivery duration', '45 business days'], ['Application language', 'Arabic RTL 100%'], ['Payment method', 'Cash only'], ['Available offers', '50,000 or 70,000 L.E']],
+    objectiveEyebrow: 'Project scope', objectiveTitle: 'Three connected products to manage the entire delivery experience', objectiveText: 'The project includes a rider app, driver app and web admin dashboard. Maps use OpenStreetMap, and the system works with cash payments only, with a 1 L.E commission deducted from the driver wallet after a trip is completed.',
+    coreEyebrow: 'Core system', coreTitle: 'Fast and safe operations within the town boundary', core: ['OTP registration for riders with a name and two required emergency numbers.', 'Geofencing to define the service boundary within the town.', 'Live driver and trip tracking.', 'Four-digit PIN to start a trip.', 'SOS and trip sharing for both rider and driver.', '1 L.E driver-wallet commission deducted 30 minutes after trip completion.'],
+    riderEyebrow: 'Rider app', riderTitle: 'Request and follow each trip with confidence', driverEyebrow: 'Driver app', driverTitle: 'Manage trips and wallet securely', adminEyebrow: 'Admin dashboard', adminTitle: 'Complete control over daily operations',
+    riderFeatures: [
+      { title: 'Registration & safety', description: 'OTP registration with name and two mandatory emergency numbers, plus account management.', icon: UserRound },
+      { title: 'Trip request & tracking', description: 'Create a trip request, follow the driver and trip on the map, and see request status in real time.', icon: MapPinned },
+      { title: 'Communication & safety', description: 'In-app chat, calling, trip sharing, SOS and driver rating after the trip.', icon: ShieldAlert },
     ] as Feature[],
-    phases: [
-      { number: '01', title: 'Analysis & design', text: 'Define the architecture, database, API and security plan, then approve the UI/UX.' },
-      { number: '02', title: 'Platform development', text: 'Build the app, backend and dashboard with all agreed MVP functions.' },
-      { number: '03', title: 'Testing & launch', text: 'Test functionality, security and performance, then prepare the app for release.' },
-    ] as Phase[],
-    payments: [
-      { title: 'First payment', detail: 'Advance payment at project start', percentage: '20%', amount: '22,000 L.E' },
-      { title: 'Second payment', detail: 'On delivery and approval of the UI/UX design', percentage: '15%', amount: '16,500 L.E' },
-      { title: 'Third payment', detail: 'On delivery of the admin dashboard', percentage: '20%', amount: '22,000 L.E' },
-      { title: 'Fourth payment', detail: 'On delivery of the mobile application', percentage: '25%', amount: '27,500 L.E' },
-      { title: 'Final payment', detail: 'After acceptance and publishing on Google Play and the Apple App Store', percentage: '20%', amount: '22,000 L.E' },
-    ] as Payment[],
+    driverFeatures: [
+      { title: 'Verification & approval', description: 'Register with selfie and national ID photo, then receive admin approval before activation.', icon: ClipboardCheck },
+      { title: 'Trip requests', description: 'Online/Offline status and a 20-second window to accept or reject incoming trip requests.', icon: RadioTower },
+      { title: 'Driver wallet', description: 'Freeze account at zero balance, top up by transfer image and automatically deduct commission.', icon: WalletCards },
+    ] as Feature[],
+    adminFeatures: [
+      { title: 'Driver management', description: 'Review driver data and documents, approve or suspend accounts and manage the service area.', icon: UsersRound },
+      { title: 'Live view & SOS', description: 'Track active trips live, receive SOS alerts and respond from the dashboard.', icon: AlertTriangle },
+      { title: 'Wallets & reports', description: 'Review wallet top-ups, send broadcasts and review trip and commission reports.', icon: BarChart3 },
+    ] as Feature[],
+    chatEyebrow: 'In-app communication', chatTitle: 'Full chat in both plans, with voice calls in the 70,000 L.E plan', chatPoints: ['Text messages inside the application.', 'Send and receive images in chat.', 'Voice messages in chat.', 'Each conversation is linked to its trip for clear context.', 'In-app voice calls are available only in the 70,000 L.E plan.'],
+    securityEyebrow: 'Security & testing', securityTitle: 'Reliable operating requirements before release', securityPoints: ['OTP authentication and separate rider, driver and admin permissions.', 'API protection, data validation and rate limits.', '30-day beta testing period.', 'Load test scenario for up to 1,000 users.', 'Delivery of source code, database and keystore file.', 'One year of free support including 20 modification hours.'],
+    offersEyebrow: 'Commercial offer', offersTitle: 'Choose the plan that suits the app', recommended: 'Includes voice calls', differenceTitle: 'Difference between the plans', differenceText: 'All core features are identical in both plans, including rider and driver apps, dashboard, trip tracking, wallet, SOS and full chat. The only difference is that the 70,000 L.E plan includes in-app voice calling, while the 50,000 L.E plan includes chat only.',
+    plans: [
+      { name: 'Voice calling plan', price: '70,000 L.E', badge: 'Complete option', featured: true, features: ['Everything in the full chat plan.', 'In-app voice calling.', 'Complete rider-to-driver communication.', 'In-system call settings and notifications.', 'All trip, wallet and SOS features.', 'Rider app, driver app and admin dashboard.'] },
+      { name: 'Full chat plan', price: '50,000 L.E', badge: 'Complete chat', features: ['Android rider application.', 'Android driver application.', 'Web admin dashboard.', 'Chat: text, images and voice messages.', 'All trip, wallet and SOS features.', 'No in-app voice calls.'] },
+    ] as Plan[],
+    paymentsEyebrow: 'Payments & delivery', paymentsTitle: 'Payment split for either plan', paymentNote: 'The same payment split applies to the selected plan. The delivery period starts after UI/UX approval.', paymentSteps: ['25% advance payment at project start.', '25% on delivery and approval of the UI/UX design.', '25% on delivery of the beta apps and admin dashboard.', '25% on final delivery before publishing to the client’s accounts.'],
+    termsEyebrow: 'Delivery & support terms', termsTitle: 'Clear commitments for an organised launch', terms: ['45 business days from UI/UX approval.', 'Full source code, database and keystore delivery.', 'Android applications uploaded to Yngez’s Google Play account.', 'Apple App Store publishing requires a separate iOS application, which is not included in the current Android scope.', '1% daily delay penalty, capped at 20%, subject to the final signed agreement.', 'Publishing accounts, OTP services and other third-party services are supplied by the client or charged separately.'],
+    thanks: 'Thank you for considering this proposal.',
   },
 };
 
@@ -105,52 +84,30 @@ export default function App() {
   const [language, setLanguage] = useState<'ar' | 'en'>('ar');
   const t = copy[language];
   const isArabic = language === 'ar';
-
-  return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-800" dir={isArabic ? 'rtl' : 'ltr'}>
-      <header className="border-b border-slate-200/80 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
-          <img src="/logo.png" alt="Penta-k" className="h-10 w-auto object-contain" />
-          <div className={isArabic ? 'text-left' : 'text-right'}>
-            <button type="button" onClick={() => setLanguage(isArabic ? 'en' : 'ar')} className="mb-2 rounded-lg border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700 transition hover:bg-sky-100">{isArabic ? 'English' : 'العربية'}</button>
-            <p className="text-xs font-semibold tracking-[0.12em] text-sky-700">{t.label}</p>
-            <p className="mt-1 text-sm text-slate-500">{t.date}</p>
-          </div>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-6xl px-6 py-10 md:py-14">
-        <section className="relative overflow-hidden rounded-[2rem] bg-slate-950 px-7 py-12 text-white shadow-2xl md:px-12 md:py-16">
-          <div className="absolute -right-16 -top-20 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" />
-          <div className="absolute -bottom-24 left-1/3 h-60 w-60 rounded-full bg-indigo-500/20 blur-3xl" />
-          <div className="relative max-w-3xl"><div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-sky-100"><Sparkles className="h-4 w-4" />{t.platform}</div><p className="mb-3 text-sm font-medium text-sky-300">{t.preparedFor}</p><h1 className="text-4xl font-semibold tracking-tight md:text-6xl">{t.company}</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">{t.hero}</p><div className="mt-9 flex flex-wrap gap-3 text-sm">{t.tags.map((tag) => <Pill key={tag} label={tag} />)}</div></div>
-        </section>
-
-        <section className="grid gap-5 py-10 sm:grid-cols-2 lg:grid-cols-4"><Stat label={t.priceLabel} value={t.price} /><Stat label={t.durationLabel} value={t.durationValue} /><Stat label={t.appLabel} value={t.appValue} /><Stat label={t.rolesLabel} value={t.rolesValue} /></section>
-
-        <section className="mb-10 grid gap-8 rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:grid-cols-[1.25fr_0.9fr] md:p-10"><div><Eyebrow text={t.objectiveEyebrow} /><h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">{t.objectiveTitle}</h2><p className="mt-5 max-w-2xl leading-8 text-slate-600">{t.objectiveText}</p></div><div className="rounded-2xl bg-sky-50 p-6"><Eyebrow text={t.scopeEyebrow} /><h3 className="mt-2 text-xl font-semibold text-slate-900">{t.scopeTitle}</h3><div className="mt-5 space-y-3">{t.scopeItems.map((item) => <CheckRow key={item} text={item} />)}</div></div></section>
-
-        <section className="mb-10"><SectionTitle eyebrow={t.userEyebrow} title={t.userTitle} /><div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">{t.features.map((feature) => <FeatureCard key={feature.title} feature={feature} />)}</div></section>
-
-        <section className="mb-10 grid gap-6 lg:grid-cols-2"><article className="rounded-[2rem] bg-slate-900 p-8 text-white shadow-xl"><div className="w-fit rounded-xl bg-white/10 p-3"><PackagePlus className="h-7 w-7 text-sky-300" /></div><SectionTitle dark eyebrow={t.listingEyebrow} title={t.listingTitle} /><p className="leading-7 text-slate-300">{t.listingText}</p><div className="mt-6 space-y-3">{t.listingPoints.map((item) => <DarkCheckRow key={item} text={item} />)}</div></article><article className="rounded-[2rem] bg-white p-8 shadow-sm ring-1 ring-slate-200"><div className="w-fit rounded-xl bg-sky-50 p-3"><LayoutDashboard className="h-7 w-7 text-sky-700" /></div><SectionTitle eyebrow={t.dashboardEyebrow} title={t.dashboardTitle} /><div className="grid gap-3 sm:grid-cols-2">{t.dashboardPoints.map((item) => <CheckRow key={item} text={item} />)}</div></article></section>
-
-        <section className="mb-10 rounded-[2rem] border border-violet-100 bg-violet-50 p-7 md:p-10"><div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]"><div><div className="w-fit rounded-xl bg-violet-100 p-3"><LockKeyhole className="h-7 w-7 text-violet-700" /></div><SectionTitle eyebrow={t.securityEyebrow} title={t.securityTitle} /></div><div className="grid gap-3 sm:grid-cols-2">{t.securityPoints.map((item) => <CheckRow key={item} text={item} violet />)}</div></div></section>
-
-        <section className="mb-10"><SectionTitle eyebrow={t.phasesEyebrow} title={t.phasesTitle} /><div className="grid gap-4 md:grid-cols-3">{t.phases.map((phase) => <article key={phase.number} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"><span className="text-sm font-semibold text-sky-600">{phase.number}</span><h3 className="mt-5 text-xl font-semibold text-slate-950">{phase.title}</h3><p className="mt-2 leading-7 text-slate-600">{phase.text}</p></article>)}</div></section>
-
-        <section className="rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:p-10"><SectionTitle eyebrow={t.investmentEyebrow} title={t.investmentTitle} /><div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]"><div className="rounded-2xl bg-slate-950 p-7 text-white"><p className="text-sm font-medium text-sky-300">{t.investmentEyebrow}</p><p className="mt-3 text-4xl font-semibold">110,000 <span className="text-xl text-slate-300">{isArabic ? 'جنيه مصري' : 'L.E'}</span></p><div className="mt-6 flex items-center gap-2 border-t border-white/15 pt-5 text-sm text-slate-300"><Smartphone className="h-5 w-5 text-sky-300" />{t.appValue}</div></div><div><h3 className="mb-4 text-xl font-semibold text-slate-950">{t.includedTitle}</h3><div className="grid gap-3 sm:grid-cols-2">{t.included.map((item) => <CheckRow key={item} text={item} />)}</div></div></div><div className="mt-10"><SectionTitle eyebrow={t.paymentEyebrow} title={t.paymentTitle} /><div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">{t.payments.map((payment) => <PaymentCard key={payment.title} payment={payment} />)}</div></div><div className="mt-8 grid gap-3 text-sm leading-6 text-slate-600"><Note icon={ShieldCheck} text={t.noteOne} /><Note icon={UsersRound} text={t.noteTwo} /><Note icon={BarChart3} text={t.noteThree} /></div></section>
-      </main>
-      <footer className="border-t border-slate-200 bg-white px-6 py-8 text-center text-sm text-slate-500"><p className="font-semibold text-slate-800">Penta-k</p><p className="mt-1">{t.thanks}</p></footer>
-    </div>
-  );
+  return <div className="min-h-screen bg-[#f8fafc] text-slate-800" dir={isArabic ? 'rtl' : 'ltr'}>
+    <header className="border-b border-slate-200/80 bg-white"><div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5"><img src="/logo.png" alt="Penta-k" className="h-10 w-auto object-contain" /><div className={isArabic ? 'text-left' : 'text-right'}><button type="button" onClick={() => setLanguage(isArabic ? 'en' : 'ar')} className="mb-2 rounded-lg border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700 transition hover:bg-sky-100">{isArabic ? 'English' : 'العربية'}</button><p className="text-xs font-semibold tracking-[0.12em] text-sky-700">{t.label}</p><p className="mt-1 text-sm text-slate-500">{t.date}</p></div></div></header>
+    <main className="mx-auto max-w-6xl px-6 py-10 md:py-14">
+      <section className="relative overflow-hidden rounded-[2rem] bg-slate-950 px-7 py-12 text-white shadow-2xl md:px-12 md:py-16"><div className="absolute -right-16 -top-20 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" /><div className="absolute -bottom-24 left-1/3 h-60 w-60 rounded-full bg-indigo-500/20 blur-3xl" /><div className="relative max-w-3xl"><div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-sky-100"><Sparkles className="h-4 w-4" />{t.platform}</div><p className="mb-3 text-sm font-medium text-sky-300">{t.preparedFor}</p><h1 className="text-4xl font-semibold tracking-tight md:text-6xl">{t.company}</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">{t.hero}</p><div className="mt-9 flex flex-wrap gap-3 text-sm">{t.tags.map((tag) => <Pill key={tag} label={tag} />)}</div></div></section>
+      <section className="grid gap-5 py-10 sm:grid-cols-2 lg:grid-cols-4">{t.stats.map(([label, value]) => <Stat key={label} label={label} value={value} />)}</section>
+      <section className="mb-10 grid gap-8 rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:grid-cols-[1.25fr_0.9fr] md:p-10"><div><Eyebrow text={t.objectiveEyebrow} /><h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">{t.objectiveTitle}</h2><p className="mt-5 max-w-2xl leading-8 text-slate-600">{t.objectiveText}</p></div><div className="rounded-2xl bg-sky-50 p-6"><Eyebrow text={t.coreEyebrow} /><h3 className="mt-2 text-xl font-semibold text-slate-900">{t.coreTitle}</h3><div className="mt-5 space-y-3">{t.core.map((item) => <CheckRow key={item} text={item} />)}</div></div></section>
+      <section className="mb-10"><SectionTitle eyebrow={t.riderEyebrow} title={t.riderTitle} /><FeatureGrid features={t.riderFeatures} /></section>
+      <section className="mb-10"><SectionTitle eyebrow={t.driverEyebrow} title={t.driverTitle} /><FeatureGrid features={t.driverFeatures} /></section>
+      <section className="mb-10"><SectionTitle eyebrow={t.adminEyebrow} title={t.adminTitle} /><FeatureGrid features={t.adminFeatures} /></section>
+      <section className="mb-10 grid gap-6 lg:grid-cols-2"><article className="rounded-[2rem] bg-slate-900 p-8 text-white shadow-xl"><div className="w-fit rounded-xl bg-white/10 p-3"><MessageCircle className="h-7 w-7 text-sky-300" /></div><SectionTitle dark eyebrow={t.chatEyebrow} title={t.chatTitle} /><div className="space-y-3">{t.chatPoints.map((item) => <DarkCheckRow key={item} text={item} />)}</div></article><article className="rounded-[2rem] border border-violet-100 bg-violet-50 p-8"><div className="w-fit rounded-xl bg-violet-100 p-3"><ShieldCheck className="h-7 w-7 text-violet-700" /></div><SectionTitle eyebrow={t.securityEyebrow} title={t.securityTitle} /><div className="grid gap-3 sm:grid-cols-2">{t.securityPoints.map((item) => <CheckRow key={item} text={item} violet />)}</div></article></section>
+      <section className="mb-10"><SectionTitle eyebrow={t.offersEyebrow} title={t.offersTitle} /><div className="grid gap-6 lg:grid-cols-2">{t.plans.map((plan) => <PlanCard key={plan.name} plan={plan} recommended={t.recommended} />)}</div><div className="mt-6 rounded-2xl border border-sky-200 bg-sky-50 p-6"><h3 className="text-lg font-semibold text-slate-950">{t.differenceTitle}</h3><p className="mt-2 leading-7 text-slate-600">{t.differenceText}</p></div></section>
+      <section className="mb-10 rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:p-10"><SectionTitle eyebrow={t.paymentsEyebrow} title={t.paymentsTitle} /><p className="mb-6 max-w-3xl text-sm leading-6 text-slate-600">{t.paymentNote}</p><div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">{t.paymentSteps.map((step, index) => <article key={step} className="rounded-2xl border border-slate-200 bg-slate-50 p-5"><span className="text-sm font-semibold text-sky-700">0{index + 1}</span><p className="mt-4 text-sm leading-6 text-slate-700">{step}</p></article>)}</div></section>
+      <section className="rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:p-10"><SectionTitle eyebrow={t.termsEyebrow} title={t.termsTitle} /><div className="grid gap-3 md:grid-cols-2">{t.terms.map((term) => <CheckRow key={term} text={term} />)}</div></section>
+    </main>
+    <footer className="mt-12 border-t border-slate-200 bg-white px-6 py-8 text-center text-sm text-slate-500"><p className="font-semibold text-slate-800">Penta-k</p><p className="mt-1">{t.thanks}</p></footer>
+  </div>;
 }
 
 function Eyebrow({ text, dark = false }: { text: string; dark?: boolean }) { return <p className={`text-sm font-semibold tracking-[0.14em] ${dark ? 'text-sky-300' : 'text-sky-700'}`}>{text}</p>; }
 function Pill({ label }: { label: string }) { return <span className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-slate-100">{label}</span>; }
-function Stat({ label, value }: { label: string; value: string }) { return <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"><p className="text-sm font-medium text-slate-500">{label}</p><p className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">{value}</p></div>; }
+function Stat({ label, value }: { label: string; value: string }) { return <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"><p className="text-sm font-medium text-slate-500">{label}</p><p className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">{value}</p></div>; }
 function SectionTitle({ eyebrow, title, dark = false }: { eyebrow: string; title: string; dark?: boolean }) { return <div className="mb-7 mt-6"><Eyebrow text={eyebrow} dark={dark} /><h2 className={`mt-2 text-2xl font-semibold tracking-tight ${dark ? 'text-white' : 'text-slate-950'}`}>{title}</h2></div>; }
-function FeatureCard({ feature }: { feature: Feature }) { const Icon = feature.icon; return <article className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md"><div className="inline-flex rounded-xl bg-sky-50 p-3 text-sky-700"><Icon className="h-6 w-6" /></div><h3 className="mt-5 text-lg font-semibold text-slate-950">{feature.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{feature.description}</p></article>; }
+function FeatureGrid({ features }: { features: Feature[] }) { return <div className="grid gap-4 md:grid-cols-3">{features.map((feature) => <FeatureCard key={feature.title} feature={feature} />)}</div>; }
+function FeatureCard({ feature }: { feature: Feature }) { const Icon = feature.icon; return <article className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"><div className="inline-flex rounded-xl bg-sky-50 p-3 text-sky-700"><Icon className="h-6 w-6" /></div><h3 className="mt-5 text-lg font-semibold text-slate-950">{feature.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{feature.description}</p></article>; }
 function CheckRow({ text, violet = false }: { text: string; violet?: boolean }) { return <div className="flex items-start gap-3 rounded-xl bg-slate-50 p-4 text-sm leading-6 text-slate-700"><Check className={`mt-0.5 h-4 w-4 shrink-0 ${violet ? 'text-violet-600' : 'text-sky-600'}`} />{text}</div>; }
 function DarkCheckRow({ text }: { text: string }) { return <div className="flex items-start gap-3 text-sm leading-6 text-slate-200"><Check className="mt-1 h-4 w-4 shrink-0 text-sky-300" />{text}</div>; }
-function Note({ icon: Icon, text }: { icon: IconType; text: string }) { return <div className="flex items-start gap-3"><Icon className="mt-0.5 h-5 w-5 shrink-0 text-sky-600" /><span>{text}</span></div>; }
-function PaymentCard({ payment }: { payment: Payment }) { return <article className="rounded-2xl border border-slate-200 bg-slate-50 p-5"><p className="text-sm font-semibold text-sky-700">{payment.title}</p><p className="mt-3 text-3xl font-semibold text-slate-950">{payment.percentage}</p><p className="mt-1 text-sm font-semibold text-slate-700">{payment.amount}</p><p className="mt-4 text-sm leading-6 text-slate-600">{payment.detail}</p></article>; }
+function PlanCard({ plan, recommended }: { plan: Plan; recommended: string }) { return <article className={`rounded-[2rem] border p-7 ${plan.featured ? 'border-sky-200 bg-sky-50 shadow-lg shadow-sky-100/50' : 'border-slate-200 bg-white shadow-sm'}`}><div className="flex items-start justify-between gap-4"><div><span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${plan.featured ? 'bg-sky-600 text-white' : 'bg-slate-100 text-slate-600'}`}>{plan.featured ? recommended : plan.badge}</span><h3 className="mt-4 text-2xl font-semibold text-slate-950">{plan.name}</h3></div><p className="text-3xl font-semibold text-slate-950">{plan.price}</p></div><div className="mt-6 space-y-3 border-t border-slate-200 pt-6">{plan.features.map((feature) => <div key={feature} className="flex items-start gap-3 text-sm leading-6 text-slate-700"><Check className={`mt-1 h-4 w-4 shrink-0 ${plan.featured ? 'text-sky-600' : 'text-slate-500'}`} />{feature}</div>)}</div></article>; }
