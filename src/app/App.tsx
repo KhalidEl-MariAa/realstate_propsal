@@ -1,100 +1,75 @@
 import type { ComponentType } from 'react';
-import { Bot, Building2, Check, ClipboardList, Database, LayoutDashboard, ShieldCheck, Store, UtensilsCrossed } from 'lucide-react';
+import { BellRing, BriefcaseBusiness, Check, CheckCircle2, ChevronDown, ClipboardList, Clock3, Code2, Headphones, Phone, ShieldCheck, Smartphone, Sparkles, UserRoundCog, UsersRound, Wrench } from 'lucide-react';
 
 type IconType = ComponentType<{ className?: string }>;
-type Feature = { title: string; description: string; icon: IconType };
 
-const features: Feature[] = [
-  { title: 'منصة متعددة المطاعم والفروع', description: 'إدارة عدد من المطاعم والفروع من منصة واحدة، مع عزل كامل لبيانات كل مطعم وصلاحيات مستقلة للمستخدمين.', icon: Building2 },
-  { title: 'تشغيل المطعم اليومي', description: 'نقطة البيع POS، المنيو الإلكتروني، إدارة المطبخ، الطلبات والطاولات، مع ربط تشغيلي واضح بين الفروع.', icon: UtensilsCrossed },
-  { title: 'الإدارة والرقابة', description: 'المخزون والمشتريات والوصفات وFood Cost والتقارير، مع سجل تدقيق وصلاحيات وأدوار لكل مستخدم.', icon: LayoutDashboard },
-];
-
-const platformItems = [
-  'لوحة Super Admin لإدارة المطاعم والباقات والاستخدام.',
-  'إدارة المطاعم والفروع والهوية البصرية لكل مطعم.',
-  'POS ومنيو إلكتروني وشاشة مطبخ وإدارة الطاولات.',
-  'المخزون والموردون والمشتريات والوصفات والهالك.',
-  'المبيعات وFood Cost والتنبيهات والتقارير.',
-  'المستخدمون والأدوار والصلاحيات وسجل العمليات.',
-];
-
-const aiUsage = [
-  { restaurants: '10', branches: '30', requests: '30', cost: '~$16' },
-  { restaurants: '50', branches: '150', requests: '150', cost: '~$81' },
-  { restaurants: '100', branches: '300', requests: '300', cost: '~$162' },
-  { restaurants: '500', branches: '1,500', requests: '1,500', cost: '~$810' },
-  { restaurants: '1,000', branches: '3,000', requests: '3,000', cost: '~$1,620' },
-];
-
-const pricingOptions = [
-  { title: 'مطعم واحد بدون AI', price: '280,000 جنيه', installment: '4 × 70,000 جنيه', badge: 'نسخة خاصة بعميل واحد', description: 'نظام كامل لإدارة مطعم واحد وفروعه، دون ربط أو وظائف الذكاء الاصطناعي.', details: ['إدارة الفروع ونقاط البيع والمنيو والمطبخ.', 'المخزون والمشتريات وFood Cost والتقارير.', 'لا يشمل ربط OpenAI أو رسوم استخدامها.'], tone: 'sky' },
-  { title: 'عدة مطاعم + Super Admin بدون AI', price: '300,000 جنيه', installment: '4 × 75,000 جنيه', badge: 'منصة قابلة للتوزيع', description: 'منصة تُوزّع على عدة مطاعم، مع لوحة مركزية لإدارة العملاء والباقات، ولكن دون الذكاء الاصطناعي.', details: ['عزل بيانات مستقل لكل مطعم وفروعه.', 'لوحة Super Admin لإدارة المطاعم والاشتراكات.', 'لا يشمل ربط OpenAI أو رسوم استخدامها.'], tone: 'sky' },
-  { title: 'مطعم واحد + AI', price: '300,000 جنيه', installment: '4 × 75,000 جنيه', badge: 'نسخة خاصة بعميل واحد', description: 'نظام كامل لإدارة مطعم واحد وفروعه مع ربط وظائف الذكاء الاصطناعي داخل المنصة.', details: ['إدارة الفروع ونقاط البيع والمنيو والمطبخ.', 'المخزون والمشتريات وFood Cost والتقارير.', 'يشمل الربط التقني مع OpenAI؛ ورسوم الاستخدام منفصلة.'], tone: 'violet' },
-  { title: 'عدة مطاعم + Super Admin + AI', price: '320,000 جنيه', installment: '4 × 80,000 جنيه', badge: 'منصة قابلة للتوزيع', description: 'منصة متعددة المطاعم مع Super Admin وربط الذكاء الاصطناعي لدعم التحليلات والتنبيهات والتوصيات.', details: ['Multi-Tenant مع عزل كامل لبيانات كل مطعم.', 'لوحة Super Admin لإدارة المطاعم والباقات والاستخدام.', 'يشمل الربط التقني مع OpenAI؛ ورسوم الاستخدام منفصلة.'], tone: 'violet' },
-];
+const clientFeatures = ['التسجيل والدخول برقم الجوال', 'اختيار التخصص: سباكة، كهرباء، تكييف وغيرها', 'وصف المشكلة وإرفاق الصور أو الفيديو من الجوال', 'تحديد الموقع والعنوان والموعد المناسب', 'إظهار قيمة الكشف الثابتة قبل تأكيد الطلب', 'دردشة مباشرة مع خدمة العملاء تشمل المرفقات', 'متابعة حالة الطلب مع إشعارات فورية', 'سجل الطلبات السابقة وتقييم الخدمة بعد الإنجاز'];
+const technicianFeatures = ['حساب مستقل للتخصصات ومناطق العمل', 'استقبال الطلبات المسندة وبيانات العميل', 'عرض الوصف والمرفقات والموقع والموعد', 'تحديث الحالات: قبول، في الطريق، بدأ الكشف، مكتمل', 'تسجيل نتيجة الكشف وتكلفة الإصلاح المقترحة', 'إرفاق صور قبل العمل وبعده', 'متابعة المهام اليومية والمنجزة'];
+const dashboardFeatures = ['لوحة موحدة للطلبات والمحادثات المرتبطة بها', 'مراجعة وصف المشكلة والمرفقات وطلب التفاصيل', 'إسناد الطلب للصنايعي المناسب وتحديد الموعد', 'التواصل مع العميل وإبلاغه بكل التحديثات', 'إرسال سعر الإصلاح للعميل لاعتماده قبل البدء', 'إدارة العملاء والصنايعية وموظفي خدمة العملاء', 'إدارة التخصصات ومناطق الخدمة وقيمة الكشف', 'تقارير الطلبات والإيرادات والتقييمات والصلاحيات'];
+const steps = [{ title: 'يرسل العميل الطلب', detail: 'الخدمة، الوصف، المرفقات، الموقع والموعد.' }, { title: 'تراجعه خدمة العملاء', detail: 'تتواصل مع العميل وتستكمل أي بيانات مطلوبة.' }, { title: 'يُسند للصنايعي', detail: 'اختيار المختص وتأكيد موعد الزيارة.' }, { title: 'كشف واعتماد السعر', detail: 'السعر يُرسل للعميل للموافقة قبل الإصلاح.' }, { title: 'تنفيذ وتقييم', detail: 'تحديث المهمة ثم توثيق النتيجة وتقييم الخدمة.' }];
+const milestones = [{ week: 'الشهر الأول', title: 'تحليل وتجهيز التجربة', detail: 'اعتماد رحلة الطلب والشاشات الرئيسية.' }, { week: 'الشهر الثاني', title: 'تطوير التطبيقات', detail: 'تطبيق العميل وتطبيق الصنايعي وربط الطلبات.' }, { week: 'الشهر الثالث', title: 'لوحة التحكم والاختبارات', detail: 'لوحة الإدارة وخدمة العملاء واختبار السيناريوهات.' }, { week: 'الشهر الرابع', title: 'التسليم والتدريب', detail: 'مراجعة نهائية وتسليم الملفات والحسابات.' }];
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-800" dir="rtl">
-      <header className="border-b border-slate-200/80 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
-          <img src="/logo.png" alt="Penta-k" className="h-10 w-auto object-contain" />
-          <div className="text-left"><p className="text-xs font-semibold tracking-[0.12em] text-sky-700">عرض فني ومالي</p><p className="mt-1 text-sm text-slate-500">مشروع إدارة مطاعم بالكامل</p></div>
+    <div dir="rtl" className="min-h-screen bg-[#f7f8fc] text-slate-800">
+      <header className="border-b border-slate-200/80 bg-white/95">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-5 py-4 sm:px-7">
+          <img src="/logo.png" alt="Penta-k" className="h-9 w-auto object-contain sm:h-10" />
+          <div className="text-left"><p className="text-xs font-bold tracking-[0.14em] text-[#1c8c72]">عرض فني ومالي</p><p className="mt-1 text-xs text-slate-500 sm:text-sm">منصة إدارة طلبات خدمات الصيانة</p></div>
         </div>
       </header>
-
-      <main className="mx-auto max-w-6xl px-6 py-10 md:py-14">
-        <section className="relative overflow-hidden rounded-[2rem] bg-slate-950 px-7 py-12 text-white shadow-2xl md:px-12 md:py-16">
-          <div className="absolute -right-16 -top-20 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" /><div className="absolute -bottom-24 left-1/3 h-60 w-60 rounded-full bg-emerald-400/15 blur-3xl" />
+      <main className="mx-auto max-w-6xl px-5 pb-14 pt-7 sm:px-7 sm:pt-10">
+        <section className="relative overflow-hidden rounded-[2rem] bg-[#102a43] px-6 py-10 text-white shadow-xl sm:px-10 sm:py-14">
+          <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-teal-400/20 blur-3xl" /><div className="absolute -bottom-32 left-8 h-72 w-72 rounded-full bg-sky-400/15 blur-3xl" />
           <div className="relative max-w-4xl">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-sky-100"><ClipboardList className="h-4 w-4" /> منظومة تشغيل وإدارة موحّدة</div>
-            <p className="mb-3 text-sm font-medium text-sky-300">عرض سعر لتطوير منصة SaaS متعددة المطاعم</p><h1 className="text-4xl font-semibold tracking-tight md:text-6xl">مشروع إدارة مطاعم بالكامل</h1><p className="mt-2 text-xl font-medium text-sky-100 md:text-2xl">Restaurant ERP, POS &amp; AI Platform</p>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 md:text-xl">منصة متكاملة لإدارة وتشغيل سلاسل المطاعم: الفروع، نقاط البيع، المخزون، المشتريات، Food Cost، التقارير، والصلاحيات؛ مع طبقة ذكاء اصطناعي لدعم القرار عند تفعيلها.</p>
-            <div className="mt-9 flex flex-wrap gap-3 text-sm"><Pill label="Multi-Tenant SaaS" /><Pill label="POS وإدارة الفروع" /><Pill label="Food Cost وتقارير" /><Pill label="AI Decision Intelligence" /></div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-teal-100"><Wrench className="h-4 w-4" /> حل رقمي متكامل لخدمات الصيانة</div>
+            <p className="mt-7 text-sm font-semibold text-teal-300">عرض سعر لتطوير منصة خدمات الصيانة</p>
+            <h1 className="mt-2 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">منصة تربط العميل<br className="hidden sm:block" /> بخدمة العملاء والصنايعي</h1>
+            <p className="mt-6 max-w-3xl text-base leading-8 text-slate-200 sm:text-lg">نظام عربي سهل الاستخدام لتنظيم طلبات الصيانة من أول بلاغ العميل وحتى إتمام المهمة وتقييمها، مع بقاء التواصل مع العميل بالكامل عبر خدمة العملاء.</p>
+            <div className="mt-8 flex flex-wrap gap-2.5 text-sm"><HeroPill icon={Smartphone} label="تطبيق العميل" /><HeroPill icon={BriefcaseBusiness} label="تطبيق الصنايعي" /><HeroPill icon={UserRoundCog} label="لوحة الإدارة وخدمة العملاء" /></div>
           </div>
         </section>
-
-        <section className="grid gap-5 py-10 sm:grid-cols-3"><Stat label="باقات التنفيذ" value="280,000 — 320,000 جنيه" /><Stat label="نوع المنصة" value="Web + Desktop POS" /><Stat label="تكلفة الـ AI" value="حسب الاستخدام" /></section>
-
-        <section className="mb-10"><SectionTitle eyebrow="العرض المالي" title="اختر النسخة المناسبة للمشروع" /><p className="mb-6 max-w-3xl leading-7 text-slate-600">الفرق في السعر يعتمد على عدد المطاعم المراد تشغيلها، ووجود لوحة Super Admin من عدمه، وقرار إضافة الذكاء الاصطناعي. الباقات التالية مرتبة من الأبسط إلى الأكثر توسعًا.</p><div className="space-y-4">{pricingOptions.map((option) => <PricingOption key={option.title} option={option} />)}</div></section>
-
-        <section className="mb-10 rounded-[2rem] border border-violet-200 bg-violet-50 p-7 shadow-sm md:p-10">
-          <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between"><div className="max-w-3xl"><Eyebrow text="تكلفة الذكاء الاصطناعي" /><h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">رسوم OpenAI حسب الاستخدام</h2><p className="mt-4 leading-8 text-slate-600">في الباقات التي تشمل AI، يغطي سعر التنفيذ ربط وظائف الذكاء الاصطناعي داخل المنصة فقط. أما رسوم OpenAI الشهرية فتُدفع بشكل مستقل بحسب عدد الطلبات وحجم الاستخدام الفعلي.</p></div><div className="w-fit rounded-2xl bg-white p-4 text-violet-700 shadow-sm"><Bot className="h-10 w-10" /></div></div>
-          <div className="mt-7 overflow-x-auto rounded-2xl border border-violet-200 bg-white"><table className="min-w-full text-right text-sm"><thead className="bg-violet-100 text-violet-950"><tr><th className="whitespace-nowrap px-5 py-4 font-semibold">المطاعم</th><th className="whitespace-nowrap px-5 py-4 font-semibold">الفروع</th><th className="whitespace-nowrap px-5 py-4 font-semibold">طلبات AI / يوم</th><th className="whitespace-nowrap px-5 py-4 font-semibold">تكلفة شهرية تقريبية</th></tr></thead><tbody>{aiUsage.map((row) => <tr key={row.restaurants} className="border-t border-violet-100 text-slate-700"><td className="px-5 py-4 font-medium">{row.restaurants}</td><td className="px-5 py-4">{row.branches}</td><td className="px-5 py-4">{row.requests}</td><td className="px-5 py-4 font-semibold text-violet-800" dir="ltr">{row.cost}</td></tr>)}</tbody></table></div>
-          <p className="mt-5 text-sm leading-6 text-slate-500">هذه أرقام تقديرية شهرية للاستخدام المذكور، وقد تختلف تبعًا للنموذج المختار، وطول المدخلات والمخرجات، وحجم الاستخدام الفعلي. يتم سداد رسوم OpenAI مباشرةً على حساب الخدمة وبشكل منفصل عن تكلفة التطوير.</p>
+        <section className="grid gap-4 py-7 md:grid-cols-3"><Stat icon={Smartphone} label="التسليم" value="تطبيقان + لوحة تحكم" /><Stat icon={Clock3} label="مدة التنفيذ" value="٤ أشهر" /><Stat icon={Sparkles} label="قيمة المشروع" value="٧٬٠٠٠ ريال سعودي" accent /></section>
+        <section className="mb-10 rounded-[2rem] bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-9">
+          <SectionTitle eyebrow="الحل المقترح" title="تطبيقات مخصصة للجوال مع لوحة ويب إدارية" />
+          <div className="grid gap-5 lg:grid-cols-[1.35fr_0.9fr]">
+            <div><p className="leading-8 text-slate-600">الأنسب للمشروع هو تطبيقات جوال مخصصة للعميل والصنايعي، لأنها تسهّل إرسال المرفقات وتحديد الموقع واستقبال الإشعارات وتحديث حالة الزيارة أثناء التنقل. وتُدار العمليات اليومية من لوحة تحكم عربية مريحة لخدمة العملاء والإدارة.</p>
+              <div className="mt-6 grid gap-3 sm:grid-cols-2"><MiniCard icon={Phone} title="تطبيق العميل" text="إنشاء الطلب، المرفقات، الدردشة، المتابعة والتقييم." /><MiniCard icon={BriefcaseBusiness} title="تطبيق الصنايعي" text="المهام المسندة، حالة الزيارة، النتيجة وصور العمل." /><MiniCard icon={Headphones} title="خدمة العملاء" text="استقبال الطلبات، الدردشة، التنسيق والإسناد." /><MiniCard icon={ClipboardList} title="الإدارة" text="المستخدمون والأسعار والتقارير والصلاحيات." /></div>
+            </div>
+            <aside className="rounded-3xl bg-[#eef8f5] p-6"><p className="text-sm font-bold text-[#15745e]">التقنية المقترحة</p><h3 className="mt-2 text-xl font-bold text-slate-900">حل موحّد وسريع الاستخدام</h3><div className="mt-5 space-y-3"><CheckRow text="تطبيقات جوال عربية متوافقة مع أجهزة العملاء والصنايعية." /><CheckRow text="لوحة تحكم ويب آمنة وسهلة لموظفي الإدارة وخدمة العملاء." /><CheckRow text="قاعدة بيانات مركزية تربط الطلب والمحادثة والفني في رحلة واحدة." /></div></aside>
+          </div>
         </section>
-
-        <section className="mb-10 grid gap-8 rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:grid-cols-[1.25fr_0.9fr] md:p-10">
-          <div><Eyebrow text="فكرة المنصة" /><h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">عقل تشغيلي وإداري موحّد للمطاعم</h2><p className="mt-5 max-w-2xl leading-8 text-slate-600">يدير مشروع إدارة مطاعم بالكامل عدة مطاعم من نفس المنصة مع فصل بيانات كل مطعم تمامًا. يستطيع كل مالك مطعم إدارة فروعه ومبيعاته ومخزونه وموظفيه وتقاريره، بينما يدير مالك المنصة الاشتراكات والاستخدام والحسابات من لوحة مركزية.</p></div>
-          <div className="rounded-2xl bg-sky-50 p-6"><Eyebrow text="يشمل التنفيذ" /><h3 className="mt-2 text-xl font-semibold text-slate-900">أساسيات المنصة</h3><div className="mt-5 space-y-3">{platformItems.slice(0, 4).map((item) => <CheckRow key={item} text={item} />)}</div></div>
+        <section className="mb-10"><SectionTitle eyebrow="نطاق التنفيذ" title="كل واجهة مصممة لدورها في رحلة الطلب" /><div className="grid gap-5 lg:grid-cols-3"><FeaturePanel icon={UsersRound} title="تطبيق العميل" subtitle="رحلة طلب واضحة من البلاغ إلى التقييم" items={clientFeatures} color="teal" /><FeaturePanel icon={BriefcaseBusiness} title="تطبيق الصنايعي" subtitle="تنفيذ المهمة وتوثيق نتيجة الكشف" items={technicianFeatures} color="sky" /><FeaturePanel icon={Headphones} title="لوحة الإدارة وخدمة العملاء" subtitle="مراجعة وتنظيم ومتابعة كل الطلبات" items={dashboardFeatures} color="violet" /></div></section>
+        <section className="mb-10 overflow-hidden rounded-[2rem] bg-[#102a43] p-6 text-white shadow-lg sm:p-9">
+          <SectionTitleDark eyebrow="آلية التشغيل" title="خدمة العملاء هي حلقة التواصل مع العميل" />
+          <p className="max-w-3xl text-sm leading-7 text-slate-300 sm:text-base">لا يتواصل الصنايعي مباشرةً مع العميل داخل النظام. تتابع خدمة العملاء المحادثة والطلب، وتنسّق الموعد، وترسل عرض سعر الإصلاح للعميل لاعتماده قبل البدء.</p>
+          <div className="mt-8 grid gap-3 md:grid-cols-5">{steps.map((step, index) => <article key={step.title} className="relative rounded-2xl border border-white/10 bg-white/[0.07] p-4"><span className="flex h-7 w-7 items-center justify-center rounded-full bg-teal-400 text-xs font-black text-[#102a43]">{index + 1}</span><h3 className="mt-4 font-bold">{step.title}</h3><p className="mt-2 text-sm leading-6 text-slate-300">{step.detail}</p></article>)}</div>
         </section>
-
-        <section className="mb-10"><SectionTitle eyebrow="نطاق التنفيذ" title="منصة تربط كل العمليات ببعضها" /><div className="grid gap-4 md:grid-cols-3">{features.map((feature) => <FeatureCard key={feature.title} feature={feature} />)}</div></section>
-
-        <section className="mb-10 rounded-[2rem] border border-sky-200 bg-gradient-to-l from-sky-50 to-emerald-50 p-7 md:p-10"><div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between"><div className="max-w-3xl"><Eyebrow text="تكامل تشغيلي" /><h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">من البيع إلى التقارير والقرار</h2><p className="mt-4 leading-8 text-slate-600">كل عملية بيع ترتبط تلقائيًا بالمنيو والوصفات واستهلاك المخزون وFood Cost والتقارير. ويضيف الذكاء الاصطناعي تحليلات وتنبيهات وتوصيات مبنية على البيانات، مع بقاء الاعتماد والتنفيذ بيد المستخدم المخوّل.</p></div><div className="flex w-fit gap-3 rounded-2xl bg-white p-4 text-sky-700 shadow-sm"><Store className="h-10 w-10" /><Database className="h-10 w-10" /><Bot className="h-10 w-10" /></div></div></section>
-
-        <section className="mb-10 rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:p-10"><SectionTitle eyebrow="المكونات الرئيسية" title="تشغيل مرن لكل مطعم وفرع" /><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{platformItems.map((item, index) => <article key={item} className="rounded-2xl border border-slate-200 bg-slate-50 p-5"><span className="text-sm font-semibold text-sky-700">0{index + 1}</span><p className="mt-3 text-sm font-medium leading-6 text-slate-800">{item}</p></article>)}</div></section>
-
-        <section className="rounded-[2rem] bg-white p-7 shadow-sm ring-1 ring-slate-200 md:p-10"><SectionTitle eyebrow="الدفعات والتسليم" title="4 دفعات خلال 8 أشهر" /><p className="mb-6 max-w-3xl text-sm leading-6 text-slate-600">تُسدد الدفعات عند البداية، ثم في نهاية الشهر الثاني والرابع والثامن. ولا تشمل قيمة أي من الباقات رسوم OpenAI الشهرية حسب الاستخدام.</p><div className="grid gap-4 md:grid-cols-2">{pricingOptions.map((option) => <article key={option.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-6"><p className="text-sm font-semibold text-sky-700">{option.title} — {option.price}</p><p className="mt-3 text-2xl font-semibold text-slate-950">{option.installment}</p><p className="mt-2 text-sm leading-6 text-slate-600">كل دفعة تمثل 25% من قيمة الباقة.</p></article>)}</div></section>
-
-        <section className="mt-10 rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm md:p-10"><div className="flex gap-4"><div className="rounded-xl bg-slate-100 p-3 text-slate-700"><ShieldCheck className="h-6 w-6" /></div><div><h2 className="text-xl font-semibold text-slate-950">ملاحظات مهمة</h2><p className="mt-2 leading-7 text-slate-600">يشمل العرض تطوير وربط وظائف الذكاء الاصطناعي داخل المنصة، بينما تحاسب OpenAI على الاستخدام الفعلي بشكل مستقل. تفاصيل الاستضافة والدعم بعد التسليم يتم الاتفاق عليها ضمن عقد التشغيل والصيانة.</p></div></div></section>
+        <section className="mb-10 grid gap-5 lg:grid-cols-2">
+          <article className="rounded-[2rem] border border-teal-100 bg-teal-50 p-6 sm:p-8"><div className="flex items-center gap-3 text-[#15745e]"><ShieldCheck className="h-6 w-6" /><p className="font-bold">قيمة الكشف وتكلفة الإصلاح</p></div><h2 className="mt-4 text-2xl font-bold tracking-tight text-slate-950">سياسة مالية واضحة للعميل</h2><div className="mt-5 space-y-3 text-sm leading-7 text-slate-700"><CheckRow text="تحدد الإدارة قيمة كشف ثابتة وتظهر بوضوح قبل تأكيد الطلب." /><CheckRow text="يسجل الصنايعي نتيجة الكشف وتكلفة الإصلاح المقترحة." /><CheckRow text="ترسل خدمة العملاء السعر للعميل لاعتماده قبل بدء الإصلاح." /><CheckRow text="يمكن للإدارة تحديد سياسة خصم قيمة الكشف من الإصلاح وشروط الإلغاء." /></div></article>
+          <article className="rounded-[2rem] border border-sky-100 bg-sky-50 p-6 sm:p-8"><div className="flex items-center gap-3 text-sky-700"><BellRing className="h-6 w-6" /><p className="font-bold">تجربة استخدام متكاملة</p></div><h2 className="mt-4 text-2xl font-bold tracking-tight text-slate-950">تفاصيل تحافظ على سرعة المتابعة</h2><div className="mt-5 space-y-3 text-sm leading-7 text-slate-700"><CheckRow text="رفع صور وفيديو من كاميرا الجوال أو من الاستوديو." /><CheckRow text="إشعارات عند تغيير الحالة أو وصول رسالة جديدة." /><CheckRow text="المحادثة مرتبطة بالطلب نفسه للحفاظ على كل التفاصيل." /><CheckRow text="توثيق صور قبل وبعد العمل لسهولة المراجعة." /></div></article>
+        </section>
+        <section className="mb-10 rounded-[2rem] bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-9"><SectionTitle eyebrow="المدة الزمنية" title="خطة تنفيذ على ٤ أشهر" /><div className="grid gap-4 md:grid-cols-4">{milestones.map((milestone, index) => <article key={milestone.week} className="rounded-2xl border border-slate-200 bg-slate-50 p-5"><span className="text-sm font-bold text-[#1c8c72]">{milestone.week}</span><div className="my-4 h-px bg-slate-200" /><span className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-800 text-xs font-bold text-white">{index + 1}</span><h3 className="mt-4 font-bold text-slate-950">{milestone.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{milestone.detail}</p></article>)}</div></section>
+        <section className="mb-10 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+          <article className="rounded-[2rem] bg-[#102a43] p-7 text-white shadow-lg sm:p-9"><p className="text-sm font-bold text-teal-300">الاستثمار</p><div className="mt-3 flex flex-wrap items-end gap-x-4 gap-y-1"><h2 className="text-5xl font-black tracking-tight">٧٬٠٠٠</h2><span className="mb-1 text-xl text-slate-300">ريال سعودي</span></div><p className="mt-5 max-w-xl leading-7 text-slate-300">يشمل تطوير تطبيق العميل، تطبيق الصنايعي، لوحة الإدارة وخدمة العملاء، وجميع الخصائص المذكورة ضمن نطاق العرض.</p><div className="mt-7 flex flex-wrap gap-2"><HeroPill icon={CheckCircle2} label="تصميم عربي" /><HeroPill icon={CheckCircle2} label="دردشة ومرفقات" /><HeroPill icon={CheckCircle2} label="صلاحيات وتقارير" /></div></article>
+          <article className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm sm:p-9"><p className="text-sm font-bold text-[#1c8c72]">آلية الدفع والتسليم</p><h2 className="mt-2 text-2xl font-bold text-slate-950">٤ دفعات شهرية متساوية</h2><div className="mt-6 space-y-3"><PaymentRow percentage="٢٥٪" text="الدفعة الأولى عند بدء المشروع — ١٬٧٥٠ ريال" /><PaymentRow percentage="٢٥٪" text="الدفعة الثانية في الشهر الثاني — ١٬٧٥٠ ريال" /><PaymentRow percentage="٢٥٪" text="الدفعة الثالثة في الشهر الثالث — ١٬٧٥٠ ريال" /><PaymentRow percentage="٢٥٪" text="الدفعة الرابعة عند التسليم في الشهر الرابع — ١٬٧٥٠ ريال" /></div></article>
+        </section>
+        <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-9"><div className="grid gap-7 lg:grid-cols-[0.9fr_1.1fr]"><div className="rounded-3xl bg-slate-50 p-6"><Code2 className="h-7 w-7 text-[#1c8c72]" /><h2 className="mt-4 text-2xl font-bold text-slate-950">تسليم كامل وشفاف</h2><p className="mt-3 leading-7 text-slate-600">يتم تسليم الكود المصدري الكامل، وملفات التصميم، وحسابات المشروع التي يتم إنشاؤها ضمن نطاق العمل، مع جلسة تعريفية لإدارة النظام.</p></div><div><SectionTitle eyebrow="ملاحظات العرض" title="ما يشمله العرض وما يُستثنى منه" /><div className="space-y-3"><CheckRow text="يشمل العرض مدة دعم فني لمعالجة الملاحظات التشغيلية بعد التسليم." /><CheckRow text="الصيانة والتطويرات المستقبلية أو الإضافات الجديدة يتم الاتفاق عليها بشكل منفصل حسب المطلوب." /><CheckRow text="لا يشمل السعر رسوم الخدمات الخارجية المدفوعة، مثل رسائل التحقق OTP أو المكالمات المرئية أو أي خدمة من طرف ثالث." /></div></div></div></section>
       </main>
-      <footer className="mt-12 border-t border-slate-200 bg-white px-6 py-8 text-center text-sm text-slate-500"><p className="font-semibold text-slate-800">Penta-k</p><p className="mt-1">نتطلع إلى تنفيذ مشروع إدارة مطاعم بالكامل معكم.</p></footer>
+      <footer className="border-t border-slate-200 bg-white px-5 py-8 text-center"><p className="font-bold text-slate-800">Penta-k</p><p className="mt-1 text-sm text-slate-500">نتطلع لتنفيذ منصة صيانة منظمة وسهلة الاستخدام.</p></footer>
     </div>
   );
 }
 
-function Eyebrow({ text }: { text: string }) { return <p className="text-sm font-semibold tracking-[0.14em] text-sky-700">{text}</p>; }
-function Pill({ label }: { label: string }) { return <span className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-slate-100">{label}</span>; }
-function Stat({ label, value }: { label: string; value: string }) { return <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"><p className="text-sm font-medium text-slate-500">{label}</p><p className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">{value}</p></div>; }
-function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) { return <div className="mb-7"><Eyebrow text={eyebrow} /><h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">{title}</h2></div>; }
-function FeatureCard({ feature }: { feature: Feature }) { const Icon = feature.icon; return <article className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"><div className="inline-flex rounded-xl bg-sky-50 p-3 text-sky-700"><Icon className="h-6 w-6" /></div><h3 className="mt-5 text-lg font-semibold text-slate-950">{feature.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{feature.description}</p></article>; }
-function PricingOption({ option }: { option: typeof pricingOptions[number] }) {
-  const isAi = option.tone === 'violet';
-  const palette = isAi
-    ? { card: 'border-violet-200 bg-violet-50', badge: 'bg-violet-600', price: 'text-violet-800' }
-    : { card: 'border-sky-200 bg-sky-50', badge: 'bg-sky-600', price: 'text-sky-800' };
-  return <article className={`rounded-[2rem] border p-7 shadow-sm md:p-8 ${palette.card}`}><div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between"><div className="max-w-3xl"><span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold text-white ${palette.badge}`}>{option.badge}</span><h3 className="mt-4 text-2xl font-semibold text-slate-950">{option.title}</h3><p className="mt-3 leading-7 text-slate-600">{option.description}</p><div className="mt-5 grid gap-3 md:grid-cols-3">{option.details.map((detail) => <CheckRow key={detail} text={detail} />)}</div></div><div className="shrink-0 md:text-left"><p className={`text-3xl font-semibold ${palette.price}`}>{option.price}</p><p className="mt-2 text-sm text-slate-600">{option.installment} خلال 8 أشهر</p></div></div></article>;
+function HeroPill({ icon: Icon, label }: { icon: IconType; label: string }) { return <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-2 text-sm text-slate-100"><Icon className="h-4 w-4 text-teal-300" />{label}</span>; }
+function Stat({ icon: Icon, label, value, accent = false }: { icon: IconType; label: string; value: string; accent?: boolean }) { return <article className={'rounded-2xl p-5 shadow-sm ring-1 ' + (accent ? 'bg-[#1c8c72] text-white ring-[#1c8c72]' : 'bg-white text-slate-800 ring-slate-200')}><Icon className={'h-5 w-5 ' + (accent ? 'text-teal-100' : 'text-[#1c8c72]')} /><p className={'mt-4 text-sm ' + (accent ? 'text-teal-100' : 'text-slate-500')}>{label}</p><p className="mt-1 text-xl font-bold tracking-tight">{value}</p></article>; }
+function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) { return <div className="mb-6"><p className="text-sm font-bold tracking-wide text-[#1c8c72]">{eyebrow}</p><h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">{title}</h2></div>; }
+function SectionTitleDark({ eyebrow, title }: { eyebrow: string; title: string }) { return <div className="mb-4"><p className="text-sm font-bold tracking-wide text-teal-300">{eyebrow}</p><h2 className="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">{title}</h2></div>; }
+function MiniCard({ icon: Icon, title, text }: { icon: IconType; title: string; text: string }) { return <article className="rounded-2xl border border-slate-200 bg-slate-50 p-4"><Icon className="h-5 w-5 text-[#1c8c72]" /><h3 className="mt-3 font-bold text-slate-900">{title}</h3><p className="mt-1 text-sm leading-6 text-slate-600">{text}</p></article>; }
+function FeaturePanel({ icon: Icon, title, subtitle, items, color }: { icon: IconType; title: string; subtitle: string; items: string[]; color: 'teal' | 'sky' | 'violet' }) {
+  const themes = { teal: { panel: 'border-teal-100 bg-teal-50', accent: 'text-[#15745e]' }, sky: { panel: 'border-sky-100 bg-sky-50', accent: 'text-sky-700' }, violet: { panel: 'border-violet-100 bg-violet-50', accent: 'text-violet-700' } };
+  const theme = themes[color];
+  return <article className={'rounded-[2rem] border p-6 ' + theme.panel}><div className={'inline-flex rounded-2xl bg-white p-3 shadow-sm ' + theme.accent}><Icon className="h-6 w-6" /></div><h3 className="mt-5 text-xl font-bold text-slate-950">{title}</h3><p className="mt-2 min-h-12 text-sm leading-6 text-slate-600">{subtitle}</p><div className="mt-5 space-y-2.5">{items.map((item) => <div key={item} className="flex items-start gap-3 rounded-xl bg-white/80 p-3 text-sm leading-6 text-slate-700"><Check className={'mt-1 h-4 w-4 shrink-0 ' + theme.accent} />{item}</div>)}</div></article>;
 }
-function CheckRow({ text }: { text: string }) { return <div className="flex items-start gap-3 rounded-xl bg-white/70 p-4 text-sm leading-6 text-slate-700"><Check className="mt-0.5 h-4 w-4 shrink-0 text-sky-600" />{text}</div>; }
+function CheckRow({ text }: { text: string }) { return <div className="flex items-start gap-3 rounded-xl bg-white/75 p-3 text-sm leading-6 text-slate-700"><Check className="mt-1 h-4 w-4 shrink-0 text-[#1c8c72]" />{text}</div>; }
+function PaymentRow({ percentage, text }: { percentage: string; text: string }) { return <div className="flex items-center gap-4 rounded-2xl bg-slate-50 p-4"><span className="flex h-11 w-14 shrink-0 items-center justify-center rounded-xl bg-[#e5f5ef] font-black text-[#15745e]">{percentage}</span><p className="text-sm leading-6 text-slate-700">{text}</p><ChevronDown className="mr-auto h-4 w-4 -rotate-90 text-slate-400" /></div>; }
